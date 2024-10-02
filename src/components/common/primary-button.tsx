@@ -15,7 +15,7 @@ const PrimaryButton = ({
     <Link href={link}>
       <Button
         size={size}
-        className="purple-btn hover:bg-blue-voilet/90 text-sm h-full font-medium"
+        className="py-2 rounded-full bg-blue-voilet px-4 hover:bg-blue-voilet/90 text-sm h-full font-medium"
       >
         {text}
       </Button>

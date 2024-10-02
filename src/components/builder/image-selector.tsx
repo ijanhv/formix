@@ -1,7 +1,6 @@
 import { defaultImages } from "@/constants/images";
 import { Check } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 
 type FormPickerProps = {
@@ -37,13 +36,6 @@ const ImageSelector = ({ onClick }: FormPickerProps) => {
                 <Check className="text-white" />
               </div>
             )}
-            <Link
-              href={image.links.html}
-              target="_blank"
-              className="absolute inset-x-0 bottom-0 w-full truncate bg-black/40 p-1 text-[10px] text-white opacity-0 hover:underline group-hover:opacity-100"
-            >
-              {image.user.name}
-            </Link>
           </div>
         ))}
       </div>

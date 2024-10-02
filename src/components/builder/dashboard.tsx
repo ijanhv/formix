@@ -7,6 +7,7 @@ import { FormInput, formSchema, QuestionInput } from "@/schema/zod";
 import Slides from "./slides";
 import RightSidebar from "./right-sidebar";
 import LeftSidebar from "./left-sidebar";
+import { generateFormJSX, generateZodSchema } from "@/utils/generate-schema";
 
 export default function Dashboard() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -27,7 +28,8 @@ export default function Dashboard() {
   });
 
   const onSubmit = (data: FormInput) => {
-    // console.log(data);
+    generateZodSchema(data.questions);
+    generateFormJSX(data.questions);
   };
 
   const addNewSlide = () => {

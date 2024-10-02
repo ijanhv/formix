@@ -245,6 +245,8 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             Remove Question
           </Button>
         </div>
+
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
