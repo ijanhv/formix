@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
+import Navbar from "@/components/globals/navbar";
+import Footer from "@/components/globals/footer";
+import { mangericaRegular } from "@/utils/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,8 +27,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster />
+          <main
+            className={`min-h-screen h-full ${mangericaRegular.variable} font-magericaRegular`}
+          >
+            <Navbar />
+            {children}
+            <Toaster />
+            <Footer />
+          </main>
         </ThemeProvider>
       </body>
     </html>
