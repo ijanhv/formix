@@ -21,7 +21,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     <div className="w-52 border-r ">
       <Button
         onClick={addNewSlide}
-        className="w-full border-b py-5 mb-4 rounded-none flex gap-3 items-center justify-center"
+        className="w-full border-b py-5  rounded-none flex gap-3 items-center justify-center"
         variant="ghost"
       >
         <PlusCircle className="text-gray-500" size={20} />

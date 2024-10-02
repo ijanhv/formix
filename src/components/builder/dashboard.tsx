@@ -15,7 +15,13 @@ export default function Dashboard() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       questions: [
-        { id: "1", type: "shortText", label: "Question 1", required: false },
+        {
+          id: "1",
+          type: "shortText",
+          description: "",
+          label: "Question 1",
+          required: false,
+        },
       ],
     },
   });
@@ -27,9 +33,11 @@ export default function Dashboard() {
   const addNewSlide = () => {
     const newQuestion: QuestionInput = {
       id: `${form.getValues("questions").length + 1}`,
-      type: "shortText",
-      label: `Question ${form.getValues("questions").length + 1}`,
+      type: "",
+      label: ``,
       required: false,
+      description: "",
+      image: "",
     };
     form.setValue("questions", [...form.getValues("questions"), newQuestion]);
     setCurrentSlideIndex(form.getValues("questions").length - 1);
@@ -37,7 +45,7 @@ export default function Dashboard() {
 
   return (
     <Form {...form}>
-      <div className="flex h-screen border-b border-r border-l w-full">
+      <div className="flex h-screen border-r border-l w-full">
         <LeftSidebar
           questions={form.watch("questions")}
           currentSlideIndex={currentSlideIndex}

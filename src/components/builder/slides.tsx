@@ -2,10 +2,8 @@ import React from "react";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { formSchema, QuestionInput } from "@/schema/zod";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -14,6 +12,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { FloatingLabelInput } from "../ui/floating-label-input";
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface SlidesProps {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -29,23 +30,44 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
   }
 
   return (
-    <div className="flex-1 p-8">
-      <Card className="max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle>{currentSlide.label}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <FormLabel>
-              {currentSlide.label}
-              {currentSlide.required && (
-                <span className="text-destructive ml-1">*</span>
+    <div className="flex-1 p-8 flex">
+      <div className="flex-1 w-full h-full flex items-center justify-center flex-col gap-5 rounded-lg p-6 mx-auto">
+        <div className="flex items-start gap-3 w-full">
+          <span>{currentSlideIndex + 1}</span>
+          <ArrowRight />
+          <div className="space-y-4 w-full">
+            <FormLabel className="space-y-3">
+              <h3 className="text-2xl font-medium">
+                {currentSlide.label}{" "}
+                {currentSlide.required && (
+                  <span className="text-destructive ml-1">*</span>
+                )}
+              </h3>
+
+              {currentSlide.description ? (
+                currentSlide.description
+              ) : (
+                <p className="text-foreground/35 italic text-xl">
+                  Description (optional)
+                </p>
               )}
             </FormLabel>
             {renderQuestionInput(currentSlide)}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+      {/* Conditionally render the image on the right side */}
+      {currentSlide.image && (
+        <div className="w-1/2 h-full flex items-center  relative justify-center">
+          <Image
+            unoptimized
+            fill
+            src={currentSlide.image}
+            alt={currentSlide.label}
+            className="object-cover w-full h-full rounded-lg"
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -53,13 +75,37 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
 function renderQuestionInput(question: QuestionInput) {
   switch (question.type) {
     case "shortText":
-      return <Input />;
+      return (
+        <FloatingLabelInput
+          placeholder="Type your answer here"
+          label="Type your answer here"
+          className="text-xl text-foreground/70"
+        />
+      );
     case "longText":
-      return <Textarea />;
+      return (
+        <FloatingLabelInput
+          label="Type your answer here"
+          className="text-xl text-foreground/70"
+        />
+      );
     case "number":
-      return <Input type="number" />;
+      return (
+        <FloatingLabelInput
+          label="Type your answer here"
+          type="number"
+          className="text-xl text-foreground/70"
+        />
+      );
     case "email":
-      return <Input type="email" />;
+      return (
+        <FloatingLabelInput
+          placeholder="Type your answer here"
+          label="Type your email here"
+          type="email"
+          className="text-xl text-foreground/70"
+        />
+      );
     case "date":
       return <Input type="date" />;
     case "select":

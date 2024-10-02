@@ -4,7 +4,7 @@ import React from "react";
 
 const Links = () => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-14 w-full">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-14 w-full">
       {footerLinks.map((section, index) => (
         <div key={index}>
           <h3 className="font-bold text-xl ">{section.title}</h3>
@@ -17,10 +17,6 @@ const Links = () => {
           </ul>
         </div>
       ))}
-
-      {/* <div className="hidden lg:block">
-        <Address />
-      </div> */}
     </div>
   );
 };

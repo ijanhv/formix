@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import ImageSelector from "./image-selector";
 
 const questionTypes = [
   "shortText",
@@ -48,14 +49,14 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
 
   if (!currentQuestion) {
     return (
-      <div className="w-64 bg-white border-l border-gray-200 p-4">
+      <div className="w-64  border-l border-gray-200 p-4">
         <p>No slide selected</p>
       </div>
     );
   }
 
   return (
-    <div className="w-64 bg-white border-l border-gray-200 p-4">
+    <div className="w-64  border-l border-gray-200 p-4">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-4">
           {/* Question Type */}
@@ -70,14 +71,15 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     const newType = value as QuestionInput["type"];
                     field.onChange(newType);
                     if (newType === "select" || newType === "multiSelect") {
-                      form.setValue(`questions.${currentSlideIndex}.options`, [
-                        "",
-                      ]);
-                    } else {
-                      form.setValue(
-                        `questions.${currentSlideIndex}.options`,
-                        undefined
-                      );
+                      if (
+                        !currentQuestion.options ||
+                        currentQuestion.options.length === 0
+                      ) {
+                        form.setValue(
+                          `questions.${currentSlideIndex}.options`,
+                          ["Option 1"]
+                        );
+                      }
                     }
                   }}
                   value={field.value}
@@ -108,6 +110,49 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 <FormLabel>Question Label</FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="Enter question label" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Question Description */}
+          <FormField
+            control={form.control}
+            name={`questions.${currentSlideIndex}.description`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Question Description</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Enter question description" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name={`questions.${currentSlideIndex}.image`}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <ImageSelector
+                    onClick={(value) => {
+                      if (form.watch(`questions.${currentSlideIndex}.image`)) {
+                        form.setValue(
+                          `questions.${currentSlideIndex}.image`,
+                          ""
+                        );
+                      } else {
+                        form.setValue(field.name, value, {
+                          shouldDirty: true,
+                          shouldTouch: true,
+                          shouldValidate: true,
+                        });
+                      }
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -150,6 +195,12 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                         <Input
                           {...field}
                           placeholder={`Option ${optionIndex + 1}`}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(
+                              value || `Option ${optionIndex + 1}`
+                            );
+                          }}
                         />
                       </FormControl>
                     </FormItem>
@@ -165,9 +216,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   const currentOptions =
                     form.getValues(`questions.${currentSlideIndex}.options`) ||
                     [];
+                  const newOptionIndex = currentOptions.length + 1;
                   form.setValue(`questions.${currentSlideIndex}.options`, [
                     ...currentOptions,
-                    "",
+                    `Option ${newOptionIndex}`,
                   ]);
                 }}
               >

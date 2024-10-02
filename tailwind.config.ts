@@ -20,6 +20,8 @@ const config = {
 
     extend: {
       colors: {
+        "blue-voilet": "#4B2AAD",
+        "cool-december": "#FDFBF9",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

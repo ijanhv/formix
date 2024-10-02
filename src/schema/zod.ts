@@ -9,14 +9,17 @@ const questionTypes = [
   "select",
   "multiSelect",
   "rating",
+  "",
 ] as const;
 
 export const questionSchema = z.object({
   id: z.string(),
   type: z.enum(questionTypes),
   label: z.string().min(1, "Label is required"),
+  description: z.string().optional(),
   required: z.boolean(),
   options: z.array(z.string()).optional(),
+  image: z.string().optional(),
 });
 
 export const formSchema = z.object({
