@@ -52,19 +52,31 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         break;
 
       case "select":
+        // if (question.required && question.options) {
+        //   fieldSchema = z
+        //     .enum(question.options as [string, ...string[]])
+        //     .refine((value) => value !== "", {
+        //       message:
+        //         question.validationMessage || `${question.label} is required`,
+        //     });
+        // } else {
+        //   fieldSchema = z
+        //     .enum(question.options as [string, ...string[]])
+        //     .optional();
+        // }
+        // break;
         if (question.required && question.options) {
           fieldSchema = z
-            .enum(question.options as [string, ...string[]])
-            .refine((value) => value !== "", {
+            .array(z.enum(question.options as [string, ...string[]]))
+            .min(1, {
               message:
                 question.validationMessage || `${question.label} is required`,
             });
         } else {
           fieldSchema = z
-            .enum(question.options as [string, ...string[]])
+            .array(z.enum(question.options as [string, ...string[]]))
             .optional();
         }
-        break;
 
       case "multiSelect":
         if (question.required && question.options) {
@@ -109,7 +121,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
 };
 
 // Convert Zod schema to a string format for debugging or other uses
-const zodSchemaToString = (schema: z.ZodTypeAny): string => {
+export const zodSchemaToString = (schema: z.ZodTypeAny): string => {
   if (schema instanceof z.ZodBoolean) {
     return "z.boolean()";
   } else if (schema instanceof z.ZodNumber) {

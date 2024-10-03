@@ -20,7 +20,7 @@ export const questionSchema = z.object({
   required: z.boolean(),
   options: z.array(z.string()).optional(),
   image: z.string().optional(),
-  validationMessage: z.string().optional(),
+  validationMessage: z.string().default("This field is required").optional(),
 });
 
 export const formSchema = z.object({

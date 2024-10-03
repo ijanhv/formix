@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         textColor: parsedData.textColor,
         questions: {
           create: parsedData.questions.map((question) => ({
-            id: question.id || undefined,
+            // id: question.id || undefined,
             type: question.type,
             label: question.label,
             description: question.description,

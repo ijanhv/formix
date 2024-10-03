@@ -4,8 +4,8 @@ export const navLinks = [
     link: "/",
   },
   {
-    title: "About Us",
-    link: "/about-us",
+    title: "About",
+    link: "/about",
   },
   {
     title: "Blog",
@@ -16,8 +16,8 @@ export const navLinks = [
     link: "/faq",
   },
   {
-    title: "Services",
-    link: "/services",
+    title: "Features",
+    link: "/features",
   },
   {
     title: "Contact",

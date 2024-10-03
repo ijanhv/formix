@@ -14,13 +14,13 @@ const FloatingInput = React.forwardRef<HTMLInputElement, InputProps>(
         <Input
           placeholder=""
           className={cn(
-            "peer py-5 border-none border-b-2 border-b-gray-700 placeholder:text-foreground/35 focus-visible:border-b-gray-700 focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none",
+            "peer py-5 border-none border-b-2  border-b-gray-700 placeholder:text-foreground/35 focus-visible:border-b-gray-700 focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none",
             className
           )}
           ref={ref}
           {...props}
         />
-        <hr className="border-black/20" />
+        <hr className=" border" />
         <p className="text-blue-800 italic text-sm mt-4">
           Shift ⇧ + Enter ↵ to make a line break
         </p>
@@ -56,7 +56,6 @@ const FloatingLabelInput = React.forwardRef<
   return (
     <div className="relative">
       <FloatingInput ref={ref} id={id} {...props} />
-      {/* <FloatingLabel htmlFor={id}>{label}</FloatingLabel> */}
     </div>
   );
 });

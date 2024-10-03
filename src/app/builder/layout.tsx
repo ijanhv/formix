@@ -6,6 +6,7 @@ import React from "react";
 import Navbar from "@/components/globals/navbar";
 import Footer from "@/components/globals/footer";
 import { mangericaRegular } from "@/utils/font";
+import TanStackProvider from "@/provider/tanstack";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,14 +28,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div
-            className={`min-h-screen w-full h-full ${mangericaRegular.className} font-magericaRegular`}
-          >
-            <Navbar />
-            {children}
-            <Toaster />
-            <Footer />
-          </div>
+          <TanStackProvider>
+            <div
+              className={`min-h-screen w-full h-full ${mangericaRegular.className} font-magericaRegular`}
+            >
+              <Navbar />
+              {children}
+              <Toaster toastOptions={{}} richColors />
+              <Footer />
+            </div>
+          </TanStackProvider>
         </ThemeProvider>
       </body>
     </html>

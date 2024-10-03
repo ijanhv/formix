@@ -74,15 +74,13 @@ const CustomSelect: React.FC<SelectionProps> = ({
               return (
                 <FormItem
                   className={`${
-                    isChecked
-                      ? "border-blue-voilet bg-blue-voilet/20"
-                      : "bg-blue-voilet/5 "
-                  } flex flex-col items-start  justify-center border rounded-lg p-4 hover:bg-gray-50 transition-colors cursor-pointer`}
+                    isChecked ? "bg-foreground/10 border-primary" : ""
+                  } flex flex-col items-start  justify-center border rounded-lg p-4 hover:bg-foreground/10 transition-colors cursor-pointer`}
                   onClick={() => handleSelectionChange(option.id)}
                 >
                   <FormLabel className="text-center  flex items-center gap-3 cursor-pointer">
                     <span
-                      className={`${isChecked ? "bg-white  " : "border-blue-voilet"} p-1.5 border bg-white  border-blue-voilet`}
+                      className={`${isChecked ? "bg-background  " : ""} p-1.5 border  border-primary`}
                     >
                       {index + 1}
                     </span>

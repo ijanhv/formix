@@ -132,16 +132,23 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
           <div className="space-y-4 w-full">
             <FormLabel className="space-y-3">
               <h3 className="text-2xl font-medium">
-                {currentSlide.label}{" "}
+                {currentSlide.label ? (
+                  currentSlide.label
+                ) : (
+                  <p className="text-foreground/35 italic text-2xl">
+                    {" "}
+                    Label will go here
+                  </p>
+                )}
                 {currentSlide.required && (
                   <span className="text-destructive ml-1">*</span>
                 )}
               </h3>
 
               {currentSlide.description ? (
-                currentSlide.description
+                <p className="text-lg">{currentSlide.description}</p>
               ) : (
-                <p className="text-foreground/35 italic text-xl">
+                <p className="text-foreground/35 italic text-lg">
                   Description (optional)
                 </p>
               )}

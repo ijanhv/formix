@@ -7,11 +7,11 @@ import { FormInput, formSchema, QuestionInput } from "@/schema/zod";
 import Slides from "./slides";
 import RightSidebar from "./right-sidebar";
 import LeftSidebar from "./left-sidebar";
-import { generateFormJSX, generateZodSchema } from "@/utils/generate-schema";
+import { useCreateNewFormQuery } from "@/hooks/use-form-query";
 
 export default function Dashboard() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-
+  const { mutate } = useCreateNewFormQuery();
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,21 +27,20 @@ export default function Dashboard() {
     },
   });
 
-  const [code, setCode] = useState("");
-  const [schema, setSchema] = useState("");
   const onSubmit = (data: FormInput) => {
-    const generatedSchema = generateZodSchema(data.questions);
+    // const generatedSchema = generateZodSchema(data.questions);
 
-    const generatedJsx = generateFormJSX(data.questions);
-    setCode(generatedJsx);
-    setSchema(generatedSchema);
+    // const generatedJsx = generateFormJSX(data.questions);
+    // setCode(generatedJsx);
+    // setSchema(generatedSchema);
+    mutate(data);
   };
 
   const addNewSlide = () => {
     const newQuestion: QuestionInput = {
       id: `${form.getValues("questions").length + 1}`,
-      type: "",
-      label: ``,
+      type: "shortText",
+      label: `Label ${form.getValues("questions").length + 1}`,
       required: false,
       description: "",
       image: "",
@@ -64,8 +63,6 @@ export default function Dashboard() {
         </div>
         <RightSidebar
           form={form}
-          code={code}
-          schema={schema}
           onSubmit={onSubmit}
           currentSlideIndex={currentSlideIndex}
         />

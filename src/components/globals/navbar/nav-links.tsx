@@ -4,13 +4,19 @@ import React from "react";
 
 const NavLinks = () => {
   return (
-    <div className="hidden lg:flex items-center gap-5">
-      {navLinks.map((item, index) => (
-        <Link href={item.link} key={index} className="text-sm">
-          {item.title}
-        </Link>
-      ))}
-    </div>
+    <nav className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <ul className="flex items-center justify-center gap-8">
+        {navLinks.map((item, index) => (
+          <Link
+            key={index}
+            href="/"
+            className="hover:text-foreground/80 text-sm"
+          >
+            {item.title}
+          </Link>
+        ))}
+      </ul>
+    </nav>
   );
 };
 

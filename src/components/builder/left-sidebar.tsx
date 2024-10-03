@@ -34,9 +34,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
             key={question.id}
             onClick={() => setCurrentSlideIndex(index)}
             className={`flex items-center justify-center p-3 cursor-pointer ${
-              currentSlideIndex === index
-                ? "bg-gray-100 dark:bg-gray-900 text-primary"
-                : ""
+              currentSlideIndex === index ? "bg-foreground/5 text-primary" : ""
             }`}
           >
             <span className="text-sm  text-center font-medium">

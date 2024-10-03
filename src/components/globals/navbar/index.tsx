@@ -1,36 +1,36 @@
 import React from "react";
+
+import Link from "next/link";
+import Container from "../container";
 import Logo from "./logo";
-import NavLinks from "./nav-links";
-import Container from "@/components/common/container";
-import PrimaryButton from "@/components/common/primary-button";
 import MobileNavbar from "./mobile-nav";
+import NavLinks from "./nav-links";
+import { Button } from "@/components/ui/button";
+import ThemeToggle from "@/components/theme-toggle";
 
-const Navbar = () => {
+const Navbar = async () => {
   return (
-    <div className="overflow-x-hidden">
-      <header className="py-4 border-b  ">
-        <Container>
-          <div className="flex items-center gap-5 justify-between">
-            <div className="flex-shrink-0">
-              <Logo />
-            </div>
-
-            <NavLinks />
-
-            <div>
-              <div className="hidden lg:ml-auto lg:flex lg:items-center lg:space-x-5">
-                {/* <Search /> */}
-                <PrimaryButton text="Contact Us" link="/contact" size={"sm"} />
-              </div>
-
-              <div className="lg:hidden">
-                <MobileNavbar />
-              </div>
-            </div>
+    <header className="px-4 h-14 sticky top-0 inset-x-0 w-full bg-background/40 backdrop-blur-lg border-b border-border z-50">
+      <Container reverse>
+        <div className="flex items-center justify-between h-full mx-auto container w-full  px-7  sm:px-6 md:px-10  xl:px-4  lg:max-w-8xl">
+          <div className="flex items-start">
+            <Logo />
           </div>
-        </Container>
-      </header>
-    </div>
+          <NavLinks />
+
+          <div className="lg:hidden">
+            <MobileNavbar />
+          </div>
+
+          <div className="  flex items-center gap-4">
+            <ThemeToggle />
+            <Link href="/builder" className="hidden lg:block">
+              <Button>Dashboard</Button>
+            </Link>
+          </div>
+        </div>
+      </Container>
+    </header>
   );
 };
 

@@ -26,7 +26,7 @@ export default function FormLayout({
           disableTransitionOnChange
         >
           <main
-            className={`min-h-screen h-full ${mangericaRegular.className} font-magericaRegular`}
+            className={`min-h-screen w-full h-full ${mangericaRegular.className} font-magericaRegular`}
           >
             {children}
             <Toaster />

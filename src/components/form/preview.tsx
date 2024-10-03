@@ -12,8 +12,9 @@ import { FormInput, QuestionInput } from "@/schema/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { renderFormField } from "@/utils/code-gen/render-field";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, ChevronUp } from "lucide-react";
 import { Label } from "../ui/label";
+import Image from "next/image";
 
 function generateSteps(length: number) {
   const steps = [];
@@ -26,10 +27,12 @@ function generateSteps(length: number) {
 }
 
 const FormPreview = ({ formData }: { formData: FormInput }) => {
+  const formSchema = generateZodSchema(formData.questions as QuestionInput[]);
+
   const [formState, setFormState] = useState<Record<string, any>>({});
 
   const [currentStep, setCurrentStep] = useState(0);
-  const formSchema = generateZodSchema(formData.questions as QuestionInput[]);
+
   const [click, setClick] = useState("");
 
   type Inputs = z.infer<typeof formSchema>;
@@ -46,6 +49,7 @@ const FormPreview = ({ formData }: { formData: FormInput }) => {
       defaultValues: formState, // Use default values to persist state
     });
 
+    // const code = generateFormCode(formData as FormInput);
     const { trigger, getValues } = form;
 
     useEffect(() => {
@@ -107,63 +111,77 @@ const FormPreview = ({ formData }: { formData: FormInput }) => {
     }
 
     return (
-      <div className="h-full w-full flex items-center justify-center flex-col bg-emerald-200">
+      <div className="h-full w-full bg-[#ECDF7D] text-[#1F6243] flex items-center justify-center flex-col ">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="px-5 md:px-20 h-full flex items-center justify-center w-full"
+            className="h-full flex items-center justify-center w-full"
           >
             <div className="w-full " ref={formRef}>
               {formData.questions.map((field, index) => (
                 <div
                   key={index}
-                  className={`flex items-start gap-3 w-full ${
+                  className={`flex items-center  gap-10 h-full w-full ${
                     currentStep === index ? "" : "hidden"
                   }`}
                 >
-                  <span>{index + 1}</span>
-                  <ArrowRight />
-                  <div className="space-y-4 w-full">
-                    <Label className="space-y-3">
-                      <h3 className="text-xl md:text-2xl font-medium">
-                        {field.label}{" "}
-                        {field.required && (
-                          <span className="text-destructive ml-1">*</span>
+                  <div className="flex w-full items-start px-5 md:px-20 ">
+                    <span>{index + 1}</span>
+                    <ArrowRight />
+                    <div className="space-y-4 w-full">
+                      <Label className="space-y-3">
+                        <h3 className="text-xl md:text-2xl font-medium">
+                          {field.label}{" "}
+                          {field.required && (
+                            <span className="text-destructive ml-1">*</span>
+                          )}
+                        </h3>
+                        {field.description ? (
+                          field.description
+                        ) : (
+                          <p className="text-foreground/35 italic text-xl">
+                            Description (optional)
+                          </p>
                         )}
-                      </h3>
-                      {field.description ? (
-                        field.description
-                      ) : (
-                        <p className="text-foreground/35 italic text-xl">
-                          Description (optional)
-                        </p>
-                      )}
-                    </Label>
-                    <FormField
-                      control={form.control}
-                      name={`form_element_${index}`}
-                      render={({ field: formField }) => (
-                        <FormItem>
-                          <FormControl>
-                            {React.cloneElement(
-                              // eslint-disable-next-line new-cap
-                              renderFormField(
-                                field,
-                                form,
-                                index
-                              ) as React.ReactElement,
-                              {
-                                ...formField,
-                                value:
-                                  getValues(`form_element_${index}`) ||
-                                  formField.value,
-                              }
-                            )}
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+                      </Label>
+
+                      <FormField
+                        control={form.control}
+                        name={`form_element_${index}`}
+                        render={({ field: formField }) => (
+                          <FormItem>
+                            <FormControl>
+                              {React.cloneElement(
+                                // eslint-disable-next-line new-cap
+                                renderFormField(
+                                  field,
+                                  form,
+                                  index
+                                ) as React.ReactElement,
+                                {
+                                  ...formField,
+                                  value:
+                                    getValues(`form_element_${index}`) ||
+                                    formField.value,
+                                }
+                              )}
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
+                  {field.image && (
+                    <div className="h-screen w-full relative">
+                      <Image
+                        src={field.image}
+                        alt="image"
+                        fill
+                        unoptimized
+                        className="object-cover h-full w-full"
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -186,7 +204,12 @@ const FormPreview = ({ formData }: { formData: FormInput }) => {
                     <ChevronDown size={30} />
                   </Button>
                 ) : (
-                  <Button type="submit">Submit</Button>
+                  <Button
+                    className="p-1 rounded-[0px] bg-white text-gray-500 hover:bg-gray-100 shadow-none"
+                    type="submit"
+                  >
+                    <Check size={30} />
+                  </Button>
                 )}
               </div>
             </div>
