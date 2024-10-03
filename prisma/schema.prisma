@@ -1,0 +1,28 @@
+datasource db {
+  provider = "postgresql" // or your preferred database provider
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Form {
+  id          String     @id @default(cuid())
+  fontColor   String?    // Optional
+  textColor   String?    // Optional
+  questions   Question[] // Relation to Question model
+}
+
+model Question {
+  id                String   @id @default(cuid())
+  type              String
+  label             String
+  description       String?
+  required          Boolean
+  options           String[] // Store options as an array
+  image             String?
+  validationMessage String?
+  form              Form?    @relation(fields: [formId], references: [id])
+  formId            String?  // Foreign key reference to Form
+}

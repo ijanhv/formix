@@ -18,7 +18,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   addNewSlide,
 }) => {
   return (
-    <div className="w-52 border-r ">
+    <div className="w-52 border-r hidden md:block">
       <Button
         onClick={addNewSlide}
         className="w-full border-b py-5  rounded-none flex gap-3 items-center justify-center"
@@ -33,13 +33,13 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
           <div
             key={question.id}
             onClick={() => setCurrentSlideIndex(index)}
-            className={`flex items-center p-3 cursor-pointer ${
+            className={`flex items-center justify-center p-3 cursor-pointer ${
               currentSlideIndex === index
                 ? "bg-gray-100 dark:bg-gray-900 text-primary"
                 : ""
             }`}
           >
-            <span className="text-sm font-medium">
+            <span className="text-sm  text-center font-medium">
               {question.label || `Slide ${index + 1}`}
             </span>
           </div>

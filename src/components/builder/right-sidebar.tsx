@@ -21,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import ImageSelector from "./image-selector";
+import FormCode from "../code/form-code";
 
 const questionTypes = [
   "shortText",
@@ -37,12 +38,16 @@ interface RightSidebarProps {
   form: UseFormReturn<z.infer<typeof formSchema>>;
   onSubmit: (data: FormInput) => void;
   currentSlideIndex: number;
+  code: string;
+  schema: string;
 }
 
 const RightSidebar: React.FC<RightSidebarProps> = ({
   form,
   onSubmit,
   currentSlideIndex,
+  code,
+  schema,
 }) => {
   const questions = form.watch("questions");
   const currentQuestion = questions[currentSlideIndex];
@@ -56,7 +61,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   }
 
   return (
-    <div className="w-64  border-l border-gray-200 p-4">
+    <div className="w-64  border-l border-gray-200 p-4 hidden md:block">
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div className="space-y-4">
           {/* Question Type */}
@@ -245,6 +250,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             Remove Question
           </Button>
         </div>
+        <FormCode code={code} schema={schema} />
 
         <Button type="submit">Submit</Button>
       </form>

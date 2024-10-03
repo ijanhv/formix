@@ -3,18 +3,12 @@ import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { formSchema, QuestionInput } from "@/schema/zod";
 import { FormLabel } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { FloatingLabelInput } from "../ui/floating-label-input";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import CustomSelect from "./custom-select";
+import CustomDateInput from "./custom-date";
+import Rating from "./rating";
 
 interface SlidesProps {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -27,6 +21,106 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
 
   if (!currentSlide) {
     return <div className="flex-1 p-8">No slide available</div>;
+  }
+
+  function renderQuestionInput(question: QuestionInput) {
+    switch (question.type) {
+      case "shortText":
+        return (
+          <FloatingLabelInput
+            placeholder="Type your answer here"
+            label="Type your answer here"
+            className="text-xl text-foreground/70"
+          />
+        );
+      case "longText":
+        return (
+          <FloatingLabelInput
+            label="Type your answer here"
+            className="text-xl text-foreground/70"
+          />
+        );
+      case "number":
+        return (
+          <FloatingLabelInput
+            label="Type your answer here"
+            type="number"
+            className="text-xl text-foreground/70"
+          />
+        );
+      case "email":
+        return (
+          <FloatingLabelInput
+            placeholder="Type your answer here"
+            label="Type your email here"
+            type="email"
+            className="text-xl text-foreground/70"
+          />
+        );
+      case "date":
+        return <CustomDateInput form={form} />;
+      case "select":
+        if (!question.options) return null;
+        const optionsForSelect = question.options.map((option, index) => ({
+          id: `option-${index}`,
+          label: option,
+          icon: () => null, // You may want to replace this with an appropriate icon component
+        }));
+        return (
+          <CustomSelect
+            options={optionsForSelect}
+            allowMultiple={false}
+            fieldName={`questions.${question.id}.answer`}
+            form={form}
+            showOthersOption={false}
+          />
+        );
+      case "multiSelect":
+        if (!question.options) return null;
+        const options = question.options.map((option, index) => ({
+          id: `option-${index}`,
+          label: option,
+          icon: () => null, // You may want to replace this with an appropriate icon component
+        }));
+        return (
+          <CustomSelect
+            options={options}
+            allowMultiple={true}
+            fieldName={`questions.${question.id}.answer`}
+            form={form}
+            showOthersOption={false}
+          />
+        );
+      // return (
+      //   // <Select>
+      //   //   <SelectTrigger>
+      //   //     <SelectValue placeholder="Select an option" />
+      //   //   </SelectTrigger>
+      //   //   <SelectContent className="">
+      //   //     <div className="flex flex-col gap-4 ">
+      //   //       {question.options?.map((option, index) => (
+      //   //         <SelectItem key={index} value={option}>
+      //   //           {option}
+      //   //         </SelectItem>
+      //   //       ))}
+      //   //     </div>
+      //   //   </SelectContent>
+      //   // </Select>
+      // );
+      case "rating":
+        return (
+          <Rating
+            value={0}
+            max={5} // You can change this to any maximum value based on your requirements
+            onChange={(newValue) =>
+              // @ts-ignore
+              form.setValue(`questions.${currentSlideIndex}.answer`, newValue)
+            }
+          />
+        );
+      default:
+        return null;
+    }
   }
 
   return (
@@ -71,72 +165,5 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
     </div>
   );
 };
-
-function renderQuestionInput(question: QuestionInput) {
-  switch (question.type) {
-    case "shortText":
-      return (
-        <FloatingLabelInput
-          placeholder="Type your answer here"
-          label="Type your answer here"
-          className="text-xl text-foreground/70"
-        />
-      );
-    case "longText":
-      return (
-        <FloatingLabelInput
-          label="Type your answer here"
-          className="text-xl text-foreground/70"
-        />
-      );
-    case "number":
-      return (
-        <FloatingLabelInput
-          label="Type your answer here"
-          type="number"
-          className="text-xl text-foreground/70"
-        />
-      );
-    case "email":
-      return (
-        <FloatingLabelInput
-          placeholder="Type your answer here"
-          label="Type your email here"
-          type="email"
-          className="text-xl text-foreground/70"
-        />
-      );
-    case "date":
-      return <Input type="date" />;
-    case "select":
-    case "multiSelect":
-      return (
-        <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Select an option" />
-          </SelectTrigger>
-          <SelectContent>
-            {question.options?.map((option, index) => (
-              <SelectItem key={index} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      );
-    case "rating":
-      return (
-        <div className="flex space-x-2">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <Button key={value} variant="outline" size="sm">
-              {value}
-            </Button>
-          ))}
-        </div>
-      );
-    default:
-      return null;
-  }
-}
 
 export default Slides;

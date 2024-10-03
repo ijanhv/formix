@@ -1,5 +1,4 @@
 import { QuestionInput } from "@/schema/zod";
-
 export const generateFormJSX = (fields: QuestionInput[]) => {
   const imports = [
     'import { useForm } from "react-hook-form"',
@@ -8,10 +7,11 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
     'import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"',
     'import { Input } from "@/components/ui/input"',
     'import { Textarea } from "@/components/ui/textarea"',
-    'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"',
     'import { Checkbox } from "@/components/ui/checkbox"',
     'import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"',
     'import { Slider } from "@/components/ui/slider"',
+    'import CustomDateInput from "@/components/ui/CustomDateInput"', // Import custom date component
+    'import CustomSelect from "@/components/ui/CustomSelect"', // Import custom select component
   ];
 
   const jsxLines = [
@@ -37,69 +37,43 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
     jsxLines.push(`          name="${fieldName}"`);
     jsxLines.push(`          render={({ field }) => (`);
     jsxLines.push(`            <FormItem>`);
-    jsxLines.push(`              <FormLabel>${field.label}</FormLabel>`);
+
     jsxLines.push(`              <FormControl>`);
 
     switch (field.type) {
       case "longText":
-        jsxLines.push(`                <Textarea {...field} />`);
+        jsxLines.push(`                 <FloatingLabelInput
+                                          placeholder="Type your answer here"
+                                          label="Type your answer here"
+                                          className="text-xl text-foreground/70"
+          />`);
+        break;
+
+      case "shortText":
+        jsxLines.push(`                 <FloatingLabelInput
+            placeholder="Type your answer here"
+            label="Type your answer here"
+            className="text-xl text-foreground/70"
+          />`);
         break;
       case "select":
         jsxLines.push(
-          `                <Select onValueChange={field.onChange} defaultValue={field.value}>`
+          `                <CustomSelect options={${JSON.stringify(field.options)}} allowMultiple={false} fieldName="${fieldName}" form={form} />`
         );
-        jsxLines.push(`                  <SelectTrigger>`);
-        jsxLines.push(
-          `                    <SelectValue placeholder="Select an option" />`
-        );
-        jsxLines.push(`                  </SelectTrigger>`);
-        jsxLines.push(`                  <SelectContent>`);
-        field.options?.forEach((option) => {
-          jsxLines.push(
-            `                    <SelectItem value="${option}">${option}</SelectItem>`
-          );
-        });
-        jsxLines.push(`                  </SelectContent>`);
-        jsxLines.push(`                </Select>`);
         break;
       case "multiSelect":
-        // For multiSelect, you might want to use a custom component or library
         jsxLines.push(
-          `                <Select onValueChange={field.onChange} defaultValue={field.value} multiple>`
+          `                <CustomSelect options={${JSON.stringify(field.options)}} allowMultiple={true} fieldName="${fieldName}" form={form} showOthersOption={true} />`
         );
-        jsxLines.push(
-          `                  {/* Implement multi-select options */}`
-        );
-        jsxLines.push(`                </Select>`);
         break;
-      // case 'checkbox':
-      //   jsxLines.push(`                <Checkbox checked={field.value} onCheckedChange={field.onChange} />`)
-      //   break
-      // case 'radio':
-      //   jsxLines.push(`                <RadioGroup onValueChange={field.onChange} defaultValue={field.value}>`)
-      //   field.options?.forEach((option) => {
-      //     jsxLines.push(`                  <div className="flex items-center space-x-2">`)
-      //     jsxLines.push(`                    <RadioGroupItem value="${option}" id="${fieldName}-${option}" />`)
-      //     jsxLines.push(`                    <Label htmlFor="${fieldName}-${option}">${option}</Label>`)
-      //     jsxLines.push(`                  </div>`)
-      //   })
-      //   jsxLines.push(`                </RadioGroup>`)
-      //   break
-      // case 'range':
-      //   jsxLines.push(`                <Slider`)
-      //   jsxLines.push(`                  min={${field.min || 0}}`)
-      //   jsxLines.push(`                  max={${field.max || 100}}`)
-      //   jsxLines.push(`                  step={${field.step || 1}}`)
-      //   jsxLines.push(`                  defaultValue={[field.value]}`)
-      //   jsxLines.push(`                  onValueChange={(value) => field.onChange(value[0])}`)
-      //   jsxLines.push(`                />`)
-      //   break
-      // case 'file':
-      //   jsxLines.push(`                <Input type="file" {...field} value={undefined} onChange={(e) => field.onChange(e.target.files?.[0])} />`)
-      //   break
       case "date":
-        jsxLines.push(`                <Input type="date" {...field} />`);
+        jsxLines.push(`                <CustomDateInput form={form} />`);
         break;
+
+      case "rating":
+        jsxLines.push(`                <CustomDateInput form={form} />`);
+        break;
+      // Add other case types here as needed
       default:
         jsxLines.push(
           `                <Input {...field} type="${field.type}" />`
@@ -107,12 +81,7 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
     }
 
     jsxLines.push(`              </FormControl>`);
-    if (field.description) {
-      jsxLines.push(
-        `              <FormDescription>${field.description}</FormDescription>`
-      );
-    }
-    jsxLines.push(`              <FormMessage />`);
+
     jsxLines.push(`            </FormItem>`);
     jsxLines.push(`          )}`);
     jsxLines.push(`        />`);
@@ -126,11 +95,12 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
 
   return [...imports, "", ...jsxLines].join("\n");
 };
+
 export const generateZodSchema = (fields: QuestionInput[]) => {
   const imports = ['import { z } from "zod"'];
   const schemaLines = ["const formSchema = z.object({"];
 
-  fields.forEach((field, index) => {
+  fields?.forEach((field, index) => {
     let fieldSchema = `z.string()`;
     if (field.required) {
       fieldSchema += '.min(1, "This field is required")';
@@ -142,6 +112,7 @@ export const generateZodSchema = (fields: QuestionInput[]) => {
       case "email":
         fieldSchema = `z.string().email("Invalid email address")${field.required ? "" : ".optional()"}`;
         break;
+
       case "number":
       // case "range":
       //   fieldSchema = `z.number()${field.required ? "" : ".optional()"}`;
@@ -155,6 +126,9 @@ export const generateZodSchema = (fields: QuestionInput[]) => {
       case "multiSelect":
         const options = field.options?.map((opt) => `"${opt}"`) || [];
         fieldSchema = `z.enum([${options.join(", ")}])${field.required ? "" : ".optional()"}`;
+        break;
+      case "rating":
+        fieldSchema = `z.number().{field.required ? "" : ".optional()"}`;
         break;
       // case "checkbox":
       //   fieldSchema = `z.boolean()${field.required ? "" : ".optional()"}`;

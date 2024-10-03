@@ -13,16 +13,19 @@ const questionTypes = [
 ] as const;
 
 export const questionSchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   type: z.enum(questionTypes),
   label: z.string().min(1, "Label is required"),
   description: z.string().optional(),
   required: z.boolean(),
   options: z.array(z.string()).optional(),
   image: z.string().optional(),
+  validationMessage: z.string().optional(),
 });
 
 export const formSchema = z.object({
+  fontColor: z.string().optional(),
+  textColor: z.string().optional(),
   questions: z.array(questionSchema),
 });
 

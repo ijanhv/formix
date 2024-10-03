@@ -27,9 +27,14 @@ export default function Dashboard() {
     },
   });
 
+  const [code, setCode] = useState("");
+  const [schema, setSchema] = useState("");
   const onSubmit = (data: FormInput) => {
-    generateZodSchema(data.questions);
-    generateFormJSX(data.questions);
+    const generatedSchema = generateZodSchema(data.questions);
+
+    const generatedJsx = generateFormJSX(data.questions);
+    setCode(generatedJsx);
+    setSchema(generatedSchema);
   };
 
   const addNewSlide = () => {
@@ -54,11 +59,13 @@ export default function Dashboard() {
           setCurrentSlideIndex={setCurrentSlideIndex}
           addNewSlide={addNewSlide}
         />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col relative">
           <Slides form={form} currentSlideIndex={currentSlideIndex} />
         </div>
         <RightSidebar
           form={form}
+          code={code}
+          schema={schema}
           onSubmit={onSubmit}
           currentSlideIndex={currentSlideIndex}
         />
@@ -66,3 +73,43 @@ export default function Dashboard() {
     </Form>
   );
 }
+
+// [
+//   {
+//       "id": "1",
+//       "type": "shortText",
+//       "description": "Enter your name idiot",
+//       "label": "Question 1",
+//       "required": false
+//   },
+//   {
+//       "id": "2",
+//       "type": "email",
+//       "label": "Whats your email",
+//       "required": false,
+//       "description": "Enter your email",
+//       "image": "https://images.unsplash.com/photo-1555769571-2ca68b9197cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjY4NzN8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTk2OTcyNDN8&ixlib=rb-4.0.3&q=80&w=200|https://images.unsplash.com/photo-1555769571-2ca68b9197cb?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1MjY4NzN8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTk2OTcyNDN8&ixlib=rb-4.0.3&q=85|https://unsplash.com/photos/rocks-by-the-sea-UjcM2ak00KQ|Daniel Morris"
+//   },
+//   {
+//       "id": "3",
+//       "type": "multiSelect",
+//       "label": "What role are you looking for",
+//       "required": false,
+//       "description": "",
+//       "image": "",
+//       "options": [
+//           "Tech",
+//           "Analyst",
+//           "Teacher",
+//           "Peon"
+//       ]
+//   },
+//   {
+//       "answer": 4,
+//       "type": "rating",
+//       "label": "RATE US!!",
+//       "description": "Enter your email",
+//       "image": "https://images.unsplash.com/photo-1507783548227-544c3b8fc065?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MjY4NzN8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTk2OTcyNDN8&ixlib=rb-4.0.3&q=80&w=200|https://images.unsplash.com/photo-1507783548227-544c3b8fc065?crop=entropy&cs=srgb&fm=jpg&ixid=M3w1MjY4NzN8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTk2OTcyNDN8&ixlib=rb-4.0.3&q=85|https://unsplash.com/photos/selective-focus-photography-of-brown-leaves-HUiNRjXr-bQ|Timothy Eberly",
+//       "required": false
+//   }
+// ]
