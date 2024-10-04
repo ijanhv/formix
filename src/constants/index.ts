@@ -161,88 +161,126 @@ export const themes: Theme[] = [
     id: "light-leaves",
     name: "Light Leaves",
     backgroundImage: "/bg/light-leaves.png",
-    textColor: "text-gray-800", // Dark gray for text
-    backgroundColor: "bg-white", // White background
-    buttonColor: "bg-green-600", // Green for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-gray-400", // Light gray border
-    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+    textColor: "text-gray-800",
+    backgroundColor: "bg-white",
+    buttonColor: "bg-gray-600",
+    buttonText: "text-white",
+    borderColor: "border-gray-400",
+    placeholderColor: "placeholder:text-gray-600",
+    checkboxChecked: "bg-gray-200/50 border-gray-600",
+    checkboxUnchecked: "bg-white border-gray-400",
+    checkboxText: "text-gray-800",
   },
   {
     id: "light-pattern",
     name: "Light Pattern",
     backgroundImage: "/bg/light-pattern.png",
-    textColor: "text-gray-800", // Dark gray for text
-    backgroundColor: "bg-white", // White background
-    buttonColor: "bg-blue-600", // Blue for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-gray-300", // Light gray border
-    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+    textColor: "text-gray-800",
+    backgroundColor: "bg-white",
+    buttonColor: "bg-gray-600/30 text-gray-600",
+    buttonText: "text-white",
+    borderColor: "border-gray-300",
+    placeholderColor: "placeholder:text-gray-600",
+    checkboxChecked: "bg-gray-200/50 border-gray-600",
+    checkboxUnchecked: "bg-white border-gray-400",
+    checkboxText: "text-gray-800",
   },
   {
     id: "light-gradient-1",
     name: "Light Gradient 1",
     backgroundImage: "/bg/light-gradient1.png",
-    textColor: "text-gray-800", // Dark gray for text
-    backgroundColor: "bg-white", // White background
-    buttonColor: "bg-indigo-600", // Indigo for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-gray-400", // Light gray border
-    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+    textColor: "text-[#e53757]",
+    backgroundColor: "bg-white",
+    buttonColor: "bg-[#e53757]",
+    buttonText: "text-white",
+    borderColor: "border-[#e53757]",
+    placeholderColor: "placeholder:text-gray-600",
+    checkboxChecked: "bg-[#e53757]/10  border-[#e53757]",
+    checkboxUnchecked: "bg-transparent border-[#e53757]/40",
+    checkboxText: "text-gray-800 ",
   },
   {
     id: "blue-medical",
     name: "Medical",
     backgroundImage: "/bg/blue-medical.png",
-    textColor: "text-gray-900", // Dark gray for text
-    backgroundColor: "bg-cyan-400", // Cyan background
-    buttonColor: "bg-green-600", // Green for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-teal-700", // Teal border
-    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+    textColor: "text-gray-900",
+    backgroundColor: "bg-cyan-400",
+    buttonColor: "bg-green-600",
+    buttonText: "text-white",
+    borderColor: "border-teal-700",
+    placeholderColor: "placeholder:text-gray-600",
+    checkboxChecked: "bg-teal-700 border-teal-700",
+    checkboxUnchecked: "bg-cyan-400 border-gray-700",
+    checkboxText: "text-gray-900",
   },
   {
     id: "ocean-theme",
     name: "Ocean Theme",
     backgroundImage: "/bg/ocean.png",
-    textColor: "text-white", // White for text
-    backgroundColor: "bg-blue-800", // Deep blue background
-    buttonColor: "bg-cyan-400", // Bright aqua blue for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-blue-300", // Light blue border
-    placeholderColor: "placeholder:text-gray-300", // Light gray for placeholders
+    textColor: "text-white",
+    backgroundColor: "bg-blue-800",
+    buttonColor: "bg-cyan-400",
+    buttonText: "text-white",
+    borderColor: "border-blue-300",
+    placeholderColor: "placeholder:text-gray-300",
+    checkboxChecked: "bg-cyan-400 border-cyan-400",
+    checkboxUnchecked: "bg-blue-800 border-gray-500",
+    checkboxText: "text-white",
   },
   {
     id: "sunset-theme",
     name: "Sunset Theme",
     backgroundImage: undefined,
-    textColor: "text-gray-900", // Dark gray for text
+    textColor: "text-gray-900",
     backgroundColor: "bg-gradient-to-b from-orange-500 to-yellow-300",
-    buttonColor: "bg-red-500", // Bright red for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-yellow-300", // Light yellow border
-    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+    buttonColor: "bg-red-500",
+    buttonText: "text-white",
+    borderColor: "border-yellow-300",
+    placeholderColor: "placeholder:text-gray-600",
+    checkboxChecked: "bg-red-500 border-red-500",
+    checkboxUnchecked: "bg-orange-300 border-orange-500",
+    checkboxText: "text-gray-900",
   },
   {
     id: "forest-theme",
     name: "Forest Theme",
     backgroundImage: undefined,
-    textColor: "text-gray-800", // Dark gray for text
-    backgroundColor: "bg-gradient-to-t from-emerald-500 to-lime-600", // Light green background
-    buttonColor: "bg-green-800", // Dark green for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-green-500", // Green border
-    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+    textColor: "text-gray-800",
+    backgroundColor: "bg-gradient-to-t from-emerald-500 to-lime-600",
+    buttonColor: "bg-green-800",
+    buttonText: "text-white",
+    borderColor: "border-green-500",
+    placeholderColor: "placeholder:text-gray-600",
+    checkboxChecked: "bg-green-800 border-green-800",
+    checkboxUnchecked: "bg-emerald-500 border-emerald-400",
+    checkboxText: "text-gray-800",
   },
   {
     id: "night-sky",
     name: "Night Sky",
     backgroundImage: "/bg/night-sky.jpg",
-    textColor: "text-white", // White for text
-    backgroundColor: "bg-gray-900", // Dark gray background
-    buttonColor: "bg-blue-500", // Bright blue for buttons
-    buttonText: "text-white", // White text on buttons
-    borderColor: "border-gray-700", // Dark gray border
-    placeholderColor: "placeholder:text-gray-400", // Light gray for placeholders
+    textColor: "text-white",
+    backgroundColor: "bg-gray-900",
+    buttonColor: "bg-blue-500",
+    buttonText: "text-white",
+    borderColor: "border-gray-700",
+    placeholderColor: "placeholder:text-gray-400",
+    checkboxChecked: "bg-blue-500 border-blue-500",
+    checkboxUnchecked: "bg-gray-900 border-gray-600",
+    checkboxText: "text-white",
+  },
+  {
+    id: "pink-purple-theme",
+    name: "Pink & Purple",
+    backgroundImage: undefined,
+    textColor: "text-purple-900",
+    backgroundColor: "bg-purple-200",
+    buttonColor: "bg-purple-900",
+    buttonText: "text-white",
+    borderColor: "border-purple-500",
+    placeholderColor: "placeholder:text-purple-600",
+    checkboxChecked: "bg-purple-300 border-purple-600",
+    checkboxUnchecked: "bg-purple-200 border-purple-500",
+    checkboxText: "text-purple-900",
   },
 ];

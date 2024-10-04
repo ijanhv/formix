@@ -10,6 +10,7 @@ import CustomSelect from "./custom-select";
 import CustomDateInput from "./custom-date";
 import Rating from "./rating";
 import { themes } from "@/constants";
+import { CustomCheckboxGroup } from "./custom-checkbox";
 
 interface SlidesProps {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -49,6 +50,7 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
               label="Type your answer here"
               className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
             />
+            <hr className={`${theme?.borderColor}`} />
             <p className="text-blue-500 italic text-sm mt-4">
               Shift ⇧ + Enter ↵ to make a line break
             </p>
@@ -62,33 +64,40 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
               type="number"
               className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
             />
+            <hr className={`${theme?.borderColor}`} />
           </>
         );
       case "email":
         return (
-          <FloatingLabelInput
-            placeholder="Type your answer here"
-            label="Type your email here"
-            type="email"
-            className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
-          />
+          <>
+            <FloatingLabelInput
+              placeholder="Type your answer here"
+              label="Type your email here"
+              type="email"
+              className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+            />
+            <hr className={`${theme?.borderColor}`} />
+          </>
         );
       case "date":
         return <CustomDateInput form={form} />;
       case "select":
         if (!question.options) return null;
-        const optionsForSelect = question.options.map((option, index) => ({
-          id: `option-${index}`,
-          label: option,
-          icon: () => null, // You may want to replace this with an appropriate icon component
-        }));
+
         return (
-          <CustomSelect
-            options={optionsForSelect}
-            allowMultiple={false}
-            fieldName={`questions.${question.id}.answer`}
+          // <CustomSelect
+          //   options={optionsForSelect}
+          //   allowMultiple={false}
+          //   fieldName={`questions.${question.id}.answer`}
+          //   form={form}
+          //   showOthersOption={false}
+          // />
+
+          <CustomCheckboxGroup
             form={form}
-            showOthersOption={false}
+            options={question.options}
+            fieldName="select"
+            theme={theme as Theme}
           />
         );
       case "multiSelect":

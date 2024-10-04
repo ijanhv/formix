@@ -60,7 +60,7 @@ export default function Dashboard() {
     <Form {...form}>
       <div className={`flex h-screen   w-full`}>
         <ResizablePanelGroup direction="horizontal">
-          <ResizablePanel defaultSize={25} className=" hidden md:block">
+          <ResizablePanel defaultSize={20} className=" hidden md:block">
             <LeftSidebar
               questions={form.watch("questions")}
               currentSlideIndex={currentSlideIndex}
@@ -69,7 +69,7 @@ export default function Dashboard() {
             />
           </ResizablePanel>
           <ResizableHandle withHandle className=" hidden md:flex" />
-          <ResizablePanel defaultSize={50} minSize={40}>
+          <ResizablePanel defaultSize={70} minSize={40}>
             <div
               className={`flex-1 flex flex-col relative  h-full ${form.watch("fontFamily")}`}
             >

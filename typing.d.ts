@@ -9,4 +9,7 @@ interface Theme {
   buttonText: string;
   borderColor: string;
   placeholderColor: string;
+  checkboxUnchecked?: string;
+  checkboxChecked?: string;
+  checkboxText?: string;
 }
