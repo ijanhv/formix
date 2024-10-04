@@ -120,11 +120,7 @@ const FormPreview = ({
 
     return (
       <div
-        style={{
-          color: theme.textColor,
-          backgroundColor: theme.backgroundColor,
-        }}
-        className={`h-full ${theme.textColor} ${formData.fontFamily} w-full  flex items-center justify-center flex-col `}
+        className={`h-full ${theme.textColor} ${theme.backgroundColor} ${formData.fontFamily} w-full  flex items-center justify-center flex-col `}
       >
         <Form {...form}>
           <form

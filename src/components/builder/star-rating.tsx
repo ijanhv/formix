@@ -40,10 +40,7 @@ export function StarRating({ form, fieldName, theme }: StarRatingProps) {
                       <MdOutlineStar className="h-8 w-8 lg:h-12 lg:w-12 cursor-pointer text-yellow-500 transition-all duration-300 ease-in-out" />
                     ) : (
                       <IoStarOutline
-                        style={{
-                          color: theme.borderColor,
-                        }}
-                        className="h-8 w-8 lg:h-12 lg:w-12 cursor-pointer text-white transition-all duration-300 ease-in-out"
+                        className={`${theme.textColor} h-8 w-8 lg:h-12 lg:w-12 cursor-pointer  transition-all duration-300 ease-in-out`}
                       />
                     )}
                   </span>

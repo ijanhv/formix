@@ -58,12 +58,7 @@ export const renderFormField = (
                     placeholder="Type your answer here"
                     value={formField.value || ""}
                   />
-                  <hr
-                    style={{
-                      borderColor: `${theme.borderColor}`, // 50% opacity
-                    }}
-                    className="border border-white/20"
-                  />
+                  <hr className={`border ${theme.borderColor}`} />
                   <p className="g-blue-300 italic text-sm mt-4">
                     Shift ⇧ + Enter ↵ to make a line break
                   </p>

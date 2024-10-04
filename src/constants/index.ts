@@ -181,8 +181,8 @@ export const themes: Theme[] = [
     buttonText: "text-white",
     borderColor: "border-gray-300",
     placeholderColor: "placeholder:text-gray-600",
-    checkboxChecked: "bg-gray-200/50 border-gray-600",
-    checkboxUnchecked: "bg-white border-gray-400",
+    checkboxChecked: "bg-gray-200 border-gray-600",
+    checkboxUnchecked: "bg-gray-100 border-gray-400",
     checkboxText: "text-gray-800",
   },
   {
