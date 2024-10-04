@@ -1,6 +1,6 @@
 import Icons from "@/components/globals/icons";
 
-export const apiUrl = "http://localhost:3000/api/v1";
+export const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const perks = [
   {
@@ -262,5 +262,21 @@ export const themes: Theme[] = [
     checkboxUnchecked: "bg-purple-200 border-purple-500",
     checkboxText: "text-purple-900",
     okButton: "bg-purple-900 text-white",
+  },
+
+  {
+    id: "simple-elegant-background",
+    name: "Simple Elegant Background",
+    backgroundImage: "/bg/simple-elegant-bg.png",
+    textColor: "text-[#B2734E]",
+    backgroundColor: "bg-[#EDECE0]",
+    buttonColor: "bg-[#645D4F]",
+    buttonText: "text-white",
+    borderColor: "border-[#645D4F]",
+    placeholderColor: "placeholder:text-[#B2734E]/30",
+    checkboxChecked: "bg-[#DFC8B7]/20 border-[#645d4f]",
+    checkboxUnchecked: "bg-transparent border-[#645d4f]/40",
+    checkboxText: "text-amber-900",
+    okButton: "bg-amber-900 text-white",
   },
 ];

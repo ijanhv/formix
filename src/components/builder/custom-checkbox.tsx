@@ -56,7 +56,11 @@ export function CustomCheckboxGroup({
                   }}
                 >
                   <div
-                    className={`${theme.borderColor} w-8 h-8 mr-4 border rounded-full flex items-center justify-center font-semibold `}
+                    className={` ${
+                      isChecked
+                        ? `${theme.checkboxChecked}`
+                        : `${theme.checkboxUnchecked}`
+                    } w-8 h-8 mr-4 border rounded-full flex items-center justify-center font-semibold `}
                   >
                     {letters[index]}
                   </div>
