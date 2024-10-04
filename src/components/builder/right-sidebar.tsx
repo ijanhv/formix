@@ -78,10 +78,10 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   }
 
   return (
-    <div className=" h-full hidden md:block bg-foreground/5">
+    <div className=" h-full hidden md:block bg-foreground/5 ">
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 p-4 border-l bg-background h-full"
+        className="space-y-6 p-4 border-l bg-background h-full  overflow-y-auto scrollbar scrollbar-w-0"
       >
         <div className="space-y-4">
           <Tabs defaultValue="content" className="">
@@ -225,7 +225,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
               {/* Options for select/multiSelect */}
               {(currentQuestion.type === "select" ||
                 currentQuestion.type === "multiSelect") && (
-                <div className="space-y-2">
+                <div className="space-y-2 ">
                   <FormLabel>Options</FormLabel>
                   {currentQuestion.options?.map((_, optionIndex) => (
                     <FormField

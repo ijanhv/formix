@@ -77,7 +77,7 @@ export default function Dashboard() {
             </div>
           </ResizablePanel>
           <ResizableHandle withHandle className=" hidden md:flex" />
-          <ResizablePanel defaultSize={25} className=" hidden md:block">
+          <ResizablePanel defaultSize={25} className=" hidden md:block ">
             <RightSidebar
               form={form}
               onSubmit={onSubmit}
