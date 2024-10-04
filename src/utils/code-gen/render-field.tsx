@@ -10,7 +10,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -37,6 +36,7 @@ export const renderFormField = (
     case "shortText":
     case "email":
     case "number":
+    case "longText":
       return (
         <FormField
           control={form.control}
@@ -70,26 +70,26 @@ export const renderFormField = (
         />
       );
 
-    case "longText":
-      return (
-        <FormField
-          control={form.control}
-          name={fieldName}
-          render={({ field: formField }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  {...formField}
-                  placeholder={field.description}
-                  required={field.required}
-                  value={formField.value || ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      );
+    // case "longText":
+    //   return (
+    //     <FormField
+    //       control={form.control}
+    //       name={fieldName}
+    //       render={({ field: formField }) => (
+    //         <FormItem>
+    //           <FormControl>
+    //             <Textarea
+    //               {...formField}
+    //               placeholder={field.description}
+    //               required={field.required}
+    //               value={formField.value || ""}
+    //             />
+    //           </FormControl>
+    //           <FormMessage />
+    //         </FormItem>
+    //       )}
+    //     />
+    //   );
 
     case "date":
       return (
