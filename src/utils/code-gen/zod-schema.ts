@@ -14,8 +14,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         fieldSchema = z.string();
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
-            message:
-              question.validationMessage || `${question.label} is required`,
+            message: question.validationMessage || `This field is required`,
           });
         }
         break;
@@ -24,8 +23,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         fieldSchema = z.coerce.number(); // Use z.coerce.number() to handle numeric input as a number
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
-            message:
-              question.validationMessage || `${question.label} is required`,
+            message: question.validationMessage || `This field is required`,
           });
         }
         break;
@@ -36,7 +34,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         });
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
-            message: `${question.label} is required`,
+            message: `This field is required`,
           });
         }
         break;
@@ -45,8 +43,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         fieldSchema = z.date();
         if (question.required) {
           fieldSchema = fieldSchema.refine((date) => !isNaN(date.getTime()), {
-            message:
-              question.validationMessage || `${question.label} is required`,
+            message: question.validationMessage || `This field is required`,
           });
         }
         break;
@@ -69,8 +66,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
           fieldSchema = z
             .array(z.enum(question.options as [string, ...string[]]))
             .min(1, {
-              message:
-                question.validationMessage || `${question.label} is required`,
+              message: question.validationMessage || `This field is required`,
             });
         } else {
           fieldSchema = z
@@ -83,8 +79,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
           fieldSchema = z
             .array(z.enum(question.options as [string, ...string[]]))
             .min(1, {
-              message:
-                question.validationMessage || `${question.label} is required`,
+              message: question.validationMessage || `This field is required`,
             });
         } else {
           fieldSchema = z
@@ -94,11 +89,10 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         break;
 
       case "rating":
-        fieldSchema = z.coerce.number().min(1).max(5); // Assuming a rating is between 1 and 5
+        fieldSchema = z.coerce.number().min(1).max(5);
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
-            message:
-              question.validationMessage || `${question.label} is required`,
+            message: question.validationMessage || `This field is required`,
           });
         }
         break;
@@ -107,8 +101,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         fieldSchema = z.string();
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
-            message:
-              question.validationMessage || `${question.label} is required`,
+            message: question.validationMessage || `This field is required`,
           });
         }
         break;

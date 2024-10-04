@@ -170,6 +170,7 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-gray-200/50 border-gray-600",
     checkboxUnchecked: "bg-white border-gray-400",
     checkboxText: "text-gray-800",
+    okButton: "bg-gray-800 text-white",
   },
   {
     id: "light-pattern",
@@ -184,6 +185,7 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-gray-200 border-gray-600",
     checkboxUnchecked: "bg-gray-100 border-gray-400",
     checkboxText: "text-gray-800",
+    okButton: "bg-gray-800 text-white",
   },
   {
     id: "light-gradient-1",
@@ -198,6 +200,7 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-[#e53757]/10  border-[#e53757]",
     checkboxUnchecked: "bg-transparent border-[#e53757]/40",
     checkboxText: "text-gray-800 ",
+    okButton: "bg-white text-gray-300",
   },
   {
     id: "blue-medical",
@@ -212,6 +215,7 @@ export const themes: Theme[] = [
     checkboxChecked: "border-[#4392bc] bg-[#4392bc]/20 ",
     checkboxUnchecked: "bg-transparent border-[#4392bc]/40 ",
     checkboxText: "text-gray-900",
+    okButton: "bg-white text-gray-300",
   },
   {
     id: "ocean-theme",
@@ -226,6 +230,7 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-[#00659B]/30 border-white/50 shadow-lg",
     checkboxUnchecked: " border-[#00659B]",
     checkboxText: "text-white",
+    okButton: "bg-white text-gray-300",
   },
 
   {
@@ -241,6 +246,7 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-white/10 border-gray-400",
     checkboxUnchecked: "bg-transparent border-gray-600",
     checkboxText: "text-white",
+    okButton: "bg-white text-gray-300",
   },
   {
     id: "pink-purple-theme",
@@ -255,5 +261,6 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-purple-300 border-purple-600",
     checkboxUnchecked: "bg-purple-200 border-purple-500",
     checkboxText: "text-purple-900",
+    okButton: "bg-purple-900 text-white",
   },
 ];

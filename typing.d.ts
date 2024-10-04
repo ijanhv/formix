@@ -12,4 +12,5 @@ interface Theme {
   checkboxUnchecked?: string;
   checkboxChecked?: string;
   checkboxText?: string;
+  okButton?: string;
 }
