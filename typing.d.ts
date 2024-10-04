@@ -2,7 +2,7 @@
 interface Theme {
   id: string;
   name: string;
-  backgroundImage: string;
+  backgroundImage?: string;
   textColor: string;
   backgroundColor: string;
   buttonColor: string;

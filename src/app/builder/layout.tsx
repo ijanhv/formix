@@ -3,7 +3,6 @@ import "@/app/globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
-import Navbar from "@/components/globals/navbar";
 import Footer from "@/components/globals/footer";
 import {
   jost,
@@ -13,6 +12,7 @@ import {
   serifDisplay,
 } from "@/utils/font";
 import TanStackProvider from "@/provider/tanstack";
+import BuilderNavbar from "@/components/globals/navbar/builder-navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -38,11 +38,10 @@ export default function RootLayout({
             <div
               className={`min-h-screen antialiased max-w-full overflow-x-hidden h-full 
                 
-                
                ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
               ${serifDisplay.variable} ${quickSand.variable} font-magericaRegular`}
             >
-              <Navbar />
+              <BuilderNavbar />
               {children}
               <Toaster toastOptions={{}} richColors />
               <Footer />

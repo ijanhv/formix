@@ -1,14 +1,11 @@
 import React from "react";
-
-import Link from "next/link";
 import Container from "../container";
 import Logo from "./logo";
-import MobileNavbar from "./mobile-nav";
-import NavLinks from "./nav-links";
-import { Button } from "@/components/ui/button";
 import ThemeToggle from "@/components/theme-toggle";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-const Navbar = async () => {
+const BuilderNavbar = () => {
   return (
     <header className=" h-14 sticky top-0 inset-x-0 w-full bg-background/40 backdrop-blur-lg border-b border-border z-50">
       <Container reverse>
@@ -16,16 +13,12 @@ const Navbar = async () => {
           <div className="flex items-start w-full">
             <Logo />
           </div>
-          <NavLinks />
 
           <div className="  flex items-center gap-2">
             <ThemeToggle />
-            <div className="lg:hidden">
-              <MobileNavbar />
-            </div>
 
-            <Link href="/builder" className="hidden lg:block">
-              <Button>Dashboard</Button>
+            <Link href="/auth/login" className="hidden lg:block">
+              <Button>Login</Button>
             </Link>
           </div>
         </div>
@@ -34,4 +27,4 @@ const Navbar = async () => {
   );
 };
 
-export default Navbar;
+export default BuilderNavbar;

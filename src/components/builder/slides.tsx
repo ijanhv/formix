@@ -36,12 +36,7 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
               label="Type your answer here"
               className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
             />
-            <hr
-              style={{
-                borderColor: `${theme?.borderColor}`, // 50% opacity
-              }}
-              className="border"
-            />
+            <hr className={`${theme?.borderColor}`} />
             <p className={`${theme?.textColor} italic text-sm mt-4`}>
               Shift ⇧ + Enter ↵ to make a line break
             </p>
@@ -130,11 +125,7 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
 
   return (
     <div
-      style={{
-        color: theme?.textColor,
-        backgroundColor: theme?.backgroundColor,
-      }}
-      className="flex-1 items-center justify-center p-8 flex h-[500px] relative"
+      className={`flex-1 items-center bg-foreground/5 justify-center p-8 flex h-[500px] relative ${theme?.textColor} ${theme?.backgroundColor}`}
     >
       {theme?.backgroundImage && (
         <Image
@@ -151,12 +142,7 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
           <ArrowRight />
           <div className="space-y-4 w-full">
             <FormLabel className="space-y-3">
-              <h3
-                style={{
-                  color: theme?.textColor,
-                }}
-                className="text-2xl font-medium"
-              >
+              <h3 className={`text-2xl font-medium ${theme?.textColor}`}>
                 {currentSlide.label ? (
                   currentSlide.label
                 ) : (
@@ -170,12 +156,7 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
               {currentSlide.description ? (
                 <p className="text-lg">{currentSlide.description}</p>
               ) : (
-                <p
-                  style={{
-                    color: theme?.borderColor,
-                  }}
-                  className=" italic text-lg"
-                >
+                <p className={`italic text-lg ${theme?.textColor}`}>
                   Description (optional)
                 </p>
               )}

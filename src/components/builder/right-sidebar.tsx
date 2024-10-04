@@ -71,15 +71,18 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
 
   if (!currentQuestion) {
     return (
-      <div className="w-72   border-l p-4">
+      <div className="  border-l p-4">
         <p>No slide selected</p>
       </div>
     );
   }
 
   return (
-    <div className="w-72 border-l p-4 hidden md:block">
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+    <div className=" h-full hidden md:block bg-foreground/5">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6 p-4 border-l bg-background h-full"
+      >
         <div className="space-y-4">
           <Tabs defaultValue="content" className="">
             <TabsList className="w-full">

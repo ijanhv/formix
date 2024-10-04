@@ -8,6 +8,11 @@ import Slides from "./slides";
 import RightSidebar from "./right-sidebar";
 import LeftSidebar from "./left-sidebar";
 import { useCreateNewFormQuery } from "@/hooks/use-form-query";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 export default function Dashboard() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -54,22 +59,32 @@ export default function Dashboard() {
   return (
     <Form {...form}>
       <div className={`flex h-screen   w-full`}>
-        <LeftSidebar
-          questions={form.watch("questions")}
-          currentSlideIndex={currentSlideIndex}
-          setCurrentSlideIndex={setCurrentSlideIndex}
-          addNewSlide={addNewSlide}
-        />
-        <div
-          className={`flex-1 flex flex-col relative ${form.watch("fontFamily")}`}
-        >
-          <Slides form={form} currentSlideIndex={currentSlideIndex} />
-        </div>
-        <RightSidebar
-          form={form}
-          onSubmit={onSubmit}
-          currentSlideIndex={currentSlideIndex}
-        />
+        <ResizablePanelGroup direction="horizontal">
+          <ResizablePanel defaultSize={25} className=" hidden md:block">
+            <LeftSidebar
+              questions={form.watch("questions")}
+              currentSlideIndex={currentSlideIndex}
+              setCurrentSlideIndex={setCurrentSlideIndex}
+              addNewSlide={addNewSlide}
+            />
+          </ResizablePanel>
+          <ResizableHandle withHandle className=" hidden md:flex" />
+          <ResizablePanel defaultSize={50} minSize={40}>
+            <div
+              className={`flex-1 flex flex-col relative  h-full ${form.watch("fontFamily")}`}
+            >
+              <Slides form={form} currentSlideIndex={currentSlideIndex} />
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle className=" hidden md:flex" />
+          <ResizablePanel defaultSize={25} className=" hidden md:block">
+            <RightSidebar
+              form={form}
+              onSubmit={onSubmit}
+              currentSlideIndex={currentSlideIndex}
+            />
+          </ResizablePanel>
+        </ResizablePanelGroup>
       </div>
     </Form>
   );

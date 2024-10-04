@@ -161,67 +161,88 @@ export const themes: Theme[] = [
     id: "light-leaves",
     name: "Light Leaves",
     backgroundImage: "/bg/light-leaves.png",
-    textColor: "#1c1818",
-    backgroundColor: "#ffffff",
-    buttonColor: "#1c1818",
-    buttonText: "#ffffff",
-    borderColor: "#1c1818",
-    placeholderColor: "placeholder:text-gray-700",
+    textColor: "text-gray-800", // Dark gray for text
+    backgroundColor: "bg-white", // White background
+    buttonColor: "bg-green-600", // Green for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-gray-400", // Light gray border
+    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
   },
   {
     id: "light-pattern",
     name: "Light Pattern",
     backgroundImage: "/bg/light-pattern.png",
-    textColor: "text-gray-800",
-    backgroundColor: "#ffffff",
-    buttonColor: "#1c1818",
-    buttonText: "#ffffff",
-    borderColor: "#bfbfbf",
-    placeholderColor: "placeholder:text-gray-700",
+    textColor: "text-gray-800", // Dark gray for text
+    backgroundColor: "bg-white", // White background
+    buttonColor: "bg-blue-600", // Blue for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-gray-300", // Light gray border
+    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
   },
-  {
-    id: "light-doodle",
-    name: "Light Doodle",
-    backgroundImage: "/bg/light-doodle.png",
-    textColor: "#1c1818",
-    backgroundColor: "#ffffff",
-    buttonColor: "#1c1818",
-    buttonText: "#ffffff",
-    borderColor: "#1c1818",
-    placeholderColor: "placeholder:text-gray-700",
-  },
-
   {
     id: "light-gradient-1",
     name: "Light Gradient 1",
     backgroundImage: "/bg/light-gradient1.png",
-    textColor: "#1c1818",
-    backgroundColor: "#ffffff",
-    buttonColor: "#1c1818",
-    buttonText: "#ffffff",
-    borderColor: "#1c1818",
-    placeholderColor: "placeholder:text-gray-700",
+    textColor: "text-gray-800", // Dark gray for text
+    backgroundColor: "bg-white", // White background
+    buttonColor: "bg-indigo-600", // Indigo for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-gray-400", // Light gray border
+    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
   },
   {
     id: "blue-medical",
     name: "Medical",
     backgroundImage: "/bg/blue-medical.png",
-    textColor: "#ffffff",
-    backgroundColor: "#4FC3CF",
-    buttonColor: "#8cc642",
-    buttonText: "#ffffff",
-    borderColor: "#3a9aa3",
-    placeholderColor: "placeholder:text-gray-700",
+    textColor: "text-gray-900", // Dark gray for text
+    backgroundColor: "bg-cyan-400", // Cyan background
+    buttonColor: "bg-green-600", // Green for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-teal-700", // Teal border
+    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
   },
   {
     id: "ocean-theme",
     name: "Ocean Theme",
     backgroundImage: "/bg/ocean.png",
-    textColor: "#ffffff", // White for good contrast against darker background areas
-    backgroundColor: "#0077b6", // Deep blue to match the water tones
-    buttonColor: "#00b4d8", // Bright aqua blue to stand out and complement the ocean look
-    buttonText: "#ffffff", // White text on buttons for contrast
-    borderColor: "#90e0ef", // Lighter blue for subtle borders matching water hues
-    placeholderColor: "placeholder:text-gray-700",
+    textColor: "text-white", // White for text
+    backgroundColor: "bg-blue-800", // Deep blue background
+    buttonColor: "bg-cyan-400", // Bright aqua blue for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-blue-300", // Light blue border
+    placeholderColor: "placeholder:text-gray-300", // Light gray for placeholders
+  },
+  {
+    id: "sunset-theme",
+    name: "Sunset Theme",
+    backgroundImage: undefined,
+    textColor: "text-gray-900", // Dark gray for text
+    backgroundColor: "bg-gradient-to-b from-orange-500 to-yellow-300",
+    buttonColor: "bg-red-500", // Bright red for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-yellow-300", // Light yellow border
+    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+  },
+  {
+    id: "forest-theme",
+    name: "Forest Theme",
+    backgroundImage: undefined,
+    textColor: "text-gray-800", // Dark gray for text
+    backgroundColor: "bg-gradient-to-t from-emerald-500 to-lime-600", // Light green background
+    buttonColor: "bg-green-800", // Dark green for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-green-500", // Green border
+    placeholderColor: "placeholder:text-gray-600", // Gray for placeholders
+  },
+  {
+    id: "night-sky",
+    name: "Night Sky",
+    backgroundImage: "/bg/night-sky.jpg",
+    textColor: "text-white", // White for text
+    backgroundColor: "bg-gray-900", // Dark gray background
+    buttonColor: "bg-blue-500", // Bright blue for buttons
+    buttonText: "text-white", // White text on buttons
+    borderColor: "border-gray-700", // Dark gray border
+    placeholderColor: "placeholder:text-gray-400", // Light gray for placeholders
   },
 ];

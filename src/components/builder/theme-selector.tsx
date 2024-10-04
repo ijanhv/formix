@@ -22,13 +22,20 @@ const ThemeSelector = ({ form }: FormPickerProps) => {
               form.setValue("theme", theme.id);
             }}
           >
-            <Image
-              src={theme.backgroundImage}
-              fill
-              unoptimized
-              alt="Unsplash image"
-              className="rounded-sm object-cover"
-            />
+            {theme?.backgroundImage !== undefined ? (
+              <Image
+                src={theme?.backgroundImage}
+                fill
+                unoptimized
+                alt="Unsplash image"
+                className="rounded-sm object-cover"
+              />
+            ) : (
+              <div
+                className={`h-full w-full rounded-sm ${theme.backgroundColor}`}
+              />
+            )}
+
             {form.watch("theme") === theme.id && (
               <div className="absolute inset-y-0 flex h-full w-full items-center justify-center bg-black/30">
                 <Check className="text-white" />
