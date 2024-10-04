@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Check } from "lucide-react";
+import { hexToRGBA } from "@/utils/helper";
 
 const letters = ["A", "B", "C", "D"];
 
@@ -14,10 +15,12 @@ export function CustomCheckboxGroup({
   form,
   fieldName,
   options,
+  theme,
 }: {
   form: any;
   fieldName: string;
   options: string[];
+  theme: Theme;
 }) {
   const [twinklingIndex, setTwinklingIndex] = useState<number | null>(null); // Track which element is twinkling
 
@@ -43,7 +46,11 @@ export function CustomCheckboxGroup({
                     <FormItem key={option} className="mb-3">
                       <FormControl className="">
                         <div
-                          className={` flex items-center  ${twinklingIndex === index ? "animate-twinkle" : ""} rounded-xl w-full justify-between space-x-4 border  p-3 shadow-sm cursor-pointer transition-colors ${isChecked ? "border-primary" : ""}`}
+                          style={{
+                            background:
+                              isChecked && hexToRGBA(theme.borderColor, 0.5),
+                          }}
+                          className={` flex  items-center  ${twinklingIndex === index ? "animate-twinkle" : ""}  rounded-xl w-full justify-between space-x-4   p-3 shadow-sm cursor-pointer transition-colors ${isChecked ? `bg-[${theme.borderColor}] border border-[${theme.textColor}] ` : `border border-[${theme.borderColor}]`}`}
                           onClick={() => {
                             handleClick(index);
                             const newValue = isChecked
@@ -54,7 +61,12 @@ export function CustomCheckboxGroup({
                             field.onChange(newValue);
                           }}
                         >
-                          <div className="w-8 h-8 bg-background border rounded-full flex items-center justify-center  font-semibold">
+                          <div
+                            style={{
+                              background: theme.backgroundColor,
+                            }}
+                            className="w-8 h-8 bg-white/10 border-white/15 rounded-full flex items-center justify-center  font-semibold"
+                          >
                             {letters[index]}
                           </div>
                           <FormLabel className="flex-grow text-lg  cursor-pointer">

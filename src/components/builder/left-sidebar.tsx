@@ -18,7 +18,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   addNewSlide,
 }) => {
   return (
-    <div className="w-52 border-r hidden md:block">
+    <div className="w-52 border-r  hidden md:block">
       <Button
         onClick={addNewSlide}
         className="w-full border-b py-5  rounded-none flex gap-3 items-center justify-center"

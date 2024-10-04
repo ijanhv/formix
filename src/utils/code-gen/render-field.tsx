@@ -7,12 +7,10 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -23,12 +21,13 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { QuestionInput } from "@/schema/zod";
 import { CustomCheckboxGroup } from "@/components/builder/custom-checkbox";
-import { StarRating } from "@/components/builder/start-rating";
+import { StarRating } from "@/components/builder/star-rating";
 
 export const renderFormField = (
   field: QuestionInput,
   form: any,
-  index: number
+  index: number,
+  theme: Theme
 ) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks, no-unused-vars
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -55,11 +54,16 @@ export const renderFormField = (
                           ? "number"
                           : "text"
                     }
-                    className="peer py-5 border-none border-b-2 text-xl text-foreground/70 border-b-gray-700 placeholder:text-foreground/35 focus-visible:border-b-gray-700 focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none"
+                    className={`${theme.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
                     placeholder="Type your answer here"
                     value={formField.value || ""}
                   />
-                  <hr className="border" />
+                  <hr
+                    style={{
+                      borderColor: `${theme.borderColor}`, // 50% opacity
+                    }}
+                    className="border border-white/20"
+                  />
                   <p className="g-blue-300 italic text-sm mt-4">
                     Shift ⇧ + Enter ↵ to make a line break
                   </p>
@@ -186,54 +190,18 @@ export const renderFormField = (
         <CustomCheckboxGroup
           form={form}
           fieldName={fieldName}
+          theme={theme}
           options={field.options || []}
         />
       );
 
     case "multiSelect":
       return (
-        <FormField
-          control={form.control}
-          name={fieldName}
-          render={() => (
-            <FormItem>
-              {field.options?.map((option) => (
-                <FormField
-                  key={option}
-                  control={form.control}
-                  name={fieldName}
-                  render={({ field: formField }) => {
-                    return (
-                      <FormItem
-                        key={option}
-                        className="flex flex-row items-start space-x-3 space-y-0"
-                      >
-                        <FormControl>
-                          <Checkbox
-                            checked={formField.value?.includes(option)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? formField.onChange([
-                                    ...(formField.value || []),
-                                    option,
-                                  ])
-                                : formField.onChange(
-                                    formField.value?.filter(
-                                      (value: string) => value !== option
-                                    )
-                                  );
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className="font-normal">{option}</FormLabel>
-                      </FormItem>
-                    );
-                  }}
-                />
-              ))}
-              <FormMessage />
-            </FormItem>
-          )}
+        <CustomCheckboxGroup
+          form={form}
+          fieldName={fieldName}
+          options={field.options || []}
+          theme={theme}
         />
       );
 
@@ -270,7 +238,7 @@ export const renderFormField = (
         //   )}
         // />
 
-        <StarRating form={form} fieldName={fieldName} />
+        <StarRating form={form} fieldName={fieldName} theme={theme} />
       );
 
     default:

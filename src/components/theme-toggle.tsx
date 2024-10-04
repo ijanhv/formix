@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+
   const [isMounted, setIsMounted] = useState(false);
 
   // Ensure the component is mounted before accessing the theme
@@ -15,8 +16,11 @@ export default function ThemeToggle() {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
+    if (theme === "light") {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
   };
 
   // Don't render the button until mounted to avoid hydration issues
@@ -28,9 +32,6 @@ export default function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       className="w-9 h-9 border border-primary/50 rounded-full"
-      aria-label={
-        theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
-      }
     >
       {theme === "dark" ? (
         <Moon className="h-5 w-5 text-primary" />

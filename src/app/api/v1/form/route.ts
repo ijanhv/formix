@@ -9,8 +9,8 @@ export async function POST(req: Request) {
 
     const createdForm = await prisma.form.create({
       data: {
-        fontColor: parsedData.fontColor,
-        textColor: parsedData.textColor,
+        fontFamily: parsedData.fontFamily,
+        theme: parsedData.theme,
         questions: {
           create: parsedData.questions.map((question) => ({
             // id: question.id || undefined,

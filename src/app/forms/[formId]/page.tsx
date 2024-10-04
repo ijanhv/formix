@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 
 import FormPreview from "@/components/form/preview";
 import { FormInput } from "@/schema/zod";
+import Image from "next/image";
+import { themes } from "@/constants";
 
 export default async function FormPage({
   params,
@@ -25,9 +27,20 @@ export default async function FormPage({
     return <div>Form not found</div>;
   }
 
+  const theme = themes.find((item) => item.id === formData.theme);
+
   return (
     <div className="h-screen w-full ">
-      <FormPreview formData={formData as FormInput} />
+      {theme?.backgroundImage && (
+        <Image
+          fill
+          alt="bg"
+          unoptimized
+          src={theme.backgroundImage}
+          className="h-full w-full object-cover"
+        />
+      )}
+      <FormPreview formData={formData as FormInput} theme={theme as Theme} />
     </div>
   );
 }

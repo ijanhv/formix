@@ -24,8 +24,8 @@ export const questionSchema = z.object({
 });
 
 export const formSchema = z.object({
-  fontColor: z.string().optional(),
-  textColor: z.string().optional(),
+  theme: z.string().optional(),
+  fontFamily: z.string().optional(),
   questions: z.array(questionSchema),
 });
 

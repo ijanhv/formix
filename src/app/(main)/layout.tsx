@@ -28,7 +28,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main
-            className={`min-h-screen h-full ${mangericaRegular.variable} font-magericaRegular`}
+            className={`min-h-screen antialiased max-w-full overflow-x-hidden h-full ${mangericaRegular.variable} font-magericaRegular`}
           >
             <Navbar />
             {children}

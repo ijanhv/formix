@@ -1,6 +1,7 @@
 import Icons from "@/components/globals/icons";
 
 export const apiUrl = "http://localhost:3000/api/v1";
+
 export const perks = [
   {
     icon: Icons.auth,
@@ -152,5 +153,75 @@ export const reviews = [
     name: "James",
     username: "@james",
     body: "I'm at a loss for words. This is amazing. I love it.",
+  },
+];
+
+export const themes: Theme[] = [
+  {
+    id: "light-leaves",
+    name: "Light Leaves",
+    backgroundImage: "/bg/light-leaves.png",
+    textColor: "#1c1818",
+    backgroundColor: "#ffffff",
+    buttonColor: "#1c1818",
+    buttonText: "#ffffff",
+    borderColor: "#1c1818",
+    placeholderColor: "placeholder:text-gray-700",
+  },
+  {
+    id: "light-pattern",
+    name: "Light Pattern",
+    backgroundImage: "/bg/light-pattern.png",
+    textColor: "text-gray-800",
+    backgroundColor: "#ffffff",
+    buttonColor: "#1c1818",
+    buttonText: "#ffffff",
+    borderColor: "#bfbfbf",
+    placeholderColor: "placeholder:text-gray-700",
+  },
+  {
+    id: "light-doodle",
+    name: "Light Doodle",
+    backgroundImage: "/bg/light-doodle.png",
+    textColor: "#1c1818",
+    backgroundColor: "#ffffff",
+    buttonColor: "#1c1818",
+    buttonText: "#ffffff",
+    borderColor: "#1c1818",
+    placeholderColor: "placeholder:text-gray-700",
+  },
+
+  {
+    id: "light-gradient-1",
+    name: "Light Gradient 1",
+    backgroundImage: "/bg/light-gradient1.png",
+    textColor: "#1c1818",
+    backgroundColor: "#ffffff",
+    buttonColor: "#1c1818",
+    buttonText: "#ffffff",
+    borderColor: "#1c1818",
+    placeholderColor: "placeholder:text-gray-700",
+  },
+  {
+    id: "blue-medical",
+    name: "Medical",
+    backgroundImage: "/bg/blue-medical.png",
+    textColor: "#ffffff",
+    backgroundColor: "#4FC3CF",
+    buttonColor: "#8cc642",
+    buttonText: "#ffffff",
+    borderColor: "#3a9aa3",
+    placeholderColor: "placeholder:text-gray-700",
+  },
+  {
+    id: "ocean-theme",
+    name: "Ocean Theme",
+    backgroundImage: "/bg/ocean.png",
+    textColor: "#ffffff", // White for good contrast against darker background areas
+    backgroundColor: "#0077b6", // Deep blue to match the water tones
+    buttonColor: "#00b4d8", // Bright aqua blue to stand out and complement the ocean look
+    buttonText: "#ffffff", // White text on buttons for contrast
+    borderColor: "#90e0ef", // Lighter blue for subtle borders matching water hues
+    placeholderColor: "placeholder:text-gray-700",
   },
 ];

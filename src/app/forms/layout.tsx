@@ -3,7 +3,13 @@ import "@/app/globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
-import { mangericaRegular } from "@/utils/font";
+import {
+  jost,
+  mangericaRegular,
+  poppins,
+  quickSand,
+  serifDisplay,
+} from "@/utils/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +32,9 @@ export default function FormLayout({
           disableTransitionOnChange
         >
           <main
-            className={`min-h-screen w-full h-full ${mangericaRegular.className} font-magericaRegular`}
+            className={`min-h-screen w-full h-full ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
+              ${serifDisplay.variable} ${quickSand.variable}
+              `}
           >
             {children}
             <Toaster />

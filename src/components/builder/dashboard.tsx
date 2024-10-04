@@ -15,6 +15,8 @@ export default function Dashboard() {
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      theme: "light-pattern",
+      fontFamily: "font-poppins",
       questions: [
         {
           id: "1",
@@ -51,14 +53,16 @@ export default function Dashboard() {
 
   return (
     <Form {...form}>
-      <div className="flex h-screen border-r border-l w-full">
+      <div className={`flex h-screen   w-full`}>
         <LeftSidebar
           questions={form.watch("questions")}
           currentSlideIndex={currentSlideIndex}
           setCurrentSlideIndex={setCurrentSlideIndex}
           addNewSlide={addNewSlide}
         />
-        <div className="flex-1 flex flex-col relative">
+        <div
+          className={`flex-1 flex flex-col relative ${form.watch("fontFamily")}`}
+        >
           <Slides form={form} currentSlideIndex={currentSlideIndex} />
         </div>
         <RightSidebar

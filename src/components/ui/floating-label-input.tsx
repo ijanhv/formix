@@ -20,10 +20,6 @@ const FloatingInput = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        <hr className=" border" />
-        <p className="text-blue-800 italic text-sm mt-4">
-          Shift ⇧ + Enter ↵ to make a line break
-        </p>
       </>
     );
   }

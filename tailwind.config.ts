@@ -18,6 +18,14 @@ const config = {
       },
     },
 
+    fontFamily: {
+      quick: ["var(--font-quick)"],
+      open: ["var(--font-open)"],
+      mont: ["var(--font-mont)"],
+      poppins: ["var(--font-poppins)"],
+      jost: ["var(--font-jost)"],
+      serifDisplay: ["var(--font-serif-display)"],
+    },
     extend: {
       colors: {
         "blue-voilet": "#4B2AAD",

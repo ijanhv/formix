@@ -9,6 +9,7 @@ import Image from "next/image";
 import CustomSelect from "./custom-select";
 import CustomDateInput from "./custom-date";
 import Rating from "./rating";
+import { themes } from "@/constants";
 
 interface SlidesProps {
   form: UseFormReturn<z.infer<typeof formSchema>>;
@@ -17,6 +18,8 @@ interface SlidesProps {
 
 const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
   const questions = form.watch("questions");
+  const theme = themes.find((item) => item.id === form.watch("theme"));
+
   const currentSlide = questions[currentSlideIndex];
 
   if (!currentSlide) {
@@ -27,26 +30,44 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
     switch (question.type) {
       case "shortText":
         return (
-          <FloatingLabelInput
-            placeholder="Type your answer here"
-            label="Type your answer here"
-            className="text-xl text-foreground/70"
-          />
+          <>
+            <FloatingLabelInput
+              placeholder="Type your answer here"
+              label="Type your answer here"
+              className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+            />
+            <hr
+              style={{
+                borderColor: `${theme?.borderColor}`, // 50% opacity
+              }}
+              className="border"
+            />
+            <p className={`${theme?.textColor} italic text-sm mt-4`}>
+              Shift ⇧ + Enter ↵ to make a line break
+            </p>
+          </>
         );
       case "longText":
         return (
-          <FloatingLabelInput
-            label="Type your answer here"
-            className="text-xl text-foreground/70"
-          />
+          <>
+            <FloatingLabelInput
+              label="Type your answer here"
+              className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+            />
+            <p className="text-blue-500 italic text-sm mt-4">
+              Shift ⇧ + Enter ↵ to make a line break
+            </p>
+          </>
         );
       case "number":
         return (
-          <FloatingLabelInput
-            label="Type your answer here"
-            type="number"
-            className="text-xl text-foreground/70"
-          />
+          <>
+            <FloatingLabelInput
+              label="Type your answer here"
+              type="number"
+              className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+            />
+          </>
         );
       case "email":
         return (
@@ -54,7 +75,7 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
             placeholder="Type your answer here"
             label="Type your email here"
             type="email"
-            className="text-xl text-foreground/70"
+            className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
         );
       case "date":
@@ -91,22 +112,6 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
             showOthersOption={false}
           />
         );
-      // return (
-      //   // <Select>
-      //   //   <SelectTrigger>
-      //   //     <SelectValue placeholder="Select an option" />
-      //   //   </SelectTrigger>
-      //   //   <SelectContent className="">
-      //   //     <div className="flex flex-col gap-4 ">
-      //   //       {question.options?.map((option, index) => (
-      //   //         <SelectItem key={index} value={option}>
-      //   //           {option}
-      //   //         </SelectItem>
-      //   //       ))}
-      //   //     </div>
-      //   //   </SelectContent>
-      //   // </Select>
-      // );
       case "rating":
         return (
           <Rating
@@ -124,21 +129,38 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
   }
 
   return (
-    <div className="flex-1 p-8 flex">
-      <div className="flex-1 w-full h-full flex items-center justify-center flex-col gap-5 rounded-lg p-6 mx-auto">
+    <div
+      style={{
+        color: theme?.textColor,
+        backgroundColor: theme?.backgroundColor,
+      }}
+      className="flex-1 items-center justify-center p-8 flex h-[500px] relative"
+    >
+      {theme?.backgroundImage && (
+        <Image
+          alt="theme"
+          src={theme?.backgroundImage}
+          fill
+          className="h-full w-full object-cover"
+        />
+      )}
+
+      <div className="flex-1 w-full z-10 h-full flex items-center justify-center flex-col gap-5 rounded-lg p-6 mx-auto">
         <div className="flex items-start gap-3 w-full">
           <span>{currentSlideIndex + 1}</span>
           <ArrowRight />
           <div className="space-y-4 w-full">
             <FormLabel className="space-y-3">
-              <h3 className="text-2xl font-medium">
+              <h3
+                style={{
+                  color: theme?.textColor,
+                }}
+                className="text-2xl font-medium"
+              >
                 {currentSlide.label ? (
                   currentSlide.label
                 ) : (
-                  <p className="text-foreground/35 italic text-2xl">
-                    {" "}
-                    Label will go here
-                  </p>
+                  <p className=" italic text-2xl"> Label will go here</p>
                 )}
                 {currentSlide.required && (
                   <span className="text-destructive ml-1">*</span>
@@ -148,7 +170,12 @@ const Slides: React.FC<SlidesProps> = ({ form, currentSlideIndex }) => {
               {currentSlide.description ? (
                 <p className="text-lg">{currentSlide.description}</p>
               ) : (
-                <p className="text-foreground/35 italic text-lg">
+                <p
+                  style={{
+                    color: theme?.borderColor,
+                  }}
+                  className=" italic text-lg"
+                >
                   Description (optional)
                 </p>
               )}

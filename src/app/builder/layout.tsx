@@ -5,7 +5,13 @@ import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import Navbar from "@/components/globals/navbar";
 import Footer from "@/components/globals/footer";
-import { mangericaRegular } from "@/utils/font";
+import {
+  jost,
+  mangericaRegular,
+  poppins,
+  quickSand,
+  serifDisplay,
+} from "@/utils/font";
 import TanStackProvider from "@/provider/tanstack";
 
 export const metadata: Metadata = {
@@ -24,13 +30,17 @@ export default function RootLayout({
         {" "}
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <TanStackProvider>
             <div
-              className={`min-h-screen w-full h-full ${mangericaRegular.className} font-magericaRegular`}
+              className={`min-h-screen antialiased max-w-full overflow-x-hidden h-full 
+                
+                
+               ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
+              ${serifDisplay.variable} ${quickSand.variable} font-magericaRegular`}
             >
               <Navbar />
               {children}
