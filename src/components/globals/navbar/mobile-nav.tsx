@@ -12,6 +12,7 @@ import { Menu } from "lucide-react";
 import { navLinks } from "@/utils/data";
 import Link from "next/link";
 import Logo from "./logo";
+import ThemeToggle from "@/components/theme-toggle";
 
 // interface IMobileNavbar {
 //   data: IUser;
@@ -62,8 +63,8 @@ const MobileNavbar: React.FC = () => {
         style={{ height: viewportHeight }}
         className="w-[20rem] flex flex-col"
       >
-        <SheetHeader className="pb-4 text-left border-b-2 mb-4 ">
-          <Logo />
+        <SheetHeader className="text-left flex items-center gap-3  flex-row">
+          <Logo /> <ThemeToggle />
         </SheetHeader>
 
         <div className="flex-grow overflow-y-auto flex flex-col gap-5 scrollbar scrollbar-w-0">

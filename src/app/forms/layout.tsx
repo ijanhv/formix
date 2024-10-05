@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { ThemeProvider } from "@/components/ui/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
+
 import React from "react";
 import {
   jost,
@@ -22,25 +21,12 @@ export default function FormLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        {" "}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main
-            className={`min-h-screen w-full h-full ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
+    <main
+      className={`min-h-screen w-full h-full ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
               ${serifDisplay.variable} ${quickSand.variable}
               `}
-          >
-            {children}
-            <Toaster />
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
+    >
+      {children}
+    </main>
   );
 }

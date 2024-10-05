@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import Navbar from "@/components/globals/navbar";
@@ -18,25 +17,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        {" "}
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main
-            className={`min-h-screen antialiased max-w-full overflow-x-hidden h-full ${mangericaRegular.variable} font-magericaRegular`}
-          >
-            <Navbar />
-            {children}
-            <Toaster />
-            <Footer />
-          </main>
-        </ThemeProvider>
-      </body>
-    </html>
+    <main
+      className={`min-h-screen antialiased max-w-full overflow-x-hidden h-full ${mangericaRegular.variable} font-magericaRegular`}
+    >
+      <Navbar />
+      {children}
+      <Toaster />
+      <Footer />
+    </main>
   );
 }

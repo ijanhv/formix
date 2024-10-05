@@ -19,8 +19,9 @@ const Footer = () => {
             Build beautiful, functional websites, without writing code
           </p>
           <span className="mt-4 text-neutral-200 text-sm flex items-center">
-            Made in India with
-            <Heart className="w-3.5 h-3.5 ml-1 fill-primary text-primary" />
+            Made with{" "}
+            <Heart className="w-3.5 h-3.5 mx-1 fill-primary text-primary" />{" "}
+            {"   "} by Janhavi
           </span>
         </div>
 
@@ -164,9 +165,9 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="mt-8 border-t border-border/40 pt-4 md:pt-8 md:flex md:items-center md:justify-between w-full">
+      <div className="mt-8 border-t border-border/40 pt-4 md:pt-8 md:flex md:items-center md:justify-center w-full">
         <p className="text-sm text-muted-foreground mt-8 md:mt-0">
-          &copy; {new Date().getFullYear()} Astra AI INC. All rights reserved.
+          &copy; {new Date().getFullYear()} Formix INC. All rights reserved.
         </p>
       </div>
     </footer>

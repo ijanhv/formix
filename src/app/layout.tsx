@@ -1,3 +1,5 @@
+import { Toaster } from "@/components/ui/sonner";
+import Provider from "@/provider";
 import React from "react";
 
 export const metadata = {
@@ -12,7 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Provider>
+          {children} <Toaster />
+        </Provider>
+      </body>
     </html>
   );
 }

@@ -21,7 +21,7 @@ const CustomButton = ({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`p-1 rounded-sm shadow-none bg-white hover:bg-gray-200 transition-colors duration-200`}
+      className={`p-1 rounded-sm shadow-none text-gray-500 bg-white hover:bg-gray-200 transition-colors duration-200`}
     >
       {text}
     </Button>

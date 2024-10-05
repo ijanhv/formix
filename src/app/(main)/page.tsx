@@ -45,9 +45,9 @@ const HomePage = () => {
               <span>
                 <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
               </span>
-              <span className="backdrop absolute inset-[1px] rounded-full bg-gray-600 dark:bg-black transition-colors duration-200 group-hover:bg-neutral-900" />
-              <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-foreground/40"></span>
-              <span className="z-10 py-0.5 text-sm 0 flex items-center text-white justify-center gap-1.5">
+              <span className="backdrop absolute inset-[1px] rounded-full bg-white dark:bg-slate-900 transition-colors duration-200 group-hover:bg-slate-950" />
+              <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-foreground/20"></span>
+              <span className="z-10 py-0.5 text-sm 0 flex items-center text-foreground justify-center gap-1.5">
                 <Image
                   src="/icons/sparkles-dark.svg"
                   alt="✨"
@@ -55,18 +55,20 @@ const HomePage = () => {
                   height={24}
                   className="w-4 h-4"
                 />
-                Introducing Astra AI
+                Introducing Formix
                 <ChevronRight className="w-4 h-4" />
               </span>
             </button>
 
             <div className="flex flex-col items-center mt-8 max-w-3xl w-11/12 md:w-full">
               <h1 className="text-4xl md:text-6xl lg:textxl md:!leading-snug font-semibold text-center bg-clip-text bg-gradient-to-b from-foreground to-foreground/60 text-transparent">
-                Build your next idea and ship your dream site
+                Tailored for Developers, Designed for Everyone
               </h1>
               <p className="text-base md:text-lg text-foreground/80 mt-6 text-center">
-                Zero code, maximum speed. Make professional sites easy, fast and
-                fun while delivering best-in-class SEO, performance.
+                Formix empowers developers to create elegant, responsive forms
+                by simply selecting themes, fonts, and input types. When your
+                form is ready, generate code and view submissions in a robust
+                dashboard.
               </p>
               <div className="hidden md:flex relative items-center justify-center mt-8 md:mt-12 w-full">
                 <Link
@@ -74,7 +76,7 @@ const HomePage = () => {
                   className="flex items-center justify-center w-max rounded-full border-t border-foreground/30 bg-white/20 backdrop-blur-lg px-2 py-1 md:py-2 gap-2 md:gap-8 shadow-3xl shadow-background/40 cursor-pointer select-none"
                 >
                   <p className="text-foreground text-sm text-center md:text-base font-medium pl-4 pr-4 lg:pr-0">
-                    ✨ {"  "} Start building your dream website now!
+                    ✨ {"  "} Start building your dream form now!
                   </p>
                   <Button
                     size="sm"
@@ -152,7 +154,7 @@ const HomePage = () => {
               Discover our powerful features
             </h2>
             <p className="text-muted-foreground mt-6">
-              Astra offers a range of features to help you build a stunning
+              Formix offers a range of features to help you build a stunning
               website in no time
             </p>
           </div>
@@ -256,7 +258,7 @@ const HomePage = () => {
               What people are saying
             </h2>
             <p className="text-muted-foreground mt-6">
-              See how Astra empowers businesses of all sizes. Here&apos;s what
+              See how Formiz empowers businesses of all sizes. Here&apos;s what
               real people are saying on Twitter
             </p>
           </div>
@@ -336,8 +338,8 @@ const HomePage = () => {
                 From Idea to Launch <br /> Faster Than Ever
               </h2>
               <p className="text-muted-foreground mt-6 max-w-md mx-auto">
-                Build stunning websites with Astra&apos;s intuitive
-                drag-and-drop builder and powerful AI assistant
+                Build stunning forms with Formix&apos;s intuitive drag-and-drop
+                builder and powerful AI assistant
               </p>
               <Button variant="white" className="mt-6" asChild>
                 <Link href="/sign-in">

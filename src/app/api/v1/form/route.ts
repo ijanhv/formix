@@ -1,19 +1,35 @@
+import { authOptions } from "@/lib/auth-options";
 import prisma from "@/lib/prisma";
 import { formSchema } from "@/schema/zod";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user.id) {
+      return NextResponse.json(
+        {
+          message: "Unauthenticated",
+        },
+        {
+          status: 403,
+        }
+      );
+    }
+    const user = session.user;
+
     const formData = await req.json();
     const parsedData = formSchema.parse(formData);
 
     const createdForm = await prisma.form.create({
       data: {
+        userId: user.id,
         fontFamily: parsedData.fontFamily,
         theme: parsedData.theme,
         questions: {
           create: parsedData.questions.map((question) => ({
-            // id: question.id || undefined,
             type: question.type,
             label: question.label,
             description: question.description,
@@ -34,7 +50,24 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user.id) {
+      return NextResponse.json(
+        {
+          message: "Unauthenticated",
+        },
+        {
+          status: 403,
+        }
+      );
+    }
+    const user = session.user;
+
     const forms = await prisma.form.findMany({
+      where: {
+        userId: user.id,
+      },
       include: { questions: true },
     });
 

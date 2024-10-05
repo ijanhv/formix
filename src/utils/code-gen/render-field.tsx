@@ -21,6 +21,7 @@ import { CalendarIcon } from "lucide-react";
 import { QuestionInput } from "@/schema/zod";
 import { CustomCheckboxGroup } from "@/components/builder/custom-checkbox";
 import { StarRating } from "@/components/builder/star-rating";
+import { Textarea } from "@/components/ui/textarea";
 
 export const renderFormField = (
   field: QuestionInput,
@@ -36,7 +37,6 @@ export const renderFormField = (
     case "shortText":
     case "email":
     case "number":
-    case "longText":
       return (
         <FormField
           control={form.control}
@@ -54,12 +54,37 @@ export const renderFormField = (
                           ? "number"
                           : "text"
                     }
-                    className={`${theme.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+                    className={`${theme.textColor}  ${theme.placeholderColor}  peer py-5 border-none border-b-2 text-xl md:text-2xl  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
                     placeholder="Type your answer here"
                     value={formField.value || ""}
                   />
                   <hr className={`border ${theme.borderColor}`} />
-                  <p className="g-blue-300 italic text-sm mt-4">
+                </>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      );
+
+    case "longText":
+      return (
+        <FormField
+          control={form.control}
+          name={fieldName}
+          render={({ field: formField }) => (
+            <FormItem>
+              <FormControl>
+                <>
+                  <Textarea
+                    rows={1}
+                    {...formField}
+                    className={`${theme.textColor}  ${theme.placeholderColor}  peer py-5 border-none border-b-2 text-xl  font-light  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+                    placeholder="Type your answer here"
+                    value={formField.value || ""}
+                  />
+                  <hr className={`border ${theme.borderColor}`} />
+                  <p className=" italic text-sm mt-3">
                     Shift ⇧ + Enter ↵ to make a line break
                   </p>
                 </>
@@ -69,27 +94,6 @@ export const renderFormField = (
           )}
         />
       );
-
-    // case "longText":
-    //   return (
-    //     <FormField
-    //       control={form.control}
-    //       name={fieldName}
-    //       render={({ field: formField }) => (
-    //         <FormItem>
-    //           <FormControl>
-    //             <Textarea
-    //               {...formField}
-    //               placeholder={field.description}
-    //               required={field.required}
-    //               value={formField.value || ""}
-    //             />
-    //           </FormControl>
-    //           <FormMessage />
-    //         </FormItem>
-    //       )}
-    //     />
-    //   );
 
     case "date":
       return (
@@ -138,50 +142,6 @@ export const renderFormField = (
 
     case "select":
       return (
-        // <FormField
-        //   control={form.control}
-        //   name={fieldName}
-        //   render={() => (
-        //     <FormItem>
-        //       {field.options?.map((option) => (
-        //         <FormField
-        //           key={option}
-        //           control={form.control}
-        //           name={fieldName}
-        //           render={({ field: formField }) => {
-        //             return (
-        //               <FormItem
-        //                 key={option}
-        //                 className="flex flex-row items-start space-x-3 space-y-0"
-        //               >
-        //                 <FormControl>
-        //                   <Checkbox
-        //                     checked={formField.value?.includes(option)}
-        //                     onCheckedChange={(checked) => {
-        //                       return checked
-        //                         ? formField.onChange([
-        //                             ...(formField.value || []),
-        //                             option,
-        //                           ])
-        //                         : formField.onChange(
-        //                             formField.value?.filter(
-        //                               (value: string) => value !== option
-        //                             )
-        //                           );
-        //                     }}
-        //                   />
-        //                 </FormControl>
-        //                 <FormLabel className="font-normal">{option}</FormLabel>
-        //               </FormItem>
-        //             );
-        //           }}
-        //         />
-        //       ))}
-        //       <FormMessage />
-        //     </FormItem>
-        //   )}
-        // />
-
         <CustomCheckboxGroup
           form={form}
           fieldName={fieldName}
@@ -201,40 +161,7 @@ export const renderFormField = (
       );
 
     case "rating":
-      return (
-        // <FormField
-        //   control={form.control}
-        //   name={fieldName}
-        //   render={({ field: formField }) => (
-        //     <FormItem>
-        //       <FormControl>
-        //         <RadioGroup
-        //           onValueChange={formField.onChange}
-        //           value={formField.value || ""}
-        //           className="flex space-x-1"
-        //         >
-        //           {[1, 2, 3, 4, 5].map((rating) => (
-        //             <FormItem key={rating}>
-        //               <FormLabel className="flex h-8 w-8 items-center justify-center rounded-full border border-primary text-xs">
-        //                 {rating}
-        //               </FormLabel>
-        //               <FormControl>
-        //                 <RadioGroupItem
-        //                   value={rating.toString()}
-        //                   className="sr-only"
-        //                 />
-        //               </FormControl>
-        //             </FormItem>
-        //           ))}
-        //         </RadioGroup>
-        //       </FormControl>
-        //       <FormMessage />
-        //     </FormItem>
-        //   )}
-        // />
-
-        <StarRating form={form} fieldName={fieldName} theme={theme} />
-      );
+      return <StarRating form={form} fieldName={fieldName} theme={theme} />;
 
     default:
       return null;

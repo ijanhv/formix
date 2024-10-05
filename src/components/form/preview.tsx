@@ -138,12 +138,14 @@ const FormPreview = ({
                     }`}
                   >
                     <div className="flex items-center w-full gap-10 lg:flex-row flex-col-reverse">
-                      <div className="flex w-full items-start  gap-5 px-5 md:px-20 ">
-                        <span className="text-xl">{index + 1}</span>
-                        <ArrowRight />
+                      <div className="flex  w-full items-start gap-1 md:gap-5 px-5 md:px-20 ">
+                        <span className="text-base md:text-xl">
+                          {index + 1}
+                        </span>
+                        <ArrowRight className="text-sm" />
                         <div className="space-y-5 w-full">
-                          <Label className="space-y-3 flex flex-col gap-4">
-                            <h3 className="text-xl md:text-2xl lg:text-4xl font-semibold">
+                          <Label className="flex flex-col gap-4">
+                            <h3 className="text-2xl lg:text-3xl font-medium">
                               {field.label}{" "}
                               {field.required && (
                                 <span className="text-destructive ml-1">*</span>

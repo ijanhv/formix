@@ -13,9 +13,12 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import SuccessDialog from "./success-dialog";
 
 export default function Dashboard() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
+  const [formLink, setFormLink] = useState("");
   const { mutate } = useCreateNewFormQuery();
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
@@ -40,13 +43,20 @@ export default function Dashboard() {
     // const generatedJsx = generateFormJSX(data.questions);
     // setCode(generatedJsx);
     // setSchema(generatedSchema);
-    mutate(data);
+    mutate(data, {
+      onSuccess: (response) => {
+        // Assuming the response contains the form link
+        setFormLink(`${process.env.NEXT_PUBLIC_API_URL}/forms/${response.id}`);
+        setIsSuccessDialogOpen(true);
+      },
+    });
   };
 
   const addNewSlide = () => {
     const newQuestion: QuestionInput = {
       id: `${form.getValues("questions").length + 1}`,
       type: "shortText",
+
       label: `Label ${form.getValues("questions").length + 1}`,
       required: false,
       description: "",
@@ -86,6 +96,11 @@ export default function Dashboard() {
           </ResizablePanel>
         </ResizablePanelGroup>
       </div>
+      <SuccessDialog
+        isOpen={isSuccessDialogOpen}
+        onClose={() => setIsSuccessDialogOpen(false)}
+        formLink={formLink}
+      />
     </Form>
   );
 }
