@@ -36,23 +36,10 @@ const questionTypes = [
 ] as const;
 
 const fonts = [
-  {
-    id: "font-jost",
-    name: "Jost",
-  },
-  {
-    id: "font-quick",
-    name: "Quick",
-  },
-
-  {
-    id: "font-serifDisplay",
-    name: "DM Serif Display",
-  },
-  {
-    id: "font-poppins",
-    name: "Poppins",
-  },
+  { id: "font-jost", name: "Jost" },
+  { id: "font-quick", name: "Quick" },
+  { id: "font-serifDisplay", name: "DM Serif Display" },
+  { id: "font-poppins", name: "Poppins" },
 ];
 
 interface RightSidebarProps {
@@ -67,21 +54,20 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
   currentSlideIndex,
 }) => {
   const questions = form.watch("questions");
-  const currentQuestion = questions[currentSlideIndex];
 
-  if (!currentQuestion) {
+  if (questions.length === 0) {
     return (
-      <div className="  border-l p-4">
-        <p>No slide selected</p>
+      <div className="border-l p-4">
+        <p>No slides available</p>
       </div>
     );
   }
 
   return (
-    <div className=" h-full hidden md:block bg-foreground/5 ">
+    <div className="h-full hidden md:block bg-foreground/5">
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 p-4 border-l bg-background h-full  overflow-y-auto scrollbar scrollbar-w-0"
+        className="space-y-6 p-4 border-l bg-background h-full overflow-y-auto scrollbar scrollbar-w-0"
       >
         <div className="space-y-4">
           <Tabs defaultValue="content" className="">
@@ -94,183 +80,191 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
               </TabsTrigger>
             </TabsList>
             <TabsContent value="content" className="flex flex-col gap-4 w-full">
-              {/* Question Type */}
-              <FormField
-                control={form.control}
-                name={`questions.${currentSlideIndex}.type`}
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Question Type</FormLabel>
-                    <Select
-                      onValueChange={(value) => {
-                        const newType = value as QuestionInput["type"];
-                        field.onChange(newType);
-                        if (newType === "select" || newType === "multiSelect") {
-                          if (
-                            !currentQuestion.options ||
-                            currentQuestion.options.length === 0
-                          ) {
-                            form.setValue(
-                              `questions.${currentSlideIndex}.options`,
-                              ["Option 1"]
-                            );
-                          }
-                        }
-                      }}
-                      value={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select question type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {questionTypes.map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
-              />
-
-              {/* Question Label */}
-              <FormField
-                control={form.control}
-                name={`questions.${currentSlideIndex}.label`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Question Label</FormLabel>
-                    <FormControl>
-                      <Input {...field} placeholder="Enter question label" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Question Description */}
-              <FormField
-                control={form.control}
-                name={`questions.${currentSlideIndex}.description`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Question Description</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Enter question description"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name={`questions.${currentSlideIndex}.image`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Choose an Image</FormLabel>
-                    <FormControl>
-                      <ImageSelector
-                        onClick={(value) => {
-                          if (
-                            form.watch(`questions.${currentSlideIndex}.image`)
-                          ) {
-                            form.setValue(
-                              `questions.${currentSlideIndex}.image`,
-                              ""
-                            );
-                          } else {
-                            form.setValue(field.name, value, {
-                              shouldDirty: true,
-                              shouldTouch: true,
-                              shouldValidate: true,
-                            });
-                          }
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Required Switch */}
-              <FormField
-                control={form.control}
-                name={`questions.${currentSlideIndex}.required`}
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-                    <div className="space-y-0.5">
-                      <FormLabel>Required</FormLabel>
-                      <FormDescription>
-                        Make this question required
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
-              {/* Options for select/multiSelect */}
-              {(currentQuestion.type === "select" ||
-                currentQuestion.type === "multiSelect") && (
-                <div className="space-y-2 ">
-                  <FormLabel>Options</FormLabel>
-                  {currentQuestion.options?.map((_, optionIndex) => (
-                    <FormField
-                      key={optionIndex}
-                      control={form.control}
-                      name={`questions.${currentSlideIndex}.options.${optionIndex}`}
-                      render={({ field }) => (
-                        <FormItem>
+              {questions.map((question, index) => (
+                <div
+                  key={question.id}
+                  style={{
+                    display: index === currentSlideIndex ? "block" : "none",
+                  }}
+                >
+                  {/* Question Type */}
+                  <FormField
+                    control={form.control}
+                    name={`questions.${index}.type`}
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Question Type</FormLabel>
+                        <Select
+                          onValueChange={(value) => {
+                            const newType = value as QuestionInput["type"];
+                            field.onChange(newType);
+                            if (
+                              newType === "select" ||
+                              newType === "multiSelect"
+                            ) {
+                              if (
+                                !question.options ||
+                                question.options.length === 0
+                              ) {
+                                form.setValue(`questions.${index}.options`, [
+                                  "Option 1",
+                                ]);
+                              }
+                            }
+                          }}
+                          value={field.value}
+                        >
                           <FormControl>
-                            <Input
-                              {...field}
-                              placeholder={`Option ${optionIndex + 1}`}
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                field.onChange(
-                                  value || `Option ${optionIndex + 1}`
-                                );
-                              }}
-                            />
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select question type" />
+                            </SelectTrigger>
                           </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="mt-2"
-                    onClick={() => {
-                      const currentOptions =
-                        form.getValues(
-                          `questions.${currentSlideIndex}.options`
-                        ) || [];
-                      const newOptionIndex = currentOptions.length + 1;
-                      form.setValue(`questions.${currentSlideIndex}.options`, [
-                        ...currentOptions,
-                        `Option ${newOptionIndex}`,
-                      ]);
-                    }}
-                  >
-                    Add Option
-                  </Button>
+                          <SelectContent>
+                            {questionTypes.map((type) => (
+                              <SelectItem key={type} value={type}>
+                                {type}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Question Label */}
+                  <FormField
+                    control={form.control}
+                    name={`questions.${index}.label`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Question Label</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Enter question label"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Question Description */}
+                  <FormField
+                    control={form.control}
+                    name={`questions.${index}.description`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Question Description</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Enter question description"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Image Selector */}
+                  <FormField
+                    control={form.control}
+                    name={`questions.${index}.image`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Choose an Image</FormLabel>
+                        <FormControl>
+                          <ImageSelector
+                            onClick={(value) => {
+                              if (form.watch(`questions.${index}.image`)) {
+                                form.setValue(`questions.${index}.image`, "");
+                              } else {
+                                form.setValue(field.name, value, {
+                                  shouldDirty: true,
+                                  shouldTouch: true,
+                                  shouldValidate: true,
+                                });
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Required Switch */}
+                  <FormField
+                    control={form.control}
+                    name={`questions.${index}.required`}
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                        <div className="space-y-0.5">
+                          <FormLabel>Required</FormLabel>
+                          <FormDescription>
+                            Make this question required
+                          </FormDescription>
+                        </div>
+                        <FormControl>
+                          <Switch
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+
+                  {/* Options for select/multiSelect */}
+                  {(question.type === "select" ||
+                    question.type === "multiSelect") && (
+                    <div className="space-y-2">
+                      <FormLabel>Options</FormLabel>
+                      {question.options?.map((_, optionIndex) => (
+                        <FormField
+                          key={optionIndex}
+                          control={form.control}
+                          name={`questions.${index}.options.${optionIndex}`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder={`Option ${optionIndex + 1}`}
+                                  onChange={(e) => {
+                                    const value = e.target.value;
+                                    field.onChange(
+                                      value || `Option ${optionIndex + 1}`
+                                    );
+                                  }}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      ))}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="mt-2"
+                        onClick={() => {
+                          const currentOptions =
+                            form.getValues(`questions.${index}.options`) || [];
+                          const newOptionIndex = currentOptions.length + 1;
+                          form.setValue(`questions.${index}.options`, [
+                            ...currentOptions,
+                            `Option ${newOptionIndex}`,
+                          ]);
+                        }}
+                      >
+                        Add Option
+                      </Button>
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
             </TabsContent>
             <TabsContent value="theme" className="flex flex-col gap-4 w-full">
               <FormField
@@ -278,11 +272,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 name={`fontFamily`}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Question Type</FormLabel>
+                    <FormLabel>Font Family</FormLabel>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select question type" />
+                          <SelectValue placeholder="Select font family" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

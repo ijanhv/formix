@@ -2,8 +2,6 @@ import React from "react";
 import Container from "../container";
 import Logo from "./logo";
 import ThemeToggle from "@/components/theme-toggle";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 const BuilderNavbar = () => {
   return (
@@ -17,9 +15,9 @@ const BuilderNavbar = () => {
           <div className="  flex items-center gap-2">
             <ThemeToggle />
 
-            <Link href="/auth/login" className="hidden lg:block">
+            {/* <Link href="/auth/login" className="hidden lg:block">
               <Button>Login</Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </Container>
