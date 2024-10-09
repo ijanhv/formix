@@ -15,6 +15,7 @@ import Image from "next/image";
 import CustomButton from "./custom-button";
 import { FormType, QuestionType } from "@/schema/zod";
 import { ScreenType } from "@prisma/client";
+import { useSubmitResponseQuery } from "@/hooks/use-form-query";
 
 function generateSteps(screens: TQuestion[]) {
   return screens
@@ -32,6 +33,7 @@ const FormPreview = ({
   formData: FormType;
   theme: Theme;
 }) => {
+  const { mutate: submitResponse } = useSubmitResponseQuery();
   const questionScreens = formData.screens.filter(
     (screen) =>
       (screen.type as ScreenType) !== "welcomeScreen" &&
@@ -131,9 +133,13 @@ const FormPreview = ({
     };
     function onSubmit(data: z.infer<typeof formSchema>) {
       try {
-        toast.success(JSON.stringify(data, null, 2), {
-          position: "top-center",
+        submitResponse({
+          id: formData.id,
+          responseData: data,
         });
+        // toast.success(JSON.stringify(data, null, 2), {
+        //   position: "top-center",
+        // });
       } catch (error) {
         console.error("Form submission error", error);
         toast.error("Failed to submit the form. Please try again.");

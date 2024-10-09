@@ -12,7 +12,7 @@ const FormList = () => {
   if (isError) return <Error />;
 
   return (
-    <div className="bg-blue-100 dark:bg-foreground/5 grid grid-cols-1 h-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-10 w-full rounded-md p-4">
+    <div className="bg-blue-100 dark:bg-foreground/5 h-full sm:grid-cols-2 flex flex-col gap-5 md:gap-10 w-full rounded-md p-4">
       {data.map((item, index) => (
         <FormCard key={index} form={item} />
       ))}

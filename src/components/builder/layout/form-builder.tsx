@@ -26,6 +26,7 @@ import {
 } from "@/schema/zod";
 import Screens from "./slides";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function DashboardBuilder({ formData }: { formData: FormType }) {
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
@@ -163,7 +164,8 @@ export default function DashboardBuilder({ formData }: { formData: FormType }) {
             >
               <div className="py-3 px-3 flex justify-between items-center gap-2">
                 <h3 className="flex items-center gap-3">
-                  My Forms <ChevronRight /> {formData.name}
+                  <Link href={"/dashboard"}> My Forms</Link> <ChevronRight />{" "}
+                  {formData.name}
                 </h3>
                 {!formData.published && (
                   <Button
