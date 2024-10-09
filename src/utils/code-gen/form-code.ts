@@ -1,7 +1,7 @@
-import { FormInput } from "@/schema/zod";
+import { FormType, QuestionType } from "@/schema/zod";
 import { getZodSchemaString } from "./zod-schema";
 
-export const generateFormCode = (formFields: FormInput) => {
+export const generateFormCode = (formFields: FormType) => {
   const importSet = new Set([
     '"use client"',
     'import { useState } from "react"',
@@ -14,16 +14,16 @@ export const generateFormCode = (formFields: FormInput) => {
     'import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"',
   ]);
 
-  const schema = getZodSchemaString(formFields.questions);
+  const schema = getZodSchemaString(formFields.screens as QuestionType[]);
 
-  formFields.questions.forEach((field) => {
+  formFields.screens.forEach((field) => {
     switch (field.type) {
-      case "shortText":
+      case "short_text":
       case "email":
       case "number":
         importSet.add('import { Input } from "@/components/ui/input"');
         break;
-      case "longText":
+      case "long_text":
         importSet.add('import { Textarea } from "@/components/ui/textarea"');
         break;
       case "date":
@@ -34,12 +34,12 @@ export const generateFormCode = (formFields: FormInput) => {
         importSet.add('import { CalendarIcon } from "lucide-react"');
         importSet.add('import { format } from "date-fns"');
         break;
-      case "select":
+      case "dropdown":
         importSet.add(
           'import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"'
         );
         break;
-      case "multiSelect":
+      case "multiple_choice":
         importSet.add('import { Checkbox } from "@/components/ui/checkbox"');
         break;
       case "rating":
@@ -75,19 +75,19 @@ export const generateFormCode = (formFields: FormInput) => {
     return (
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 max-w-3xl mx-auto py-10">
-          ${formFields.questions
+          ${formFields.screens
             .map((field) => {
               switch (field.type) {
-                case "shortText":
+                case "short_text":
                 case "email":
                 case "number":
                   return `
           <FormField
             control={form.control}
-            name="${field.id || field.label}"
+            name="${field.id}"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>${field.label}</FormLabel>
+                <FormLabel>${field}</FormLabel>
                 <FormControl>
                   <Input {...field} type="${field.type === "email" ? "email" : field.type === "number" ? "number" : "text"}" />
                 </FormControl>
@@ -96,14 +96,14 @@ export const generateFormCode = (formFields: FormInput) => {
               </FormItem>
             )}
           />`;
-                case "longText":
+                case "long_text":
                   return `
           <FormField
             control={form.control}
-            name="${field.id || field.label}"
+            name="${field.id}"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>${field.label}</FormLabel>
+                <FormLabel>${field}</FormLabel>
                 <FormControl>
                   <Textarea {...field} />
                 </FormControl>
@@ -116,10 +116,10 @@ export const generateFormCode = (formFields: FormInput) => {
                   return `
           <FormField
             control={form.control}
-            name="${field.id || field.label}"
+            name="${field.id || field}"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>${field.label}</FormLabel>
+                <FormLabel>${field}</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -156,14 +156,14 @@ export const generateFormCode = (formFields: FormInput) => {
               </FormItem>
             )}
           />`;
-                case "select":
+                case "multiple_choice":
                   return `
           <FormField
             control={form.control}
-            name="${field.id || field.label}"
+            name="${field.id}"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>${field.label}</FormLabel>
+                <FormLabel>${field}</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -171,7 +171,7 @@ export const generateFormCode = (formFields: FormInput) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    ${field.options?.map((option) => `<SelectItem value="${option}">${option}</SelectItem>`).join("\n                  ")}
+                    ${field.options?.map((option: any) => `<SelectItem value="${option}">${option}</SelectItem>`).join("\n                  ")}
                   </SelectContent>
                 </Select>
                 ${field.description ? `<FormDescription>${field.description}</FormDescription>` : ""}
@@ -179,22 +179,22 @@ export const generateFormCode = (formFields: FormInput) => {
               </FormItem>
             )}
           />`;
-                case "multiSelect":
+                case "dropdown":
                   return `
           <FormField
             control={form.control}
-            name="${field.id || field.label}"
+            name="${field.id}"
             render={() => (
               <FormItem>
                 <div className="mb-4">
-                  <FormLabel className="text-base">${field.label}</FormLabel>
+                  <FormLabel className="text-base">${field}</FormLabel>
                   ${field.description ? `<FormDescription>${field.description}</FormDescription>` : ""}
                 </div>
                 {${JSON.stringify(field.options)}.map((item) => (
                   <FormField
                     key={item}
                     control={form.control}
-                    name="${field.id || field.label}"
+                    name="${field.id}"
                     render={({ field }) => {
                       return (
                         <FormItem
@@ -231,10 +231,10 @@ export const generateFormCode = (formFields: FormInput) => {
                   return `
           <FormField
             control={form.control}
-            name="${field.id || field.label}"
+            name="${field.id}"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>${field.label}</FormLabel>
+                <FormLabel>${field}</FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}

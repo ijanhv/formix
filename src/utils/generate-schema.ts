@@ -1,5 +1,6 @@
-import { QuestionInput } from "@/schema/zod";
-export const generateFormJSX = (fields: QuestionInput[]) => {
+import { QuestionType } from "@/schema/zod";
+
+export const generateFormJSX = (fields: QuestionType[]) => {
   const imports = [
     'import { useForm } from "react-hook-form"',
     'import { zodResolver } from "@hookform/resolvers/zod"',
@@ -41,7 +42,7 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
     jsxLines.push(`              <FormControl>`);
 
     switch (field.type) {
-      case "longText":
+      case "long_text":
         jsxLines.push(`                 <FloatingLabelInput
                                           placeholder="Type your answer here"
                                           label="Type your answer here"
@@ -49,23 +50,19 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
           />`);
         break;
 
-      case "shortText":
+      case "long_text":
         jsxLines.push(`                 <FloatingLabelInput
             placeholder="Type your answer here"
             label="Type your answer here"
             className="text-xl text-foreground/70"
           />`);
         break;
-      case "select":
+      case "multiple_choice":
         jsxLines.push(
           `                <CustomSelect options={${JSON.stringify(field.options)}} allowMultiple={false} fieldName="${fieldName}" form={form} />`
         );
         break;
-      case "multiSelect":
-        jsxLines.push(
-          `                <CustomSelect options={${JSON.stringify(field.options)}} allowMultiple={true} fieldName="${fieldName}" form={form} showOthersOption={true} />`
-        );
-        break;
+
       case "date":
         jsxLines.push(`                <CustomDateInput form={form} />`);
         break;
@@ -96,7 +93,7 @@ export const generateFormJSX = (fields: QuestionInput[]) => {
   return [...imports, "", ...jsxLines].join("\n");
 };
 
-export const generateZodSchema = (fields: QuestionInput[]) => {
+export const generateZodSchema = (fields: QuestionType[]) => {
   const imports = ['import { z } from "zod"'];
   const schemaLines = ["const formSchema = z.object({"];
 
@@ -122,8 +119,7 @@ export const generateZodSchema = (fields: QuestionInput[]) => {
       case "date":
         fieldSchema = `z.date()${field.required ? "" : ".optional()"}`;
         break;
-      case "select":
-      case "multiSelect":
+      case "multiple_choice":
         const options = field.options?.map((opt) => `"${opt}"`) || [];
         fieldSchema = `z.enum([${options.join(", ")}])${field.required ? "" : ".optional()"}`;
         break;

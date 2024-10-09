@@ -1,12 +1,16 @@
 import { themes } from "@/constants";
-import { FormInput } from "@/schema/zod";
+import { FormType } from "@/schema/zod";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const FormCard = ({ form }: { form: FormInput }) => {
+const FormCard = ({ form }: { form: FormType }) => {
   const theme = themes.find((item) => item.id === form.theme);
   return (
-    <div className=" relative h-[150px] w-full rounded-lg border border-primary">
+    <Link
+      href={`/dashboard/builder/${form.id}`}
+      className=" relative h-[150px] w-full rounded-lg border border-primary"
+    >
       {theme?.backgroundImage ? (
         <Image
           fill
@@ -17,7 +21,7 @@ const FormCard = ({ form }: { form: FormInput }) => {
       ) : (
         <div className={theme?.backgroundColor} />
       )}
-    </div>
+    </Link>
   );
 };
 

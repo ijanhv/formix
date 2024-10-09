@@ -1,7 +1,7 @@
+import { QuestionType } from "@/schema/zod";
 import { z } from "zod";
-import { QuestionInput } from "@/schema/zod"; // Import your existing QuestionInput type
 
-export const generateZodSchema = (questions: QuestionInput[]) => {
+export const generateZodSchema = (questions: QuestionType[]) => {
   const schemaObject: Record<string, any> = {};
 
   questions.forEach((question, index) => {
@@ -9,8 +9,8 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
     let fieldSchema;
 
     switch (question.type) {
-      case "shortText":
-      case "longText":
+      case "short_text":
+      case "long_text":
         fieldSchema = z.string();
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
@@ -20,7 +20,7 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
         break;
 
       case "number":
-        fieldSchema = z.coerce.number(); // Use z.coerce.number() to handle numeric input as a number
+        fieldSchema = z.coerce.number();
         if (question.required) {
           fieldSchema = fieldSchema.min(1, {
             message: question.validationMessage || `This field is required`,
@@ -47,47 +47,36 @@ export const generateZodSchema = (questions: QuestionInput[]) => {
           });
         }
         break;
+      case "multiple_choice":
+      case "picture_choice":
+        if (question.options) {
+          // Convert { value: string, label: string }[] to [string, ...string[]]
+          const optionValues = question.options.map((opt) => opt.value);
 
-      case "select":
-        // if (question.required && question.options) {
-        //   fieldSchema = z
-        //     .enum(question.options as [string, ...string[]])
-        //     .refine((value) => value !== "", {
-        //       message:
-        //         question.validationMessage || `${question.label} is required`,
-        //     });
-        // } else {
-        //   fieldSchema = z
-        //     .enum(question.options as [string, ...string[]])
-        //     .optional();
-        // }
-        // break;
-        if (question.required && question.options) {
-          fieldSchema = z
-            .array(z.enum(question.options as [string, ...string[]]))
-            .min(1, {
-              message: question.validationMessage || `This field is required`,
-            });
-        } else {
-          fieldSchema = z
-            .array(z.enum(question.options as [string, ...string[]]))
-            .optional();
-        }
+          // Check if optionValues has at least one element before casting to tuple
+          if (optionValues.length > 0) {
+            const enumSchema = z.enum([
+              optionValues[0],
+              ...optionValues.slice(1),
+            ] as [string, ...string[]]);
 
-      case "multiSelect":
-        if (question.required && question.options) {
-          fieldSchema = z
-            .array(z.enum(question.options as [string, ...string[]]))
-            .min(1, {
-              message: question.validationMessage || `This field is required`,
-            });
+            // Define the array schema
+            const arraySchema = z.array(enumSchema);
+
+            if (question.required) {
+              fieldSchema = arraySchema.min(1, {
+                message: question.validationMessage || `This field is required`,
+              });
+            } else {
+              fieldSchema = arraySchema.optional();
+            }
+          } else {
+            fieldSchema = z.array(z.string()).optional();
+          }
         } else {
-          fieldSchema = z
-            .array(z.enum(question.options as [string, ...string[]]))
-            .optional();
+          fieldSchema = z.array(z.string()).optional();
         }
         break;
-
       case "rating":
         fieldSchema = z.coerce.number().min(1).max(5);
         if (question.required) {
@@ -147,7 +136,7 @@ export const zodSchemaToString = (schema: z.ZodTypeAny): string => {
 };
 
 // Generate a schema string representation
-export const getZodSchemaString = (questions: QuestionInput[]) => {
+export const getZodSchemaString = (questions: QuestionType[]) => {
   const schemaObject = generateZodSchema(questions);
   const schemaEntries = Object.entries(schemaObject.shape)
     .map(([key, value]) => {

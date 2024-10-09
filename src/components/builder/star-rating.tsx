@@ -11,6 +11,7 @@ import { IoStarOutline } from "react-icons/io5";
 interface StarRatingProps {
   form: any;
   fieldName: string;
+
   theme: Theme;
 }
 

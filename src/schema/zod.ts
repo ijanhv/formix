@@ -1,46 +1,50 @@
 import { z } from "zod";
+import { QuestionSchema } from "./question";
 
-const questionTypes = [
-  "shortText",
-  "longText",
-  "number",
-  "email",
-  "date",
-  "select",
-  "multiSelect",
-  "rating",
-  "",
-] as const;
-
-export const questionSchema = z.object({
-  id: z.string().optional(),
-  type: z.enum(questionTypes),
-  label: z.string().min(1, "Label is required"),
+export const welcomeScreenSchema = z.object({
+  id: z.string(),
+  type: z.literal("welcomeScreen"),
+  title: z.string().min(1, "Welcome screen title is required"),
   description: z.string().optional(),
-  required: z.boolean(),
-  options: z.array(z.string()).optional(),
-  image: z.string().optional(),
-  validationMessage: z.string().default("This field is required").optional(),
+  buttonText: z.string().default("Start"),
+});
+
+const endScreenSchema = z.object({
+  id: z.string(), // Add id property
+  type: z.literal("endScreen"),
+  title: z.string().min(1, "Title is required"),
+  description: z.string().optional(),
+});
+
+// export const thankYouScreenSchema = z.object({
+//   id: z.string(),
+//   type: z.literal("thankYouScreen"),
+//   title: z.string().min(1, "Thank you screen title is required"),
+//   description: z.string().optional(),
+//   buttonText: z.string().optional(),
+//   backgroundImage: z.string().optional(),
+// });
+
+export const createFormSchema = z.object({
+  name: z.string(),
+  logo: z.string().optional(),
 });
 
 export const formSchema = z.object({
-  name: z.string().optional(),
+  id: z.string(),
+  name: z.string(),
+  logo: z.string().optional(),
   theme: z.string().optional(),
+  published: z.boolean().default(false),
   fontFamily: z.string().optional(),
-  questions: z.array(questionSchema),
+  screens: z.array(
+    z.union([welcomeScreenSchema, QuestionSchema, endScreenSchema])
+  ),
 });
 
-export type QuestionInput = z.infer<typeof questionSchema>;
-export type FormInput = z.infer<typeof formSchema>;
-
-export const emailSchema = z
-  .string({ message: "Email is required" })
-  .email({ message: "Invalid email" });
-
-export const passwordSchema = z
-  .string({ message: "Password is required" })
-  .min(8, { message: "Password must be at least 8 characters" })
-  .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/, {
-    message:
-      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character",
-  });
+// Infer types
+export type CreateFormType = z.infer<typeof createFormSchema>;
+export type WelcomeScreenType = z.infer<typeof welcomeScreenSchema>;
+export type QuestionType = z.infer<typeof QuestionSchema>;
+export type EndScreenType = z.infer<typeof endScreenSchema>;
+export type FormType = z.infer<typeof formSchema>;

@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormControl,
 } from "@/components/ui/form"; // Import shadcn Form components
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
 
 interface CustomDateInputProps {
   form: UseFormReturn<any>;

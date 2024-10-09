@@ -18,13 +18,15 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
-import { QuestionInput } from "@/schema/zod";
-import { CustomCheckboxGroup } from "@/components/builder/custom-checkbox";
+import { CustomCheckboxGroup } from "@/components/builder/question-components/custom-checkbox";
 import { StarRating } from "@/components/builder/star-rating";
 import { Textarea } from "@/components/ui/textarea";
+import { QuestionType } from "@/schema/zod";
+import { FormDropdown } from "@/app/forms/form-components/dropdown";
+import { FormPictureChoice } from "@/app/forms/form-components/form-picture-choice";
 
 export const renderFormField = (
-  field: QuestionInput,
+  field: QuestionType,
   form: any,
   index: number,
   theme: Theme
@@ -34,9 +36,10 @@ export const renderFormField = (
   const fieldName = `form_element_${index}`;
 
   switch (field.type) {
-    case "shortText":
+    case "short_text":
     case "email":
     case "number":
+    case "website":
       return (
         <FormField
           control={form.control}
@@ -46,6 +49,9 @@ export const renderFormField = (
               <FormControl>
                 <>
                   <Input
+                    defaultValue={
+                      field.type === "website" ? "https://" : undefined
+                    }
                     {...formField}
                     type={
                       field.type === "email"
@@ -67,7 +73,7 @@ export const renderFormField = (
         />
       );
 
-    case "longText":
+    case "long_text":
       return (
         <FormField
           control={form.control}
@@ -140,9 +146,9 @@ export const renderFormField = (
         />
       );
 
-    case "select":
+    case "dropdown":
       return (
-        <CustomCheckboxGroup
+        <FormDropdown
           form={form}
           fieldName={fieldName}
           theme={theme}
@@ -150,13 +156,22 @@ export const renderFormField = (
         />
       );
 
-    case "multiSelect":
+    case "picture_choice":
+      return (
+        <FormPictureChoice
+          form={form}
+          fieldName={fieldName}
+          theme={theme}
+          options={field.options || []}
+        />
+      );
+    case "multiple_choice":
       return (
         <CustomCheckboxGroup
           form={form}
           fieldName={fieldName}
-          options={field.options || []}
           theme={theme}
+          options={field.options || []}
         />
       );
 

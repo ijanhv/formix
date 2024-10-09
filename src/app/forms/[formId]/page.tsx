@@ -1,11 +1,9 @@
 import React from "react";
 
-import prisma from "@/lib/prisma";
-
 import FormPreview from "@/components/form/preview";
-import { FormInput } from "@/schema/zod";
 import Image from "next/image";
-import { themes } from "@/constants";
+import { apiUrl, themes } from "@/constants";
+import { FormType } from "@/schema/zod";
 
 export default async function FormPage({
   params,
@@ -14,14 +12,11 @@ export default async function FormPage({
     formId: string;
   };
 }) {
-  const formData = await prisma.form.findFirst({
-    where: {
-      id: params.formId,
-    },
-    include: {
-      questions: true,
-    },
+  const res = await fetch(`${apiUrl}/api/v1/form/${params.formId}`, {
+    cache: "no-store",
   });
+
+  const formData = await res.json();
 
   if (!formData) {
     return <div>Form not found</div>;
@@ -40,7 +35,7 @@ export default async function FormPage({
           className="h-full w-full object-cover"
         />
       )}
-      <FormPreview formData={formData as FormInput} theme={theme as Theme} />
+      <FormPreview formData={formData as FormType} theme={theme as Theme} />
     </div>
   );
 }

@@ -16,7 +16,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Provider>
-          {children} <Toaster />
+          {children}
+          <Toaster toastOptions={{}} richColors />
         </Provider>
       </body>
     </html>

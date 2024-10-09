@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { Toaster } from "@/components/ui/sonner";
 import React from "react";
 import {
   jost,
@@ -30,7 +29,7 @@ export default function RootLayout({
     >
       <BuilderNavbar />
       {children}
-      <Toaster toastOptions={{}} richColors />
+
       {/* <Footer /> */}
 
       <div className="border-t border-border/40 md:flex md:items-center md:justify-center w-full">

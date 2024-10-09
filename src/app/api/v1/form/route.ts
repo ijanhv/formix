@@ -1,6 +1,6 @@
 import { authOptions } from "@/lib/auth-options";
 import prisma from "@/lib/prisma";
-import { formSchema } from "@/schema/zod";
+import { createFormSchema } from "@/schema/zod";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -9,36 +9,17 @@ export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
 
     if (!session?.user.id) {
-      return NextResponse.json(
-        {
-          message: "Unauthenticated",
-        },
-        {
-          status: 403,
-        }
-      );
+      return NextResponse.json({ message: "Unauthenticated" }, { status: 403 });
     }
     const user = session.user;
 
     const formData = await req.json();
-    const parsedData = formSchema.parse(formData);
+    const parsedData = createFormSchema.parse(formData);
 
     const createdForm = await prisma.form.create({
       data: {
         userId: user.id,
-        fontFamily: parsedData.fontFamily,
-        theme: parsedData.theme,
-        questions: {
-          create: parsedData.questions.map((question) => ({
-            type: question.type,
-            label: question.label,
-            description: question.description,
-            required: question.required,
-            options: question.options || [],
-            image: question.image,
-            validationMessage: question.validationMessage,
-          })),
-        },
+        name: parsedData.name,
       },
     });
 
@@ -53,14 +34,7 @@ export async function GET() {
     const session = await getServerSession(authOptions);
 
     if (!session?.user.id) {
-      return NextResponse.json(
-        {
-          message: "Unauthenticated",
-        },
-        {
-          status: 403,
-        }
-      );
+      return NextResponse.json({ message: "Unauthenticated" }, { status: 403 });
     }
     const user = session.user;
 
@@ -68,7 +42,13 @@ export async function GET() {
       where: {
         userId: user.id,
       },
-      include: { questions: true },
+      include: {
+        screens: {
+          include: {
+            options: true,
+          },
+        },
+      },
     });
 
     return NextResponse.json(forms, { status: 200 });
