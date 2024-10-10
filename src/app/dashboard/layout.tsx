@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import React from "react";
-import {
-  jost,
-  mangericaRegular,
-  poppins,
-  quickSand,
-  serifDisplay,
-} from "@/utils/font";
+
 import BuilderNavbar from "@/components/globals/navbar/builder-navbar";
 
 export const metadata: Metadata = {
@@ -23,9 +17,7 @@ export default function RootLayout({
   return (
     <div
       className={`min-h-screen antialiased max-w-full overflow-x-hidden h-full 
-                
-               ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
-              ${serifDisplay.variable} ${quickSand.variable} font-magericaRegular`}
+            font-magericaRegular`}
     >
       <BuilderNavbar />
       {children}

@@ -2,22 +2,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
 import { z } from "zod";
 import gsap from "gsap";
-import { generateZodSchema } from "@/utils/code-gen/zod-schema";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { renderFormField } from "@/utils/code-gen/render-field";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, ChevronDown, ChevronUp } from "lucide-react";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import CustomButton from "./custom-button";
 import { FormType, QuestionType } from "@/schema/zod";
 import { ScreenType } from "@prisma/client";
-import { useSubmitResponseQuery } from "@/hooks/use-form-query";
 
-function generateSteps(screens: TQuestion[]) {
+// Assume these utility functions are imported from their respective files
+import { generateZodSchema } from "@/utils/code-gen/zod-schema";
+import { renderFormField } from "@/utils/code-gen/render-field";
+import { apiUrl } from "@/constants";
+import axios from "axios";
+
+function generateSteps(screens: QuestionType[]) {
   return screens
     .filter(
       // @ts-ignore
@@ -26,14 +28,14 @@ function generateSteps(screens: TQuestion[]) {
     .map((_, index) => ({ fields: [`form_element_${index}`] }));
 }
 
-const FormPreview = ({
+export default function FormPreview({
   formData,
   theme,
 }: {
   formData: FormType;
   theme: Theme;
-}) => {
-  const { mutate: submitResponse } = useSubmitResponseQuery();
+}) {
+  // const { mutate: submitResponse } = useSubmitResponseQuery();
   const questionScreens = formData.screens.filter(
     (screen) =>
       (screen.type as ScreenType) !== "welcomeScreen" &&
@@ -67,8 +69,7 @@ const FormPreview = ({
     const currentScreen = sortedScreens[currentStep];
     const { trigger, getValues } = form;
 
-    // @ts-ignore
-    const steps = generateSteps(questionScreens as QuestionType);
+    const steps = generateSteps(questionScreens as QuestionType[]);
 
     useEffect(() => {
       const currentForm = formRef.current;
@@ -87,8 +88,6 @@ const FormPreview = ({
         );
       }
     }, [currentStep, direction]);
-
-    // const steps = generateSteps(questionScreens as QuestionType);
 
     const next = async () => {
       if (
@@ -131,31 +130,34 @@ const FormPreview = ({
         });
       }
     };
-    function onSubmit(data: z.infer<typeof formSchema>) {
-      try {
-        submitResponse({
-          id: formData.id,
-          responseData: data,
-        });
-        // toast.success(JSON.stringify(data, null, 2), {
-        //   position: "top-center",
-        // });
-      } catch (error) {
-        console.error("Form submission error", error);
-        toast.error("Failed to submit the form. Please try again.");
-      }
-    }
 
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+      try {
+        await axios.post(`${apiUrl}/api/v1/form/${formData.id}/responses`, {
+          responseData: data,
+          id: formData.id,
+        });
+
+        const endScreenIndex = sortedScreens.findIndex(
+          (screen) => screen.type === "endScreen"
+        );
+        if (endScreenIndex !== -1) {
+          setCurrentStep(endScreenIndex);
+        }
+      } catch (error) {}
+    }
     const renderScreen = (screen: QuestionType, index: number) => {
       // @ts-ignore
       if (screen.type === "welcomeScreen" || screen.type === "endScreen") {
         return (
-          <div className="space-y-5 w-full">
-            <h3 className="text-lg md:text-3xl lg:text-4xl font-medium">
+          <div className="flex flex-col gap-6 items-center justify-center w-full mx-auto max-w-3xl">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl font-medium">
               {/* @ts-ignore */}
               {screen.title}
             </h3>
-            <p className={`${theme.textColor} text-base `}>
+            <p
+              className={`${theme.textColor} text-base md:text-lg  text-center font-normal`}
+            >
               {/* @ts-ignore */}
               {screen.description}
             </p>
@@ -164,7 +166,7 @@ const FormPreview = ({
               <Button
                 type="button"
                 onClick={next}
-                className={`px-2 rounded-sm shadow-none flex items-center gap-1 text-base ${theme.okButton} hover:${theme.okButton} transition-colors duration-200`}
+                className={`px-4 py-3 rounded-sm shadow-none flex items-center gap-1 text-base ${theme.okButton} hover:${theme.okButton} transition-colors duration-200`}
               >
                 {/* @ts-ignore */}
                 {screen.buttonText || "Start"} <ArrowRight />
@@ -179,16 +181,16 @@ const FormPreview = ({
       );
 
       return (
-        <div className="space-y-5 w-full">
-          <Label className="flex flex-col gap-4">
-            <h3 className="text-2xl lg:text-3xl font-medium">
+        <div className="space-y-5 w-full mx-auto max-w-3xl">
+          <Label className="flex flex-col  text-left gap-4">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl font-medium">
               {screen.title}{" "}
               {screen.required && (
                 <span className="text-destructive ml-1">*</span>
               )}
             </h3>
             {screen.description && (
-              <p className={`${theme.textColor} text-base `}>
+              <p className={`${theme.textColor} text-base md:text-lg  `}>
                 {screen.description}
               </p>
             )}
@@ -246,9 +248,7 @@ const FormPreview = ({
                 {sortedScreens.map((screen, index) => (
                   <div
                     key={screen.id}
-                    className={`flex items-center h-full w-full ${
-                      currentStep === index ? "" : "hidden"
-                    }`}
+                    className={`flex items-center h-full w-full ${currentStep === index ? "" : "hidden"}`}
                   >
                     <div className="flex items-center w-full gap-10 lg:flex-row flex-col-reverse">
                       <div className="flex w-full items-start gap-1 md:gap-5 px-5 md:px-20 ">
@@ -266,7 +266,7 @@ const FormPreview = ({
                   className={`transition-all duration-700 transform h-[250px] sm:h-[400px] w-screen md:w-full lg:h-screen lg:w-full relative`}
                 >
                   <Image
-                    //  @ts-ignore
+                    // @ts-ignore
                     src={currentScreen.image}
                     alt="image"
                     fill
@@ -277,34 +277,34 @@ const FormPreview = ({
               )}
             </div>
 
-            <div className="fixed bottom-0 left-0 right-20 p-4 inset-x-3 w-full mx-auto flex justify-center">
-              <div className={`bg-white rounded-sm p-1 shadow-md`}>
-                <CustomButton
-                  theme={theme}
-                  type="button"
-                  text={<ChevronUp size={30} />}
-                  onClick={prev}
-                  disabled={currentStep === 0}
-                />
-                {currentStep < sortedScreens.length - 1 ? (
+            {currentScreen.type !== "endScreen" && (
+              <div className="fixed bottom-0 left-0 right-20 p-4 inset-x-3 w-full mx-auto flex items-center justify-center">
+                <div className={`bg-white rounded-sm p-1 shadow-md`}>
                   <CustomButton
                     theme={theme}
                     type="button"
-                    text={<ChevronDown size={30} />}
-                    onClick={next}
-                    disabled={false}
+                    text={<ChevronUp size={30} />}
+                    onClick={prev}
+                    disabled={currentStep === 0}
                   />
-                ) : (
-                  <CustomButton
-                    theme={theme}
-                    type="submit"
-                    text={<Check size={30} />}
-                    onClick={() => {}}
-                    disabled={false}
-                  />
-                )}
+                  {currentStep < steps.length && (
+                    <CustomButton
+                      theme={theme}
+                      text={<ChevronDown size={30} />}
+                      onClick={next}
+                    />
+                  )}
+                  {currentStep === steps.length && (
+                    <Button
+                      type="submit"
+                      className={`shadow-none  text-base ${theme.okButton} hover:${theme.okButton} transition-colors duration-200`}
+                    >
+                      <Check />
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </form>
         </Form>
       </div>
@@ -324,6 +324,4 @@ const FormPreview = ({
       )}
     </div>
   );
-};
-
-export default FormPreview;
+}

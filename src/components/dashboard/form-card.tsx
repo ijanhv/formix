@@ -9,7 +9,7 @@ import { Edit, TableOfContents } from "lucide-react";
 const FormCard = ({ form }: { form: FormType }) => {
   const theme = themes.find((item) => item.id === form.theme);
   return (
-    <div className=" rounded-lg border flex justify-between  items-center gap-3 group p-3">
+    <div className=" rounded-lg border flex justify-between  items-center gap-3 group p-2">
       <div className="flex items-center gap-4">
         <div className=" relative h-14  w-28">
           {theme?.backgroundImage ? (

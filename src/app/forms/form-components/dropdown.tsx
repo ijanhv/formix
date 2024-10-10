@@ -38,9 +38,7 @@ export function FormDropdown({
             onClick={() => setShowDropdown(!showDropdown)}
           >
             <p className="text-lg">
-              {field.value && field.value.length > 0
-                ? `${field.value}`
-                : "Select an option"}
+              {field.value ? `${field.value}` : "Select an option"}
             </p>
             <ChevronDown
               className={`transition-transform ${showDropdown ? "rotate-180" : ""}`}
@@ -55,7 +53,7 @@ export function FormDropdown({
             }`}
           >
             {options.map((option, index) => {
-              const isChecked = field.value?.includes(option.label);
+              const isChecked = field.value === option.label;
               return (
                 <div
                   key={option.value}
@@ -68,12 +66,7 @@ export function FormDropdown({
                   }`}
                   onClick={() => {
                     handleClick(index);
-                    const newValue = isChecked
-                      ? field.value.filter(
-                          (item: string) => item !== option.label
-                        )
-                      : option.label;
-                    field.onChange(newValue);
+                    field.onChange(option.label);
                   }}
                 >
                   <div

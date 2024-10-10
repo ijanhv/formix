@@ -1,5 +1,17 @@
 import { Toaster } from "@/components/ui/sonner";
 import Provider from "@/provider";
+import {
+  jost,
+  libreBaskerville,
+  lobster,
+  mangericaRegular,
+  playfairDisplay,
+  poppins,
+  prata,
+  quickSand,
+  serifDisplay,
+  spaceGrotes,
+} from "@/utils/font";
 import React from "react";
 
 export const metadata = {
@@ -15,10 +27,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Provider>
-          {children}
-          <Toaster toastOptions={{}} richColors />
-        </Provider>
+        <main
+          className={`    
+               ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
+              ${serifDisplay.variable} ${quickSand.variable}  ${libreBaskerville.variable} ${spaceGrotes.variable} ${prata.variable} 
+              ${lobster.variable} ${playfairDisplay.variable}`}
+        >
+          <Provider>
+            {children}
+            <Toaster toastOptions={{}} richColors />
+          </Provider>
+        </main>
       </body>
     </html>
   );

@@ -25,6 +25,11 @@ const config = {
       poppins: ["var(--font-poppins)"],
       jost: ["var(--font-jost)"],
       serifDisplay: ["var(--font-serif-display)"],
+      libre: ["var(--font-libre)"], // Added Libre Baskerville
+      space: ["var(--font-space)"], // Added Space Grotesk
+      prata: ["var(--font-prata)"], // Added Prata
+      lobster: ["var(--font-lobster)"], // Added Lobster Two
+      playfairDisplay: ["var(--font-playfair)"],
     },
     extend: {
       colors: {

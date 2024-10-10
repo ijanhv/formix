@@ -8,12 +8,47 @@ import {
   Poppins,
   Quicksand,
   DM_Serif_Display,
+  Playfair_Display,
+  Libre_Baskerville,
+  Space_Grotesk,
+  Prata,
+  Lobster_Two,
 } from "next/font/google";
 
 export const quickSand = Quicksand({
   subsets: ["latin"],
   variable: "--font-quick",
   weight: ["300", "400", "500", "600", "700"],
+});
+
+export const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "500", "600", "700"],
+});
+
+export const libreBaskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  variable: "--font-libre",
+  weight: ["400", "700"],
+});
+
+export const spaceGrotes = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+export const prata = Prata({
+  subsets: ["latin"],
+  variable: "--font-prata",
+  weight: ["400"],
+});
+
+export const lobster = Lobster_Two({
+  subsets: ["latin"],
+  variable: "--font-lobster",
+  weight: ["400", "700"],
 });
 
 export const jost = Jost({

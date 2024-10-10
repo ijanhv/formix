@@ -121,16 +121,5 @@ const submitResponse = async ({
 export const useSubmitResponseQuery = () => {
   return useMutation({
     mutationFn: submitResponse,
-    onSuccess: (data) => {
-      // toast.success("Form published successfully!", {
-      //   position: "top-center",
-      // });
-      // router.push(`/forms/${data.id}`);
-    },
-    onError: (error: any) => {
-      // toast.error("Error, publishing form!", {
-      //   position: "top-center",
-      // });
-    },
   });
 };

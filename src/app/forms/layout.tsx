@@ -2,13 +2,6 @@ import type { Metadata } from "next";
 import "@/app/globals.css";
 
 import React from "react";
-import {
-  jost,
-  mangericaRegular,
-  poppins,
-  quickSand,
-  serifDisplay,
-} from "@/utils/font";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,8 +15,7 @@ export default function FormLayout({
 }>) {
   return (
     <main
-      className={`min-h-screen w-full h-full ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
-              ${serifDisplay.variable} ${quickSand.variable}
+      className={`min-h-screen w-full h-full 
               `}
     >
       {children}

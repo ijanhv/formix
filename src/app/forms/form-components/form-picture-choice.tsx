@@ -32,7 +32,7 @@ export function FormPictureChoice({
       name={fieldName}
       render={({ field }) => (
         <FormItem className="space-y-3 max-w-3xl">
-          <div className="rounded-lg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-start justify-start gap-3 w-full">
+          <div className="rounded-lg grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 items-start justify-start gap-3 w-full">
             {options.map((option, index) => {
               const isChecked = field.value?.includes(option.value);
               return (
@@ -56,21 +56,23 @@ export function FormPictureChoice({
                   }}
                 >
                   <FormLabel
-                    className={`flex flex-col gap-3 w-full text-lg items-center justify-center cursor-pointer ${theme.textColor}`}
+                    className={`flex flex-col gap-2 w-full text-lg items-center justify-center cursor-pointer ${theme.textColor}`}
                   >
                     <Icon
                       icon={option.imageUrl as string}
-                      className="w-28 h-28 mb-2"
+                      className="w-10 h-10 md:w-28 md:h-28 mb-2"
                     />
                     <span className="flex items-center gap-3">
                       {option.label}{" "}
-                      <div
-                        className={`w-5 h-5  rounded-full flex items-center justify-center ${
-                          isChecked ? theme.buttonColor : ""
-                        }`}
-                      >
-                        {isChecked && <Check className={theme.buttonText} />}
-                      </div>
+                      {isChecked && (
+                        <div
+                          className={`w-5 h-5  rounded-full flex items-center justify-center ${
+                            isChecked ? theme.buttonColor : ""
+                          }`}
+                        >
+                          <Check className={theme.buttonText} />
+                        </div>
+                      )}
                     </span>{" "}
                   </FormLabel>
                 </div>

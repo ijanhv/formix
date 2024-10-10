@@ -78,12 +78,12 @@ export default function SigninCard({ setFormType: setState }: SigninCardProps) {
   return (
     <Card className="h-full w-full  bg-opacity-50 p-8">
       <CardHeader className="w-full">
-        <CardTitle className="text-center text-3xl font-bold text-white">
+        <CardTitle className="text-center text-3xl font-bold ">
           Login to Formix
         </CardTitle>
       </CardHeader>
       {!!error && (
-        <div className="mb-6 flex w-full items-center gap-x-2 rounded-md bg-destructive p-3 text-sm text-white">
+        <div className="mb-6 flex w-full items-center gap-x-2 rounded-md bg-destructive p-3 text-sm ">
           <TriangleAlert className="size-4 shrink-0" />
           <p>{error}</p>
         </div>

@@ -47,6 +47,10 @@ const fonts = [
   { id: "font-quick", name: "Quick" },
   { id: "font-serifDisplay", name: "DM Serif Display" },
   { id: "font-poppins", name: "Poppins" },
+  { id: "font-libre", name: "Libre Baskerville" },
+  { id: "font-playfairDisplay", name: "Playfair Display" },
+  { id: "font-space", name: "Space" },
+  { id: "font-prata", name: "Prata" },
 ];
 
 interface RightSidebarProps {
