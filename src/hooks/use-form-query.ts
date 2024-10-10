@@ -97,7 +97,7 @@ const getMyForms = async () => {
 
 export const useGeMyFormsQuery = (): UseQueryResult<FormType[]> => {
   return useQuery({
-    queryKey: ["banner"],
+    queryKey: ["forms"],
     queryFn: getMyForms,
     staleTime: Infinity,
   });

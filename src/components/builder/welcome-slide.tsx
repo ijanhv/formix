@@ -24,7 +24,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
   const handleDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    form.setValue("screens.0.description", e.target.value); // Adjust index if necessary
+    form.setValue("screens.0.description", e.target.value);
   };
 
   return (
@@ -48,7 +48,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
 
       {buttonText && (
         <button
-          className={`${theme?.buttonColor} ${theme?.buttonText}  text-white px-6 py-2 rounded-sm`}
+          className={`${theme?.buttonColor} ${theme?.buttonText} px-6 py-2 rounded-sm`}
         >
           {buttonText}
         </button>

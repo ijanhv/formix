@@ -46,7 +46,7 @@ const Screens: React.FC<ScreensProps> = ({ form, currentScreenIndex }) => {
         {currentScreen.type !== "welcomeScreen" &&
           currentScreen.type !== "endScreen" && (
             <div
-              className={`flex-1 items-center bg-foreground/5 flex lg:flex-row flex-col  justify-center p-8 h-full  relative`}
+              className={`flex-1 items-center  flex lg:flex-row flex-col  justify-center p-8 h-full  relative`}
             >
               <div className="flex w-full z-10 h-full  items-center justify-center flex-col gap-5 rounded-lg pr-5 mx-auto">
                 <div className="flex items-start gap-3 w-full">

@@ -127,3 +127,10 @@ type TQuestion =
   | FileUploadQuestion
   | NumberQuestion
   | OpinionScaleQuestion;
+
+interface FormResponse {
+  id: string;
+  formId: string;
+  submittedAt: string; // ISO 8601 timestamp
+  responseData: Record<string, string | string[]>;
+}

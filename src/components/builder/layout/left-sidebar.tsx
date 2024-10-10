@@ -43,7 +43,8 @@ const SortableItem = ({
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center gap-4 justify-between m-3 rounded-lg p-3 cursor-pointer ${
+      onClick={onClick}
+      className={`flex p-3  items-center gap-4 justify-between rounded-lg  cursor-pointer ${
         isActive ? "bg-foreground/5 text-primary" : ""
       }`}
     >
@@ -53,9 +54,7 @@ const SortableItem = ({
           size={20}
         />
       </div>
-      <div className="flex-grow" onClick={onClick}>
-        {children}
-      </div>
+      <div className="flex-grow">{children}</div>
     </div>
   );
 };
@@ -73,7 +72,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   const questionScreens = screensData.slice(1, -1); // Exclude Welcome and End Screens
 
   return (
-    <div className="border-r h-full overflow-y-auto">
+    <div className="border-r h-full overflow-y-auto scrollbar scrollbar-w-0">
       <Button
         onClick={addNewScreen}
         className="w-full border-b py-5 rounded-none flex gap-3 items-center justify-center"
@@ -87,14 +86,14 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
         items={questionScreens.map((s) => s.id)} // Only allow sorting for question screens
         strategy={verticalListSortingStrategy}
       >
-        <div className="space-y-2">
+        <div className="flex flex-col gap-3   m-2">
           <SortableItem
             key={welcomeScreen.id}
             id={welcomeScreen.id}
             isActive={currentScreenIndex === 0}
             onClick={() => setCurrentScreenIndex(0)}
           >
-            <span className="text-sm text-left font-medium line-clamp-1 ">
+            <span className="text-sm text-leftfont-medium line-clamp-1 ">
               Welcome Screen
             </span>
           </SortableItem>
@@ -103,10 +102,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
             <SortableItem
               key={screen.id}
               id={screen.id}
-              isActive={currentScreenIndex === index + 1} // Offset by 1 due to Welcome Screen
-              onClick={() => setCurrentScreenIndex(index + 1)} // Offset by 1
+              isActive={currentScreenIndex === index + 1}
+              onClick={() => setCurrentScreenIndex(index + 1)}
             >
-              <span className="text-sm text-left font-medium line-clamp-1 ">
+              <span className="text-sm text-left h-full  font-medium line-clamp-1 ">
                 {screen.title || `Question ${index + 1}`}
               </span>
             </SortableItem>
@@ -115,8 +114,8 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
           <SortableItem
             key={endScreen.id}
             id={endScreen.id}
-            isActive={currentScreenIndex === questionScreens.length + 1} // Offset by questions count
-            onClick={() => setCurrentScreenIndex(questionScreens.length + 1)} // Offset by questions count
+            isActive={currentScreenIndex === questionScreens.length + 1}
+            onClick={() => setCurrentScreenIndex(questionScreens.length + 1)}
           >
             <span className="text-sm text-left font-medium line-clamp-1 ">
               End Screen

@@ -55,7 +55,7 @@ export function CustomDropdown({
             }`}
           >
             {options.map((option, index) => {
-              const isChecked = field.value?.includes(option.value);
+              const isChecked = field.value === option.value;
               return (
                 <div
                   key={option.value}
@@ -63,7 +63,7 @@ export function CustomDropdown({
                     twinklingIndex === index ? "animate-twinkle" : ""
                   } ${
                     isChecked
-                      ? `${theme.checkboxChecked}`
+                      ? `${theme.checkboxChecked} ${theme.borderColor}`
                       : `${theme.checkboxUnchecked}`
                   }`}
                   onClick={() => {
@@ -79,8 +79,8 @@ export function CustomDropdown({
                   <div
                     className={`${
                       isChecked
-                        ? `${theme.checkboxChecked}`
-                        : `${theme.checkboxUnchecked}`
+                        ? `${theme.checkboxChecked} ${theme.borderColor}`
+                        : `${theme.checkboxUnchecked} `
                     } w-8 h-8 mr-4 border rounded-full flex items-center justify-center font-semibold `}
                   >
                     {index + 1}
@@ -91,8 +91,8 @@ export function CustomDropdown({
                     <span>{option.label}</span>{" "}
                   </FormLabel>
                   <div
-                    className={`w-6 h-6 rounded-md flex items-center justify-center ${
-                      isChecked ? theme.buttonColor : ""
+                    className={`w-6 h-6 rounded-full border ${theme.borderColor} flex items-center justify-center ${
+                      isChecked ? `${theme.buttonColor} ` : ""
                     }`}
                   >
                     {isChecked && <Check className={theme.buttonText} />}

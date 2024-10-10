@@ -95,58 +95,59 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   }}
                 >
                   {/* Slide Type */}
-                  <FormField
-                    control={form.control}
-                    name={`screens.${index}.type`}
-                    render={({ field }) => (
-                      <FormItem className="w-full">
-                        <FormLabel>Slide Type</FormLabel>
-                        <Select
-                          onValueChange={(value) => {
-                            const newType = value;
-                            field.onChange(newType);
-                            if (
-                              newType === "multiple_choice" ||
-                              newType === "dropdown"
-                            ) {
-                              // Ensure you access slide with a correct type
-                              const currentSlide = form.getValues(
-                                `screens.${index}`
-                              );
-
+                  {slide.type !== "welcomeScreen" && (
+                    <FormField
+                      control={form.control}
+                      name={`screens.${index}.type`}
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Slide Type</FormLabel>
+                          <Select
+                            onValueChange={(value) => {
+                              const newType = value;
+                              field.onChange(newType);
                               if (
-                                "options" in currentSlide &&
-                                (!currentSlide.options ||
-                                  currentSlide.options.length === 0)
+                                newType === "multiple_choice" ||
+                                newType === "dropdown"
                               ) {
-                                form.setValue(`screens.${index}.options`, [
-                                  {
-                                    value: "option_1",
-                                    label: "Option 1",
-                                  },
-                                ]);
-                              }
-                            }
-                          }}
-                          value={field.value}
-                        >
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select slide type" />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            {slideTypes.map(({ label, value }) => (
-                              <SelectItem key={value} value={value}>
-                                {label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </FormItem>
-                    )}
-                  />
+                                // Ensure you access slide with a correct type
+                                const currentSlide = form.getValues(
+                                  `screens.${index}`
+                                );
 
+                                if (
+                                  "options" in currentSlide &&
+                                  (!currentSlide.options ||
+                                    currentSlide.options.length === 0)
+                                ) {
+                                  form.setValue(`screens.${index}.options`, [
+                                    {
+                                      value: "option_1",
+                                      label: "Option 1",
+                                    },
+                                  ]);
+                                }
+                              }
+                            }}
+                            value={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select slide type" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {slideTypes.map(({ label, value }) => (
+                                <SelectItem key={value} value={value}>
+                                  {label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </FormItem>
+                      )}
+                    />
+                  )}
                   {/* Slide Label */}
                   <FormField
                     control={form.control}
