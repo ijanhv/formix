@@ -164,12 +164,14 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
             isActive={currentScreenIndex === 0}
             onClick={() => setCurrentScreenIndex(0)}
           >
-            <span className="text-sm  flex items-center gap-2 text-leftfont-medium line-clamp-1 ">
-              <Icon
-                icon="material-symbols-light:dual-screen-outline"
-                className="text-2xl "
-              />
-              Welcome Screen
+            <span className="text-sm flex items-center gap-2 font-medium">
+              <div className="w-6 h-6 flex-shrink-0 flex items-center">
+                <Icon
+                  icon="material-symbols-light:dual-screen-outline"
+                  className="w-full text-3xl"
+                />
+              </div>
+              <span className="line-clamp-1">Welcome Screen</span>
             </span>
           </SortableItem>
 
@@ -180,19 +182,14 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
               isActive={currentScreenIndex === index + 1}
               onClick={() => setCurrentScreenIndex(index + 1)}
             >
-              {/* <span className="text-sm text-left h-full  font-medium line-clamp-1 "> */}
-              <div className="text-sm  flex items-center gap-2 text-leftfont-medium line-clamp-1 ">
-                {/* <Icon
-                icon={icons.find(item => item.type === screen.type)?.icon}
-                className="text-2xl "
-              /> */}
-
-                <Icon
-                  icon="material-symbols-light:dual-screen-outline"
-                  className="text-2xl "
-                />
-                <span className="line-clamp-1 ">
-                  {" "}
+              <div className="text-sm flex items-center gap-2 font-medium">
+                <div className="w-6 h-6 flex-shrink-0 flex items-center">
+                  <Icon
+                    icon="material-symbols-light:dual-screen-outline"
+                    className="w-full text-3xl"
+                  />
+                </div>
+                <span className="line-clamp-1">
                   {screen.title || `Question ${index + 1}`}
                 </span>
               </div>

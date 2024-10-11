@@ -3,9 +3,12 @@ import prisma from "@/lib/prisma";
 import { createFormSchema } from "@/schema/zod";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { customAlphabet } from "nanoid";
 
 export async function POST(req: Request) {
   try {
+    const nanoid = customAlphabet("1234567890abcdef", 10);
+
     const session = await getServerSession(authOptions);
 
     if (!session?.user.id) {
@@ -18,6 +21,7 @@ export async function POST(req: Request) {
 
     const createdForm = await prisma.form.create({
       data: {
+        id: nanoid(),
         userId: user.id,
         name: parsedData.name,
       },

@@ -43,12 +43,11 @@ export default function FormPreview({
   );
   const formSchema = generateZodSchema(questionScreens as QuestionType[]);
 
+  // const stringSchema = getZodSchemaString(questionScreens as QuestionType[]);
+
   const [formState, setFormState] = useState<Record<string, any>>({});
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState(0);
-
-  type Inputs = z.infer<typeof formSchema>;
-  type FieldName = keyof Inputs;
 
   const sortedScreens = [...formData.screens].sort((a, b) => {
     if (a.type === "welcomeScreen") return -1;
@@ -62,7 +61,7 @@ export default function FormPreview({
     const formRef = useRef(null);
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
-      mode: "onChange",
+      mode: "onBlur",
       defaultValues: formState,
     });
 
@@ -97,10 +96,14 @@ export default function FormPreview({
         const questionIndex = questionScreens.findIndex(
           (screen) => screen.id === currentScreen.id
         );
-        const fields = steps[questionIndex].fields;
-        const output = await trigger(fields as FieldName[], {
-          shouldFocus: true,
-        });
+
+        const fields = steps[questionIndex].fields as Array<
+          keyof z.infer<typeof formSchema>
+        >;
+
+        // const fields = steps[questionIndex].fields;
+        const output = await trigger(fields, { shouldFocus: true });
+
         if (!output) return;
       }
 
@@ -151,7 +154,7 @@ export default function FormPreview({
       if (screen.type === "welcomeScreen" || screen.type === "endScreen") {
         return (
           <div className="flex flex-col gap-6 items-center justify-center w-full mx-auto max-w-3xl">
-            <h3 className="text-2xl md:text-3xl lg:text-5xl font-medium">
+            <h3 className="text-2xl md:text-3xl lg:text-5xl text-center font-medium">
               {/* @ts-ignore */}
               {screen.title}
             </h3>

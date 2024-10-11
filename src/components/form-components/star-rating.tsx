@@ -5,17 +5,18 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { MdOutlineStar } from "react-icons/md";
-import { IoStarOutline } from "react-icons/io5";
+import { Icon } from "@iconify/react";
 
 interface StarRatingProps {
   form: any;
+  scale: number;
   fieldName: string;
 
   theme: Theme;
 }
 
-export function StarRating({ form, fieldName, theme }: StarRatingProps) {
+export function StarRating({ form, scale, fieldName, theme }: StarRatingProps) {
+  const stars = Array(scale).fill(0);
   const [index, setIndex] = useState(form.watch(fieldName));
   const [hoverIndex, setHoverIndex] = useState(0);
   return (
@@ -27,7 +28,7 @@ export function StarRating({ form, fieldName, theme }: StarRatingProps) {
           <div className="">
             <FormControl>
               <div className="flex space-x-2">
-                {[1, 2, 3, 4, 5].map((star, i) => (
+                {stars.map((star, i) => (
                   <span
                     key={i}
                     onMouseOver={() => setHoverIndex(i + 1)}
@@ -38,10 +39,15 @@ export function StarRating({ form, fieldName, theme }: StarRatingProps) {
                     }}
                   >
                     {i < (hoverIndex || index) ? (
-                      <MdOutlineStar className="h-8 w-8 lg:h-12 lg:w-12 cursor-pointer text-yellow-500 transition-all duration-300 ease-in-out" />
+                      <Icon
+                        icon="noto:star"
+                        className="h-12 w-12 cursor-pointer text-yellow-500"
+                      />
                     ) : (
-                      <IoStarOutline
-                        className={`${theme.textColor} h-8 w-8 lg:h-12 lg:w-12 cursor-pointer  transition-all duration-300 ease-in-out`}
+                      <Icon
+                        icon="heroicons:star"
+                        style={{ color: "#FDD836" }}
+                        className="h-12 w-12 cursor-pointer text-gray-700/70"
                       />
                     )}
                   </span>

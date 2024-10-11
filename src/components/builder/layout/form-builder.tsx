@@ -97,7 +97,7 @@ export default function DashboardBuilder({ formData }: { formData: FormType }) {
       screens[screens.length - 1],
     ];
     form.setValue("screens", updatedScreens);
-    setCurrentScreenIndex(1);
+    setCurrentScreenIndex(screens.length - 1);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -134,8 +134,6 @@ export default function DashboardBuilder({ formData }: { formData: FormType }) {
       }));
 
       form.setValue("screens", updatedScreens);
-
-      // Update currentScreenIndex if needed
       setCurrentScreenIndex(newIndex);
     }
   };

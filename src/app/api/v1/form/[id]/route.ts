@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const form = await prisma.form.findFirst({
-      where: { id: params.id },
+      where: { id: params.id, published: true },
       include: {
         screens: {
           include: {
@@ -73,6 +73,7 @@ export async function PUT(
             buttonText: screen.buttonText,
             order: screen.order || undefined,
             required: screen.required,
+            scale: screen.scale,
             options: {
               create: screen.options?.map((option: any) => ({
                 // id: option.id,

@@ -77,18 +77,7 @@ export function renderQuestionInput(
     case "picture_choice":
       return (
         <>
-          <PictureChoice
-            form={form}
-            question={question}
-            theme={theme}
-
-            // options={question.options.map((option) => ({
-            //   value: option.label,
-            //   label: option.label,
-            // }))}
-
-            // theme={theme as Theme}
-          />
+          <PictureChoice form={form} question={question} theme={theme} />
         </>
       );
     case "date":
@@ -141,15 +130,7 @@ export function renderQuestionInput(
         />
       );
     case "rating":
-      return (
-        <Rating
-          value={0}
-          max={Number(question.scale)}
-          // onChange={(newValue) =>
-          //   form.setValue(`questions.${cu}.answer`, newValue)
-          // }
-        />
-      );
+      return <Rating value={0} max={question.scale} />;
     default:
       return null;
   }

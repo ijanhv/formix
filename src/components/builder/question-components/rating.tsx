@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { MdOutlineStar } from "react-icons/md";
-import { IoStarOutline } from "react-icons/io5";
+
+import { Icon } from "@iconify/react";
 
 interface RatingProps {
   value: number;
@@ -27,9 +27,16 @@ const Rating: React.FC<RatingProps> = ({ value, max }) => {
             }}
           >
             {i < (hoverIndex || index) ? (
-              <MdOutlineStar className="h-12 w-12 cursor-pointer text-yellow-500" />
+              <Icon
+                icon="noto:star"
+                className="h-12 w-12 cursor-pointer text-yellow-500"
+              />
             ) : (
-              <IoStarOutline className="h-12 w-12 cursor-pointer text-gray-700/70" />
+              <Icon
+                icon="heroicons:star"
+                style={{ color: "#FDD836" }}
+                className="h-12 w-12 cursor-pointer text-gray-700/70"
+              />
             )}
           </span>
         ))}

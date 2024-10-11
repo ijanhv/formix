@@ -19,11 +19,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { CustomCheckboxGroup } from "@/components/builder/question-components/custom-checkbox";
-import { StarRating } from "@/components/builder/star-rating";
+import { StarRating } from "@/components/form-components/star-rating";
 import { Textarea } from "@/components/ui/textarea";
 import { QuestionType } from "@/schema/zod";
-import { FormDropdown } from "@/app/forms/form-components/dropdown";
-import { FormPictureChoice } from "@/app/forms/form-components/form-picture-choice";
+import { FormDropdown } from "@/components/form-components/dropdown";
+import { FormPictureChoice } from "@/components/form-components/form-picture-choice";
 
 export const renderFormField = (
   field: QuestionType,
@@ -176,7 +176,14 @@ export const renderFormField = (
       );
 
     case "rating":
-      return <StarRating form={form} fieldName={fieldName} theme={theme} />;
+      return (
+        <StarRating
+          form={form}
+          scale={field.scale}
+          fieldName={fieldName}
+          theme={theme}
+        />
+      );
 
     default:
       return null;

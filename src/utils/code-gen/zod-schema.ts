@@ -13,9 +13,25 @@ export const generateZodSchema = (questions: QuestionType[]) => {
       case "long_text":
         fieldSchema = z.string();
         if (question.required) {
-          fieldSchema = fieldSchema.min(1, {
+          fieldSchema = fieldSchema.trim().min(1, {
             message: question.validationMessage || `This field is required`,
           });
+        } else {
+          fieldSchema = fieldSchema.optional();
+        }
+        break;
+
+      case "website":
+        fieldSchema = z.string();
+        if (question.required) {
+          fieldSchema = fieldSchema
+            .url()
+            .trim()
+            .min(1, {
+              message: question.validationMessage || `This field is required`,
+            });
+        } else {
+          fieldSchema = fieldSchema.optional();
         }
         break;
 
@@ -25,6 +41,8 @@ export const generateZodSchema = (questions: QuestionType[]) => {
           fieldSchema = fieldSchema.min(1, {
             message: question.validationMessage || `This field is required`,
           });
+        } else {
+          fieldSchema = fieldSchema.optional();
         }
         break;
 
@@ -36,6 +54,8 @@ export const generateZodSchema = (questions: QuestionType[]) => {
           fieldSchema = fieldSchema.min(1, {
             message: `This field is required`,
           });
+        } else {
+          fieldSchema = fieldSchema.optional();
         }
         break;
 
@@ -45,22 +65,19 @@ export const generateZodSchema = (questions: QuestionType[]) => {
           fieldSchema = fieldSchema.refine((date) => !isNaN(date.getTime()), {
             message: question.validationMessage || `This field is required`,
           });
+        } else {
+          fieldSchema = fieldSchema.optional();
         }
         break;
       case "multiple_choice":
       case "picture_choice":
         if (question.options) {
-          // Convert { value: string, label: string }[] to [string, ...string[]]
           const optionValues = question.options.map((opt) => opt.value);
-
-          // Check if optionValues has at least one element before casting to tuple
           if (optionValues.length > 0) {
             const enumSchema = z.enum([
               optionValues[0],
               ...optionValues.slice(1),
             ] as [string, ...string[]]);
-
-            // Define the array schema
             const arraySchema = z.array(enumSchema);
 
             if (question.required) {
@@ -83,6 +100,8 @@ export const generateZodSchema = (questions: QuestionType[]) => {
           fieldSchema = fieldSchema.min(1, {
             message: question.validationMessage || `This field is required`,
           });
+        } else {
+          fieldSchema = fieldSchema.optional();
         }
         break;
 
@@ -92,6 +111,8 @@ export const generateZodSchema = (questions: QuestionType[]) => {
           fieldSchema = fieldSchema.min(1, {
             message: question.validationMessage || `This field is required`,
           });
+        } else {
+          fieldSchema = fieldSchema.optional();
         }
         break;
     }

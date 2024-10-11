@@ -246,12 +246,11 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                         <FormItem className="flex flex-col justify-between rounded-lg  ">
                           <div className="space-y-0.5">
                             <FormLabel>Scale</FormLabel>
-                            <FormDescription></FormDescription>
                           </div>
                           <FormControl>
                             <Input
                               {...field}
-                              placeholder=" Enter the max value of the scale"
+                              placeholder="Enter the max value of the scale"
                             />
                           </FormControl>
                         </FormItem>
