@@ -24,6 +24,7 @@ import { QuestionType } from "@/schema/zod";
 import { FormDropdown } from "@/components/form-components/dropdown";
 import { FormPictureChoice } from "@/components/form-components/form-picture-choice";
 import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
+import { BooleanComponent } from "@/components/builder/question-components/boolean";
 
 export const renderFormField = (
   field: QuestionType,
@@ -173,6 +174,11 @@ export const renderFormField = (
           theme={theme}
           options={field.options || []}
         />
+      );
+
+    case "boolean":
+      return (
+        <BooleanComponent form={form} fieldName={fieldName} theme={theme} />
       );
 
     case "rating":

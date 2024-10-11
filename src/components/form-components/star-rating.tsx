@@ -35,7 +35,7 @@ export function StarRating({ form, scale, fieldName, theme }: StarRatingProps) {
                     onMouseOut={() => setHoverIndex(0)}
                     onClick={() => {
                       setIndex(i + 1);
-                      field.onChange(star);
+                      field.onChange(i + 1);
                     }}
                   >
                     {i < (hoverIndex || index) ? (

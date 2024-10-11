@@ -1,6 +1,7 @@
 import { FormType } from "@/schema/zod";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
+import { AutosizeTextarea } from "../ui/autosize-textarea";
 
 interface WelcomeScreenProps {
   form: UseFormReturn<FormType>;
@@ -16,7 +17,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
   {};
 
   // Handle changes for title input
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     form.setValue("screens.0.title", e.target.value); // Adjust index if necessary
   };
 
@@ -29,8 +30,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
 
   return (
     <div className="h-full p-4 flex relative items-center justify-center gap-3 flex-col">
-      <input
-        type="text"
+      <AutosizeTextarea
         value={title}
         onChange={handleTitleChange}
         placeholder="Enter the welcome message title"
@@ -38,7 +38,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
       />
 
       {/* Textarea field for the description */}
-      <textarea
+      <AutosizeTextarea
         value={description}
         onChange={handleDescriptionChange}
         placeholder="Enter a brief description"

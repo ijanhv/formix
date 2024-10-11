@@ -99,66 +99,68 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   }}
                 >
                   {/* Slide Type */}
-                  {slide.type !== "welcomeScreen" && (
-                    <FormField
-                      control={form.control}
-                      name={`screens.${index}.type`}
-                      render={({ field }) => (
-                        <FormItem className="w-full">
-                          <FormLabel>Slide Type</FormLabel>
-                          <Select
-                            onValueChange={(value) => {
-                              const newType = value;
-                              field.onChange(newType);
-                              if (
-                                newType === "multiple_choice" ||
-                                newType === "dropdown"
-                              ) {
-                                // Ensure you access slide with a correct type
-                                const currentSlide = form.getValues(
-                                  `screens.${index}`
-                                );
-
+                  {slide.type !== "welcomeScreen" &&
+                    slide.type !== "endScreen" && (
+                      <FormField
+                        control={form.control}
+                        name={`screens.${index}.type`}
+                        render={({ field }) => (
+                          <FormItem className="w-full border-b py-4">
+                            <FormLabel>Slide Type</FormLabel>
+                            <Select
+                              onValueChange={(value) => {
+                                const newType = value;
+                                field.onChange(newType);
                                 if (
-                                  "options" in currentSlide &&
-                                  (!currentSlide.options ||
-                                    currentSlide.options.length === 0)
+                                  newType === "multiple_choice" ||
+                                  newType === "dropdown"
                                 ) {
-                                  form.setValue(`screens.${index}.options`, [
-                                    {
-                                      value: "option_1",
-                                      label: "Option 1",
-                                    },
-                                  ]);
+                                  // Ensure you access slide with a correct type
+                                  const currentSlide = form.getValues(
+                                    `screens.${index}`
+                                  );
+
+                                  if (
+                                    "options" in currentSlide &&
+                                    (!currentSlide.options ||
+                                      currentSlide.options.length === 0)
+                                  ) {
+                                    form.setValue(`screens.${index}.options`, [
+                                      {
+                                        value: "option_1",
+                                        label: "Option 1",
+                                      },
+                                    ]);
+                                  }
                                 }
-                              }
-                            }}
-                            value={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select slide type" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {slideTypes.map(({ label, value }) => (
-                                <SelectItem key={value} value={value}>
-                                  {label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
-                  )}
+                              }}
+                              value={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select slide type" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {slideTypes.map(({ label, value }) => (
+                                  <SelectItem key={value} value={value}>
+                                    {label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
                   {/* Slide Label */}
                   <FormField
                     control={form.control}
                     defaultValue={form.watch(`screens.${index}.title`)}
                     name={`screens.${index}.title`}
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full border-b py-4">
                         <FormLabel>Slide Label</FormLabel>
                         <FormControl>
                           <Input {...field} placeholder="Enter slide label" />
@@ -173,7 +175,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     control={form.control}
                     name={`screens.${index}.description`}
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full border-b py-4">
                         <FormLabel>Slide Description</FormLabel>
                         <FormControl>
                           <Input
@@ -191,7 +193,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     control={form.control}
                     name={`screens.${index}.image`}
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full border-b py-4">
                         <FormLabel>Choose an Image</FormLabel>
                         <FormControl>
                           <ImageSelector
@@ -220,7 +222,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                         control={form.control}
                         name={`screens.${index}.required`}
                         render={({ field }) => (
-                          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3  mt-4 shadow-sm">
                             <div className="space-y-0.5">
                               <FormLabel>Required</FormLabel>
                               <FormDescription>

@@ -14,7 +14,7 @@ const BuilderNavbar = () => {
     <header className=" h-14 sticky top-0 inset-x-0 w-full bg-background/40 backdrop-blur-lg border-b border-border z-50">
       <Container reverse>
         <div
-          className={`flex items-center justify-between h-full mx-auto w-full   sm:px-6 md:px-10  xl:px-4 ${pathname.includes("/dashboard/responses") && "max-w-7xl"} `}
+          className={`flex items-center justify-between h-full mx-auto w-full   sm:px-6 md:px-10  xl:px-4 ${(pathname.includes("/dashboard/responses") || pathname.includes("/dashboard/code")) && "max-w-7xl"} `}
         >
           <div className="flex items-start w-full">
             <Logo />

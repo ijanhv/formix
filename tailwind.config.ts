@@ -96,6 +96,30 @@ const config = {
             transform: "rotate(360deg)",
           },
         },
+        "fade-in-fall": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(-20px)",
+            maxHeight: "0",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+            maxHeight: "300px",
+          },
+        },
+        "fade-out-fall": {
+          "0%": {
+            opacity: "1",
+            transform: "translateY(0)",
+            maxHeight: "300px",
+          },
+          "100%": {
+            opacity: "0",
+            transform: "translateY(-20px)",
+            maxHeight: "0",
+          },
+        },
         rotate: {
           to: {
             transform: "rotate(90deg)",
@@ -125,7 +149,8 @@ const config = {
       },
       animation: {
         twinkle: "twinkle 0.2s linear 2",
-
+        "fade-in-fall": "fade-in-fall 0.3s ease-out forwards",
+        "fade-out-fall": "fade-out-fall 0.3s ease-in forwards",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "automation-zoom-in": "automation-zoom-in 0.5s",
@@ -135,6 +160,9 @@ const config = {
         shimmer: "shimmer 2s linear infinite",
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
         marquee: "marquee var(--duration) linear infinite",
+      },
+      transitionProperty: {
+        "max-height": "max-height", // Ensures transition of height
       },
     },
   },

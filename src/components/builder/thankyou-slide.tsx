@@ -1,6 +1,7 @@
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
 import { FormType } from "@/schema/zod";
+import { AutosizeTextarea } from "../ui/autosize-textarea";
 
 interface EndScreenProps {
   form: UseFormReturn<FormType>;
@@ -15,7 +16,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ form, theme }) => {
   } = form.watch("screens").find((screen) => screen.type === "endScreen") || {};
 
   // Handle changes for title input
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     form.setValue(
       `screens.${form.watch("screens").length - 1}.title`,
       e.target.value
@@ -34,8 +35,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ form, theme }) => {
   return (
     <div className="h-full p-4 relative flex items-center justify-center gap-3 flex-col">
       {/* Input field for the title */}
-      <input
-        type="text"
+      <AutosizeTextarea
         value={title}
         onChange={handleTitleChange}
         placeholder="Enter the thank you message "
@@ -43,7 +43,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ form, theme }) => {
       />
 
       {/* Textarea field for the description */}
-      <textarea
+      <AutosizeTextarea
         value={description}
         onChange={handleDescriptionChange}
         placeholder="Enter a brief description"

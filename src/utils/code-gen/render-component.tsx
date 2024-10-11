@@ -7,6 +7,7 @@ import { FormType, QuestionType } from "@/schema/zod";
 import CustomDateInput from "@/components/builder/question-components/custom-date";
 import { CustomDropdown } from "@/components/builder/question-components/custom-dropdown";
 import PictureChoice from "@/components/builder/question-components/picture-choice";
+import { BooleanComponent } from "@/components/builder/question-components/boolean";
 
 export function renderQuestionInput(
   question: QuestionType,
@@ -93,6 +94,15 @@ export function renderQuestionInput(
             label: option.label,
           }))}
           fieldName="select"
+          theme={theme as Theme}
+        />
+      );
+
+    case "boolean":
+      return (
+        <BooleanComponent
+          form={form}
+          fieldName="boolean"
           theme={theme as Theme}
         />
       );
