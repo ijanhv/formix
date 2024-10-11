@@ -20,10 +20,10 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { CustomCheckboxGroup } from "@/components/builder/question-components/custom-checkbox";
 import { StarRating } from "@/components/form-components/star-rating";
-import { Textarea } from "@/components/ui/textarea";
 import { QuestionType } from "@/schema/zod";
 import { FormDropdown } from "@/components/form-components/dropdown";
 import { FormPictureChoice } from "@/components/form-components/form-picture-choice";
+import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 
 export const renderFormField = (
   field: QuestionType,
@@ -82,10 +82,10 @@ export const renderFormField = (
             <FormItem>
               <FormControl>
                 <>
-                  <Textarea
+                  <AutosizeTextarea
                     rows={1}
                     {...formField}
-                    className={`${theme.textColor}  ${theme.placeholderColor}  peer py-5 border-none border-b-2 text-xl  font-light  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+                    className={`${theme.textColor}  ${theme.placeholderColor} bg-transparent outline-none focus:outline-none focus:border-transparent peer py-5 border-none border-b-2 text-xl  font-light  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
                     placeholder="Type your answer here"
                     value={formField.value || ""}
                   />

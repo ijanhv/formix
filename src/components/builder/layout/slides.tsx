@@ -9,6 +9,7 @@ import { themes } from "@/constants";
 import { renderQuestionInput } from "@/utils/code-gen/render-component";
 import WelcomeSlide from "../welcome-slide";
 import ThankYouSlide from "../thankyou-slide";
+import { AutosizeTextarea } from "@/components/ui/autosize-textarea";
 
 interface ScreensProps {
   form: UseFormReturn<FormType>;
@@ -57,8 +58,7 @@ const Screens: React.FC<ScreensProps> = ({ form, currentScreenIndex }) => {
                       <h3
                         className={`text-2xl flex font-medium ${theme?.textColor}`}
                       >
-                        <input
-                          type="text"
+                        <AutosizeTextarea
                           value={currentScreen.title || ""}
                           onChange={(e) =>
                             form.setValue(
@@ -75,8 +75,8 @@ const Screens: React.FC<ScreensProps> = ({ form, currentScreenIndex }) => {
                       </h3>
 
                       <h3 className={`text-lg font-medium ${theme?.textColor}`}>
-                        <input
-                          type="text"
+                        <AutosizeTextarea
+                          // type="text"
                           value={currentScreen.description || ""}
                           onChange={(e) =>
                             form.setValue(

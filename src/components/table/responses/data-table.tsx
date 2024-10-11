@@ -11,7 +11,7 @@ import { format } from "date-fns";
 
 const DataTable = ({ responses }: { responses: FormResponse[] }) => {
   const getUniqueKeys = (responses: FormResponse[]): string[] => {
-    const keySets = responses.map(
+    const keySets = responses?.map(
       (response) => new Set(Object.keys(response.responseData))
     );
     return Array.from(new Set(keySets.flatMap((set) => Array.from(set))));

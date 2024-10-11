@@ -9,7 +9,7 @@ const getFormResponses = async (id: string) => {
 
 export const useGeMyFormResponsesQuery = (id: string) => {
   return useQuery({
-    queryKey: ["forms"],
+    queryKey: ["responses"],
     queryFn: () => getFormResponses(id),
     staleTime: Infinity,
   });

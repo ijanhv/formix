@@ -28,9 +28,11 @@ const FormCard = ({ form }: { form: FormType }) => {
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost">
-          <TableOfContents />
-        </Button>
+        <Link href={`/dashboard/responses/${form.id}`}>
+          <Button variant="ghost">
+            <TableOfContents />
+          </Button>
+        </Link>
 
         <Link href={`/dashboard/builder/${form.id}`}>
           <Button variant="ghost">
