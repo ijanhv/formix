@@ -411,62 +411,6 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                       </Button>
                     </div>
                   )}
-
-                  {/* Options for select/multiSelect */}
-                  {/* {(slide.type === "multiple_choice" ||
-                    slide.type === "multiple_choice") && (
-                    <div className="space-y-2">
-                      <FormLabel>Options</FormLabel>
-                      {slide.options?.map((_, optionIndex) => (
-                        <FormField
-                          key={optionIndex}
-                          control={form.control}
-                          name={`slides.${index}.options.${optionIndex}`}
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  placeholder={`Option ${optionIndex + 1}`}
-                                  onChange={(e) => {
-                                    const value = e.target.value
-                                    field.onChange(
-                                      value || `Option ${optionIndex + 1}`
-                                    )
-                                  }}
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      ))}
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="mt-2"
-                        onClick={() => {
-                          const currentOptions =
-                            form.getValues(`slides.${index}.options`) || []
-                          const newOptionIndex = currentOptions.length + 1
-                          form.setValue(`slides.${index}.options`, [
-                            ...currentOptions,
-                            `Option ${newOptionIndex}`,
-                          ])
-                        }}
-                      >
-                        Add Option
-                      </Button>
-                    </div>
-                  )} */}
-
-                  {/* {slide.type === "picture_choice" && (
-                    <PictureChoice
-                      form={form}
-                      index={index}
-                      slide={slide}
-                    />
-                  )} */}
                 </div>
               ))}
             </TabsContent>
@@ -511,22 +455,23 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             </TabsContent>
           </Tabs>
 
-          {/* Remove Slide Button */}
-          <Button
-            type="button"
-            variant="destructive"
-            size="sm"
-            className="mt-4"
-            onClick={() => {
-              const newSlides = form
-                .getValues("screens")
-                .filter((_, index) => index !== currentSlideIndex);
-              form.setValue("screens", newSlides);
-              // Optionally, you might want to update the currentSlideIndex in the parent component
-            }}
-          >
-            Remove Slide
-          </Button>
+          {form.watch("screens")[currentSlideIndex].type !== "welcomeScreen" &&
+            form.watch("screens")[currentSlideIndex].type !== "endScreen" && (
+              <Button
+                type="button"
+                variant="destructive"
+                size="sm"
+                className="mt-4"
+                onClick={() => {
+                  const newSlides = form
+                    .getValues("screens")
+                    .filter((_, index) => index !== currentSlideIndex);
+                  form.setValue("screens", newSlides);
+                }}
+              >
+                Remove Slide
+              </Button>
+            )}
         </div>
 
         <Button type="submit">Submit</Button>

@@ -68,12 +68,8 @@ export function CustomDropdown({
                   }`}
                   onClick={() => {
                     handleClick(index);
-                    const newValue = isChecked
-                      ? field.value.filter(
-                          (item: string) => item !== option.value
-                        )
-                      : option.value;
-                    field.onChange(newValue);
+
+                    field.onChange(option.value);
                   }}
                 >
                   <div

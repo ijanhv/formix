@@ -10,7 +10,7 @@ export async function GET(
 ) {
   try {
     const form = await prisma.form.findFirst({
-      where: { id: params.id, published: true },
+      where: { id: params.id },
       include: {
         screens: {
           include: {
