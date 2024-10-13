@@ -1,6 +1,14 @@
 import { QuestionType } from "@/schema/zod";
 import { z } from "zod";
 
+export function generateSteps(screens: QuestionType[]) {
+  return screens
+    .filter(
+      // @ts-ignore
+      (screen) => screen.type !== "welcomeScreen" && screen.type !== "endScreen"
+    )
+    .map((_, index) => ({ fields: [`form_element_${index}`] }));
+}
 export const generateZodSchema = (questions: QuestionType[]) => {
   const schemaObject: Record<string, any> = {};
 
@@ -21,8 +29,23 @@ export const generateZodSchema = (questions: QuestionType[]) => {
         }
         break;
 
+      case "dropdown":
+        if (question.options && question.options.length > 0) {
+          const optionValues = question.options.map((opt) => opt.label);
+          fieldSchema = z.enum([optionValues[0], ...optionValues.slice(1)] as [
+            string,
+            ...string[],
+          ]);
+        } else {
+          fieldSchema = z.string();
+        }
+        if (!question.required) {
+          fieldSchema = fieldSchema.optional();
+        }
+        break;
+
       case "website":
-        fieldSchema = z.string();
+        fieldSchema = z.string().url().trim();
         if (question.required) {
           fieldSchema = fieldSchema
             .url()
@@ -136,13 +159,29 @@ export const generateZodSchema = (questions: QuestionType[]) => {
 
 // Convert Zod schema to a string format for debugging or other uses
 export const zodSchemaToString = (schema: z.ZodTypeAny): string => {
-  if (schema instanceof z.ZodBoolean) {
+  if (schema instanceof z.ZodObject) {
+    const shape = schema.shape;
+    const shapeEntries = Object.entries(shape)
+      .map(
+        ([key, value]) =>
+          `  ${key}: ${zodSchemaToString(value as z.ZodTypeAny)}`
+      )
+      .join(",\n");
+    return `z.object({\n${shapeEntries}\n})`;
+  } else if (schema instanceof z.ZodBoolean) {
     return "z.boolean()";
   } else if (schema instanceof z.ZodNumber) {
     // @ts-ignore
     return schema.isCoerce ? "z.coerce.number()" : "z.number()";
   } else if (schema instanceof z.ZodString) {
-    return "z.string()";
+    let result = "z.string()";
+    if (schema._def.checks) {
+      schema._def.checks.forEach((check: any) => {
+        if (check.kind === "email") result += ".email()";
+        if (check.kind === "url") result += ".url()";
+      });
+    }
+    return result;
   } else if (schema instanceof z.ZodDate) {
     return "z.date()";
   } else if (schema instanceof z.ZodEnum) {
@@ -164,7 +203,7 @@ export const zodSchemaToString = (schema: z.ZodTypeAny): string => {
     const innerSchema = zodSchemaToString(schema._def.innerType);
     return `${innerSchema}.default(${schema._def.defaultValue()})`;
   }
-  return "z.unknown()"; // fallback for unhandled cases
+  return "z.unknown()";
 };
 
 // Generate a schema string representation
@@ -178,12 +217,3 @@ export const getZodSchemaString = (questions: QuestionType[]) => {
 
   return `const formSchema = z.object({\n${schemaEntries}\n});`;
 };
-
-// Example usage:
-// const questions: QuestionInput[] = [
-//   { id: "1", type: "shortText", label: "Name", required: true },
-//   { id: "2", type: "email", label: "Email", required: true },
-//   { id: "3", type: "number", label: "Age", required: false },
-// ];
-
-// const schema = generateZodSchemaForQuestions(questions);

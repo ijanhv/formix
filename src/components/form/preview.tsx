@@ -14,19 +14,10 @@ import { FormType, QuestionType } from "@/schema/zod";
 import { ScreenType } from "@prisma/client";
 
 // Assume these utility functions are imported from their respective files
-import { generateZodSchema } from "@/utils/code-gen/zod-schema";
+import { generateSteps, generateZodSchema } from "@/utils/code-gen/zod-schema";
 import { renderFormField } from "@/utils/code-gen/render-field";
 import { apiUrl } from "@/constants";
 import axios from "axios";
-
-function generateSteps(screens: QuestionType[]) {
-  return screens
-    .filter(
-      // @ts-ignore
-      (screen) => screen.type !== "welcomeScreen" && screen.type !== "endScreen"
-    )
-    .map((_, index) => ({ fields: [`form_element_${index}`] }));
-}
 
 export default function FormPreview({
   formData,
@@ -42,8 +33,6 @@ export default function FormPreview({
       (screen.type as ScreenType) !== "endScreen"
   );
   const formSchema = generateZodSchema(questionScreens as QuestionType[]);
-
-  // const stringSchema = getZodSchemaString(questionScreens as QuestionType[]);
 
   const [formState, setFormState] = useState<Record<string, any>>({});
   const [currentStep, setCurrentStep] = useState(0);
