@@ -160,29 +160,31 @@ export default function DashboardBuilder({ formData }: { formData: FormType }) {
             <div
               className={`flex flex-col relative h-full ${form.watch("fontFamily")}`}
             >
-              <div className="py-3 px-3 flex justify-between items-center gap-2">
-                <h3 className="flex items-center gap-3">
-                  <Link href={"/dashboard"}> My Forms</Link> <ChevronRight />{" "}
-                  {formData.name}
-                </h3>
-                {!formData.published && (
-                  <Button
-                    type="button"
-                    disabled={isPublishing}
-                    onClick={() =>
-                      publishForm(formData.id, {
-                        onSuccess: (response) => {
-                          setFormLink(
-                            `${process.env.NEXT_PUBLIC_API_URL}/forms/${response.updatedForm.id}`
-                          );
-                          setIsSuccessDialogOpen(true);
-                        },
-                      })
-                    }
-                  >
-                    Publish Form
-                  </Button>
-                )}
+              <div className="py-3 px-3 ">
+                <div className="flex justify-between items-center gap-2">
+                  <h3 className="flex items-center gap-3">
+                    <Link href={"/dashboard"}> My Forms</Link> <ChevronRight />{" "}
+                    {formData.name}
+                  </h3>
+                  {!formData.published && (
+                    <Button
+                      type="button"
+                      disabled={isPublishing}
+                      onClick={() =>
+                        publishForm(formData.id, {
+                          onSuccess: (response) => {
+                            setFormLink(
+                              `${process.env.NEXT_PUBLIC_API_URL}/forms/${response.updatedForm.id}`
+                            );
+                            setIsSuccessDialogOpen(true);
+                          },
+                        })
+                      }
+                    >
+                      Publish Form
+                    </Button>
+                  )}
+                </div>
               </div>
 
               {form.watch("screens")?.length > 0 && (

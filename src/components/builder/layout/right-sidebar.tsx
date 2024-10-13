@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import ImageSelector from "../image-selector";
 import ThemeSelector from "../theme/theme-selector";
 import { formSchema, FormType } from "@/schema/zod";
+import { TriangleAlert } from "lucide-react";
 
 const slideTypes = [
   { label: "Short Text", value: "short_text" },
@@ -90,6 +91,9 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                 Theme
               </TabsTrigger>
             </TabsList>
+            <div className="flex items-start p-2 rounded-lg mt-4 border border-red-400/40 text-red-400 text-sm gap-3">
+              <TriangleAlert size={20} /> Don{"'"}t forget to save your progress
+            </div>
             <TabsContent value="content" className="flex flex-col gap-4 w-full">
               {slides?.map((slide, index) => (
                 <div
@@ -517,7 +521,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             )}
         </div>
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Save</Button>
       </form>
     </div>
   );
