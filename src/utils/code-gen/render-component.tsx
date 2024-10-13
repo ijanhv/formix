@@ -21,9 +21,9 @@ export function renderQuestionInput(
       return (
         <>
           <Input
-            name=""
+            readOnly
             placeholder="Type your answer here"
-            className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+            className={`${theme?.textColor}  ${theme?.placeholderColor}  peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
         </>
@@ -33,6 +33,7 @@ export function renderQuestionInput(
         <>
           <Input
             name=""
+            readOnly
             className={`${theme?.textColor}  ${theme.placeholderColor} peer py-5 border-none border-b-2 text-xl  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
@@ -47,6 +48,7 @@ export function renderQuestionInput(
           <Input
             type="number"
             name=""
+            readOnly
             className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
@@ -58,6 +60,7 @@ export function renderQuestionInput(
           <Input
             placeholder="Type your answer here"
             type="email"
+            readOnly
             name=""
             className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
@@ -71,6 +74,7 @@ export function renderQuestionInput(
             placeholder="Type your answer here"
             defaultValue={"https://"}
             name=""
+            readOnly
             className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />

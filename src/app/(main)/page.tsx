@@ -127,7 +127,7 @@ const HomePage = () => {
               <div className="absolute top-1/2 left-1/2 -z-10 gradient w-3/4 -translate-x-1/2 h-3/4 -translate-y-1/2 inset-0 blur-[10rem]"></div>
               <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl">
                 <Image
-                  src="/assets/dashboard.svg"
+                  src="/assets/image.png"
                   alt="banner image"
                   width={1200}
                   height={1200}
@@ -376,7 +376,7 @@ const HomePage = () => {
                 builder and powerful AI assistant
               </p>
               <Button variant="white" className="mt-6" asChild>
-                <Link href="/sign-in">
+                <Link href="/auth?authType=signUp">
                   Get started for free
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
@@ -392,7 +392,7 @@ const HomePage = () => {
                   Join our newsletter
                 </h4>
                 <p className="text-base text-muted-foreground">
-                  Be up to date with everything about AI builder
+                  Be up to date with everything about formix
                 </p>
               </div>
               <div className="flex flex-col items-start gap-2 md:min-w-80 mt-5 md:mt-0 w-full md:w-max">
