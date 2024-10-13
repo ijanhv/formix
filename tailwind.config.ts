@@ -19,16 +19,17 @@ const config = {
     },
 
     fontFamily: {
+      roboto: ["var(--font-roboto)"],
       quick: ["var(--font-quick)"],
       open: ["var(--font-open)"],
       mont: ["var(--font-mont)"],
       poppins: ["var(--font-poppins)"],
       jost: ["var(--font-jost)"],
       serifDisplay: ["var(--font-serif-display)"],
-      libre: ["var(--font-libre)"], // Added Libre Baskerville
-      space: ["var(--font-space)"], // Added Space Grotesk
-      prata: ["var(--font-prata)"], // Added Prata
-      lobster: ["var(--font-lobster)"], // Added Lobster Two
+      libre: ["var(--font-libre)"],
+      space: ["var(--font-space)"],
+      prata: ["var(--font-prata)"],
+      lobster: ["var(--font-lobster)"],
       playfairDisplay: ["var(--font-playfair)"],
     },
     extend: {

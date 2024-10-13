@@ -300,7 +300,7 @@ export default function FormPreview({
                   {currentStep === steps.length && (
                     <Button
                       type="submit"
-                      className={`shadow-none  text-base text-gray-500 bg-white hover:bg-gray-200 transition-colors duration-200`}
+                      className={`shadow-none text-base text-gray-500 bg-white hover:bg-gray-200 transition-colors duration-200`}
                     >
                       <Check size={30} />
                     </Button>

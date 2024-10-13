@@ -1,5 +1,4 @@
 import React from "react";
-import { FloatingLabelInput } from "@/components/ui/floating-label-input";
 import { CustomCheckboxGroup } from "@/components/builder/question-components/custom-checkbox";
 import Rating from "@/components/builder/question-components/rating";
 import { UseFormReturn } from "react-hook-form";
@@ -8,6 +7,9 @@ import CustomDateInput from "@/components/builder/question-components/custom-dat
 import { CustomDropdown } from "@/components/builder/question-components/custom-dropdown";
 import PictureChoice from "@/components/builder/question-components/picture-choice";
 import { BooleanComponent } from "@/components/builder/question-components/boolean";
+import { MultpleChoice } from "@/components/form-components/multiple-choice";
+import OpinionScale from "@/components/builder/question-components/opinion-scale";
+import { Input } from "@/components/ui/input";
 
 export function renderQuestionInput(
   question: QuestionType,
@@ -18,9 +20,9 @@ export function renderQuestionInput(
     case "short_text":
       return (
         <>
-          <FloatingLabelInput
+          <Input
+            name=""
             placeholder="Type your answer here"
-            label="Type your answer here"
             className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
@@ -29,8 +31,8 @@ export function renderQuestionInput(
     case "long_text":
       return (
         <>
-          <FloatingLabelInput
-            label="Type your answer here"
+          <Input
+            name=""
             className={`${theme?.textColor}  ${theme.placeholderColor} peer py-5 border-none border-b-2 text-xl  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
@@ -42,9 +44,9 @@ export function renderQuestionInput(
     case "number":
       return (
         <>
-          <FloatingLabelInput
-            label="Type your answer here"
+          <Input
             type="number"
+            name=""
             className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
@@ -53,11 +55,11 @@ export function renderQuestionInput(
     case "email":
       return (
         <>
-          <FloatingLabelInput
+          <Input
             placeholder="Type your answer here"
-            label="Type your email here"
             type="email"
-            className={`${theme?.textColor} peer py-5 border-none border-b-2 text-xl  placeholder:text-foreground/35  focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
+            name=""
+            className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
         </>
@@ -65,10 +67,10 @@ export function renderQuestionInput(
     case "website":
       return (
         <>
-          <FloatingLabelInput
+          <Input
             placeholder="Type your answer here"
-            label="Type your url here"
             defaultValue={"https://"}
+            name=""
             className={`${theme?.textColor}  ${theme?.placeholderColor} peer py-5 border-none border-b-2 text-xl focus-visible:ring-0 focus-visible:ring-transparent rounded-none focus:ring-0 focus:border-none shadow-none`}
           />
           <hr className={`${theme?.borderColor}`} />
@@ -79,6 +81,13 @@ export function renderQuestionInput(
       return (
         <>
           <PictureChoice form={form} question={question} theme={theme} />
+        </>
+      );
+
+    case "opinion_scale":
+      return (
+        <>
+          <OpinionScale form={form} question={question} theme={theme} />
         </>
       );
     case "date":
@@ -123,13 +132,9 @@ export function renderQuestionInput(
       );
     case "multiple_choice":
       if (!question.options) return null;
-      // const options = question.options.map((option, index) => ({
-      //   id: `option-${index}`,
-      //   label: option,
-      //   icon: () => null, // You may want to replace this with an appropriate icon component
-      // }));
+
       return (
-        <CustomCheckboxGroup
+        <MultpleChoice
           form={form}
           options={question.options.map((option) => ({
             value: option.label,

@@ -9,6 +9,7 @@ import {
   poppins,
   prata,
   quickSand,
+  roboto,
   serifDisplay,
   spaceGrotes,
 } from "@/utils/font";
@@ -30,8 +31,8 @@ export default function RootLayout({
         <main
           className={`    
                ${mangericaRegular.variable} ${jost.variable} ${poppins.variable}
-              ${serifDisplay.variable} ${quickSand.variable}  ${libreBaskerville.variable} ${spaceGrotes.variable} ${prata.variable} 
-              ${lobster.variable} ${playfairDisplay.variable}`}
+              ${serifDisplay.variable} ${quickSand.variable} ${libreBaskerville.variable} ${spaceGrotes.variable} ${prata.variable}
+              ${lobster.variable} ${playfairDisplay.variable} ${roboto.variable}`}
         >
           <Provider>
             {children}

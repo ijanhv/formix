@@ -86,62 +86,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   const endScreen = screensData[screensData.length - 1];
   const questionScreens = screensData.slice(1, -1); // Exclude Welcome and End Screens
 
-  // const icons = [
-  //   {
-  //     type: "short_text",
-  //     icon: "mingcute:text-2-line",
-  //   },
-  //   {
-  //     type: "long_text",
-  //     icon: "mingcute:text-2-line",
-  //   },
-  //   {
-  //     type: "mail",
-  //     icon: "quill:mail",
-  //   },
-
-  //   {
-  //     type: "multiple_choice",
-  //     icon: "mingcute:choice-line",
-  //   },
-  //   {
-  //     type: "dropdown",
-  //     icon: "gridicons:dropdown",
-  //   },
-
-  //   {
-  //     type: "date",
-  //     icon: "uiw:date",
-  //   },
-  //   {
-  //     type: "rating",
-  //     icon: "mdi-light:star",
-  //   },
-  //   {
-  //     type: "boolean",
-  //     icon: "healthicons:yes-outline",
-  //   },
-  //   {
-  //     type: "website",
-  //     icon: "mdi:web",
-  //   },
-  //   {
-  //     type: "file_upload",
-  //     icon: "ic:round-upload-file",
-  //   },
-  //   {
-  //     type: "number",
-  //     icon: "mdi:number-1",
-  //   },
-  //   {
-  //     type: "opinion_scale",
-  //     icon: "fluent:scale-fit-20-regular",
-  //   },
-  //   {
-  //     type: "picture_choice",
-  //     icon: "ant-design:picture-twotone",
-  //   },
-  // ];
   return (
     <div className="border-r h-full overflow-y-auto scrollbar scrollbar-w-0">
       <Button
@@ -215,16 +159,5 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     </div>
   );
 };
-
-// function getScreenLabel(screen: ScreenType, index: number): string {
-//   switch (screen.type) {
-//     case "welcomeScreen":
-//       return "Welcome Screen";
-//     case "endScreen":
-//       return "End Screen";
-//     default:
-//       return screen.title || `Question ${index}`;
-//   }
-// }
 
 export default LeftSidebar;

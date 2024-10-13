@@ -36,7 +36,7 @@ const slideTypes = [
   { label: "Boolean", value: "boolean" },
   { label: "Email", value: "email" },
   { label: "Website", value: "website" },
-  { label: "File Upload", value: "file_upload" },
+  // { label: "File Upload", value: "file_upload" },
   { label: "Number", value: "number" },
   { label: "Opinion Scale", value: "opinion_scale" },
   { label: "Picture Choice", value: "picture_choice" },
@@ -258,6 +258,47 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                         </FormItem>
                       )}
                     />
+                  )}
+
+                  {slide?.type === "opinion_scale" && (
+                    <div className="flex flex-col gap-4">
+                      <div className="flex items-center gap-3">
+                        <FormField
+                          control={form.control}
+                          name={`screens.${index}.leftLabel`}
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col justify-between rounded-lg  ">
+                              <div className="space-y-0.5">
+                                <FormLabel>Left Label</FormLabel>
+                              </div>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Enter left label"
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`screens.${index}.rightLabel`}
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col justify-between rounded-lg  ">
+                              <div className="space-y-0.5">
+                                <FormLabel>Right Label</FormLabel>
+                              </div>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Enter right label"
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
                   )}
 
                   {slide?.type === "multiple_choice" && (

@@ -1,3 +1,4 @@
+"use client";
 import Container from "@/components/common/container";
 import FormList from "@/components/dashboard/form-list";
 import CreateForm from "@/components/form/create-form";

@@ -33,6 +33,41 @@ export async function GET(
   }
 }
 
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user.id) {
+      return NextResponse.json({ message: "Unauthenticated" }, { status: 403 });
+    }
+
+    const form = await prisma.form.findFirst({
+      where: { id: params.id, userId: session?.user.id },
+    });
+
+    if (!form) {
+      return NextResponse.json({ error: "Form not found" }, { status: 404 });
+    }
+
+    await prisma.form.delete({
+      where: { id: params.id },
+    });
+
+    return NextResponse.json(
+      { form, message: "Form Deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch form" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PUT(
   req: Request,
   { params }: { params: { id: string } }
@@ -74,6 +109,8 @@ export async function PUT(
             order: screen.order || undefined,
             required: screen.required,
             scale: screen.scale,
+            leftLabel: screen.leftLabel,
+            rightLabel: screen.rightLabel,
             options: {
               create: screen.options?.map((option: any) => ({
                 // id: option.id,

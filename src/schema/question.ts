@@ -111,8 +111,8 @@ const NumberQuestionSchema = BaseQuestionSchema.extend({
 
 const OpinionScaleQuestionSchema = BaseQuestionSchema.extend({
   type: z.literal("opinion_scale"),
-  minValue: z.number(),
-  maxValue: z.number(),
+  minValue: z.number().default(0),
+  maxValue: z.number().default(10),
   leftLabel: z.string().optional(),
   rightLabel: z.string().optional(),
 });

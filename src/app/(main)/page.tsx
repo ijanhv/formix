@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "@/components/globals/container";
 import Wrapper from "@/components/globals/wrapper";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,6 +32,7 @@ const HomePage = () => {
   return (
     <section className="w-full relative flex items-center justify-center flex-col px-4 md:px-0 py-8">
       {/* hero */}
+
       <Wrapper>
         <div
           className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] 
@@ -45,16 +45,50 @@ const HomePage = () => {
               <span>
                 <span className="spark mask-gradient absolute inset-0 h-[100%] w-[100%] animate-flip overflow-hidden rounded-full [mask:linear-gradient(white,_transparent_50%)] before:absolute before:aspect-square before:w-[200%] before:rotate-[-90deg] before:animate-rotate before:bg-[conic-gradient(from_0deg,transparent_0_340deg,white_360deg)] before:content-[''] before:[inset:0_auto_auto_50%] before:[translate:-50%_-15%]" />
               </span>
-              <span className="backdrop absolute inset-[1px] rounded-full bg-white dark:bg-slate-900 transition-colors duration-200 group-hover:bg-slate-950" />
-              <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-foreground/20"></span>
+              <span className="backdrop absolute inset-[1px] rounded-full bg-white dark:bg-slate-900 transition-colors duration-200 dark:group-hover:bg-slate-950" />
+              <span className="h-full w-full blur-md absolute bottom-0 inset-x-0 bg-gradient-to-tr from-foreground/10"></span>
               <span className="z-10 py-0.5 text-sm 0 flex items-center text-foreground justify-center gap-1.5">
-                <Image
+                {/* <Image
                   src="/icons/sparkles-dark.svg"
                   alt="✨"
                   width={24}
                   height={24}
                   className="w-4 h-4"
-                />
+                /> */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 48 48"
+                >
+                  <path
+                    fill="ffe500"
+                    d="M9.5 45.75a14.5 1.25 0 1 0 29 0a14.5 1.25 0 1 0-29 0"
+                    opacity={0}
+                  ></path>
+                  <path
+                    fill="#ffe500"
+                    d="M33.7 30.66c.47-1.51 2.06-4 4.08-4.33l8.22-1.4a.57.57 0 0 0 .53-.49A.56.56 0 0 0 46 24l-8.19-1.41c-2-.34-3.61-2.81-4.08-4.32L31.81 7.59a.75.75 0 0 0-1.32 0L28.6 18.22c-.47 1.51-2.05 4-4.08 4.32L16.33 24a.55.55 0 0 0-.52.49a.56.56 0 0 0 .52.49l8.19 1.4c2 .35 3.61 2.82 4.08 4.33l1.89 10.68a.75.75 0 0 0 1.32 0Z"
+                  ></path>
+                  <path
+                    fill="#fff48c"
+                    d="m46 24l-8.19-1.41c-2-.34-3.61-2.81-4.08-4.32L31.81 7.59a.75.75 0 0 0-1.32 0L29.88 11l1.82 10.28c.47 1.51 2.06 4 4.08 4.32l3.14.54l7-1.21a.57.57 0 0 0 .53-.49A.56.56 0 0 0 46 24"
+                  ></path>
+                  <path
+                    fill="none"
+                    stroke="ffe500"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M33.7 30.66c.47-1.51 2.06-4 4.08-4.33l8.22-1.4a.57.57 0 0 0 .53-.49A.56.56 0 0 0 46 24l-8.19-1.41c-2-.34-3.61-2.81-4.08-4.32L31.81 7.59a.75.75 0 0 0-1.32 0L28.6 18.22c-.47 1.51-2.05 4-4.08 4.32L16.33 24a.55.55 0 0 0-.52.49a.56.56 0 0 0 .52.49l8.19 1.4c2 .35 3.61 2.82 4.08 4.33l1.89 10.68a.75.75 0 0 0 1.32 0Z"
+                  ></path>
+                  <path
+                    fill="#ffe500"
+                    stroke="ffe500"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14.62 16.27c.26-.82 1.13-2.17 2.24-2.36l4.49-.76c.17 0 .29-.14.29-.27s-.12-.24-.29-.27l-4.49-.76a3.54 3.54 0 0 1-2.24-2.35l-1-5.79a.36.36 0 0 0-.36-.21a.37.37 0 0 0-.36.21l-1 5.79a3.52 3.52 0 0 1-2.24 2.35l-4.48.76c-.17 0-.29.14-.29.27s.12.24.29.27l4.48.76c1.12.19 2 1.54 2.24 2.36l1 5.81a.36.36 0 0 0 .36.22a.35.35 0 0 0 .36-.22ZM10 34.83a2.39 2.39 0 0 1 1.54-1.59l3.08-.51a.19.19 0 1 0 0-.37l-3.08-.51A2.41 2.41 0 0 1 10 30.26l-.71-3.9a.29.29 0 0 0-.5 0l-.71 3.9a2.42 2.42 0 0 1-1.53 1.59l-3.09.51a.19.19 0 1 0 0 .37l3.08.51a2.39 2.39 0 0 1 1.54 1.59l.71 3.92a.29.29 0 0 0 .5 0Z"
+                  ></path>
+                </svg>
                 Introducing Formix
                 <ChevronRight className="w-4 h-4" />
               </span>

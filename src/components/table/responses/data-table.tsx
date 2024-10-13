@@ -25,37 +25,38 @@ const DataTable = ({ responses }: { responses: FormResponse[] }) => {
     }
     return value;
   };
+
   return (
-    <div className="my-10 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <h3 className="text-base md:text-2xl font-semibold text-primary">
         Form Responses
       </h3>
       <div className="overflow-x-auto border rounded-lg">
         <Table>
           <TableHeader>
-            <TableRow className="bg-blue-100 dark:bg-foreground/10 ">
+            <TableRow className="bg-blue-100 dark:bg-foreground/10 w-full">
               {uniqueKeys.map((key) => (
                 <TableHead
                   key={key}
-                  className="w-52 whitespace-nowrap  text-left text-primary py-5"
+                  className="px-4 py-3 w-auto  text-left text-primary"
                 >
                   {key}
                 </TableHead>
               ))}
-              <TableHead className="text-left text-primary ">
+              <TableHead className="px-4 py-3 w-auto text-left text-primary">
                 Submitted At
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {responses.map((response) => (
-              <TableRow key={response.id} className="">
+              <TableRow key={response.id}>
                 {uniqueKeys.map((key) => (
-                  <TableCell key={key} className="py-1 ">
+                  <TableCell key={key} className="px-4 py-2 w-auto text-left">
                     {formatValue(response.responseData[key] || "")}
                   </TableCell>
                 ))}
-                <TableCell className="text-left ">
+                <TableCell className="px-4 py-2 w-auto text-left">
                   {format(new Date(response.submittedAt), "PPPPp")}
                 </TableCell>
               </TableRow>

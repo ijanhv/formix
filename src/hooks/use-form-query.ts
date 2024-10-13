@@ -1,6 +1,11 @@
 import { apiUrl } from "@/constants";
 import { CreateFormType, FormType } from "@/schema/zod";
-import { useMutation, useQuery, UseQueryResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from "@tanstack/react-query";
 import { toast } from "sonner";
 import axios from "axios";
 
@@ -44,6 +49,29 @@ export const useUpdateFormQuery = () => {
     },
     onError: (error: any) => {
       toast.error("Error, creating form!", {
+        position: "top-center",
+      });
+    },
+  });
+};
+
+const deleteForm = async (id: string) => {
+  const res = await axios.delete(`${apiUrl}/api/v1/form/${id}`);
+  return res.data;
+};
+
+export const useDeleteFormQuery = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteForm,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["forms"] });
+      toast.success("Form deleted successfully!", {
+        position: "top-center",
+      });
+    },
+    onError: (error: any) => {
+      toast.error("Error, deleting form!", {
         position: "top-center",
       });
     },

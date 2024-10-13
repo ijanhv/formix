@@ -13,6 +13,7 @@ import {
   Space_Grotesk,
   Prata,
   Lobster_Two,
+  Roboto,
 } from "next/font/google";
 
 export const quickSand = Quicksand({
@@ -79,6 +80,12 @@ export const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-poppins",
   weight: ["100", "200", "300", "400", "500"],
+});
+
+export const roboto = Roboto({
+  subsets: ["latin"],
+  variable: "--font-roboto",
+  weight: ["100", "300", "400", "500", "700", "900"],
 });
 export const mangericaBold = localFont({
   src: "fonts/Mangerica-Bold.ttf",

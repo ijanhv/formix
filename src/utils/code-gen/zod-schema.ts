@@ -46,6 +46,17 @@ export const generateZodSchema = (questions: QuestionType[]) => {
         }
         break;
 
+      case "opinion_scale":
+        fieldSchema = z.coerce.number();
+        if (question.required) {
+          fieldSchema = fieldSchema.min(1, {
+            message: question.validationMessage || `This field is required`,
+          });
+        } else {
+          fieldSchema = fieldSchema.optional();
+        }
+        break;
+
       case "email":
         fieldSchema = z.string().email({
           message: question.validationMessage || "Invalid email address",

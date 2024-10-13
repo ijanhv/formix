@@ -17,7 +17,7 @@ model User {
 }
 
 model Form {
-  id         String   @id @default(dbgenerated("nanoid()"))
+  id         String   @id @default(cuid())
   name       String?
   published  Boolean  @default(false)
   theme      String?
@@ -48,6 +48,8 @@ model Screen {
   required    Boolean    @default(false)
   form        Form       @relation(fields: [formId], references: [id], onDelete: Cascade)
   formId      String
+  rightLabel  String?    
+  leftLabel   String?   
   options     Option[]
 }
 
