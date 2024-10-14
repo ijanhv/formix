@@ -23,7 +23,7 @@ export async function PATCH(
       },
     });
 
-    if ((form?.screens?.length ?? 0) > 2) {
+    if ((form?.screens?.length ?? 0) < 2) {
       return new NextResponse("Please add more slides to continue", {
         status: 500,
       });
