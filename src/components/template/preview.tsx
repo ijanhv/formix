@@ -145,7 +145,7 @@ export default function TemplatePreview({
       if (screen.type === "welcomeScreen" || screen.type === "endScreen") {
         return (
           <div className="flex flex-col gap-6 items-center justify-center w-full mx-auto max-w-3xl">
-            <h3 className="text-2xl md:text-3xl lg:text-5xl text-center font-medium">
+            <h3 className="text-3xl md:text-3xl lg:text-5xl text-center font-medium">
               {/* @ts-ignore */}
               {screen.title}
             </h3>
@@ -160,7 +160,7 @@ export default function TemplatePreview({
               <Button
                 type="button"
                 onClick={next}
-                className={`px-4 py-3 rounded-sm shadow-none flex items-center gap-1 text-base ${theme.okButton} hover:${theme.okButton} transition-colors duration-200`}
+                className={`px-4 py-6 rounded-sm shadow-none flex items-center gap-1 text-base ${theme.okButton} hover:${theme.okButton} transition-colors duration-200`}
               >
                 {/* @ts-ignore */}
                 {screen.buttonText || "Start"} <ArrowRight />
@@ -177,10 +177,10 @@ export default function TemplatePreview({
       return (
         <div className="space-y-5 w-full mx-auto max-w-3xl">
           <Label className="flex flex-col  text-left gap-4">
-            <h3 className="text-2xl md:text-3xl lg:text-5xl font-medium">
+            <h3 className="text-3xl md:text-3xl flex items-start justify-start gap-4 lg:text-5xl font-medium">
               {screen.title}{" "}
               {screen.required && (
-                <span className="text-destructive ml-1">*</span>
+                <span className=" text-sm md:text-base ml-1 mb-10">*</span>
               )}
             </h3>
             {screen.description && (
@@ -232,10 +232,10 @@ export default function TemplatePreview({
       <div
         className={`h-full ${theme.textColor} ${theme.backgroundColor} ${formData.fontFamily} w-full flex items-center justify-center flex-col`}
       >
-        <div className="w-full h-2 bg-transparent fixed top-0 left-0 z-50">
+        <div className="w-full h-1.5 bg-transparent fixed top-0 left-0 z-50">
           <div
             style={{ width: `${progress}%` }}
-            className="h-full bg-blue-600 transition-all duration-300 ease-in-out"
+            className={`h-full ${theme.okButton}  transition-all duration-300 ease-in-out`}
           />
         </div>
 

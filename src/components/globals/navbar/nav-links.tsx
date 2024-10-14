@@ -9,7 +9,7 @@ const NavLinks = () => {
         {navLinks.map((item, index) => (
           <Link
             key={index}
-            href="/"
+            href={item.link}
             className="hover:text-foreground/80 text-sm"
           >
             {item.title}
