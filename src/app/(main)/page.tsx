@@ -93,10 +93,10 @@ const HomePage = () => {
             </button>
 
             <div className="flex flex-col items-center mt-8 max-w-3xl w-11/12 md:w-full">
-              <h1 className="text-4xl md:text-6xl lg:textxl md:!leading-snug font-semibold text-center bg-clip-text bg-gradient-to-b from-foreground to-foreground/60 text-transparent">
+              <h1 className="text-2xl md:text-6xl w-full md:!leading-snug font-semibold text-center bg-clip-text bg-gradient-to-b from-foreground to-foreground/60 text-transparent">
                 Tailored for Developers, Designed for Everyone
               </h1>
-              <p className="text-base md:text-lg text-foreground/80 mt-6 text-center">
+              <p className="text-sm md:text-lg text-foreground/80 mt-6 text-center">
                 Formix empowers developers to create elegant, responsive forms
                 by simply selecting themes, fonts, and input types. When your
                 form is ready, generate code and view submissions in a robust
@@ -125,11 +125,12 @@ const HomePage = () => {
               <div className="absolute top-1/2 left-1/2 -z-10 gradient w-3/4 -translate-x-1/2 h-3/4 -translate-y-1/2 inset-0 blur-[10rem]"></div>
               <div className="-m-2 rounded-xl p-2 ring-1 ring-inset ring-foreground/20 lg:-m-4 lg:rounded-2xl bg-opacity-50 backdrop-blur-3xl">
                 <Image
-                  src="/assets/image.png"
+                  src="https://eeoiaaigtkpwkppddqwb.supabase.co/storage/v1/object/public/formix/Screenshot%202024-10-13%20at%2011.28.26%20AM.png"
                   alt="banner image"
                   width={1200}
                   height={1200}
                   quality={100}
+                  unoptimized
                   className="rounded-md lg:rounded-xl bg-foreground/10 shadow-2xl ring-1 ring-border"
                 />
 

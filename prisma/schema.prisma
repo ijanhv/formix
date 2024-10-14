@@ -13,7 +13,18 @@ model User {
   name     String?
   password String?
   provider Provider
+  role     Role     @default(user)
   forms    Form[]   @relation("user")
+}
+
+model Template {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  previewImage String?
+  theme        String?
+  fontFamily   String?
+  screens      Screen[] @relation("templateScreens")
 }
 
 model Form {
@@ -46,10 +57,12 @@ model Screen {
   scale       Int?
   order       Int?
   required    Boolean    @default(false)
-  form        Form       @relation(fields: [formId], references: [id], onDelete: Cascade)
-  formId      String
-  rightLabel  String?    
-  leftLabel   String?   
+  form        Form?       @relation(fields: [formId], references: [id], onDelete: Cascade)
+  formId      String?
+  template    Template?  @relation(fields: [templateId], references: [id], name: "templateScreens", onDelete: Cascade)
+  templateId  String?
+  rightLabel  String?
+  leftLabel   String?
   options     Option[]
 }
 
@@ -83,4 +96,9 @@ enum ScreenType {
 enum Provider {
   Google
   Credentials
+}
+
+enum Role {
+  user
+  admin
 }

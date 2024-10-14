@@ -9,17 +9,17 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, ChevronDown, ChevronUp } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import CustomButton from "./custom-button";
+
 import { FormType, QuestionType } from "@/schema/zod";
 import { ScreenType } from "@prisma/client";
 
 // Assume these utility functions are imported from their respective files
 import { generateSteps, generateZodSchema } from "@/utils/code-gen/zod-schema";
 import { renderFormField } from "@/utils/code-gen/render-field";
-import { apiUrl } from "@/constants";
-import axios from "axios";
 
-export default function FormPreview({
+import CustomButton from "../form/custom-button";
+
+export default function TemplatePreview({
   formData,
   theme,
 }: {
@@ -53,6 +53,15 @@ export default function FormPreview({
     return (a.order || 0) - (b.order || 0);
   });
 
+  useEffect(() => {
+    const newProgress = getProgressPercentage();
+    setProgress(newProgress);
+  }, [currentStep, totalSteps]);
+
+  useEffect(() => {
+    const newProgress = getProgressPercentage();
+    setProgress(newProgress);
+  }, [currentStep, totalSteps]);
   const FormContent = () => {
     const formRef = useRef(null);
     const form = useForm<z.infer<typeof formSchema>>({
@@ -64,10 +73,6 @@ export default function FormPreview({
     const currentScreen = sortedScreens[currentStep];
     const { trigger, getValues } = form;
 
-    useEffect(() => {
-      const newProgress = getProgressPercentage();
-      setProgress(newProgress);
-    }, [currentStep, totalSteps]);
     const steps = generateSteps(questionScreens as QuestionType[]);
 
     useEffect(() => {
@@ -119,13 +124,6 @@ export default function FormPreview({
       });
     };
 
-    useEffect(() => {
-      gsap.to(setProgress, {
-        duration: 0.5,
-        progress: getProgressPercentage(),
-      });
-    }, [currentStep, totalSteps]);
-
     const prev = () => {
       if (currentStep > 0) {
         gsap.to(formRef.current, {
@@ -141,21 +139,7 @@ export default function FormPreview({
       }
     };
 
-    async function onSubmit(data: z.infer<typeof formSchema>) {
-      try {
-        await axios.post(`${apiUrl}/api/v1/form/${formData.id}/responses`, {
-          responseData: data,
-          id: formData.id,
-        });
-
-        const endScreenIndex = sortedScreens.findIndex(
-          (screen) => screen.type === "endScreen"
-        );
-        if (endScreenIndex !== -1) {
-          setCurrentStep(endScreenIndex);
-        }
-      } catch (error) {}
-    }
+    async function onSubmit(data: z.infer<typeof formSchema>) {}
     const renderScreen = (screen: QuestionType, index: number) => {
       // @ts-ignore
       if (screen.type === "welcomeScreen" || screen.type === "endScreen") {
@@ -313,7 +297,8 @@ export default function FormPreview({
                   )}
                   {currentStep === steps.length && (
                     <Button
-                      type="submit"
+                      type="button"
+                      onClick={next}
                       className={`shadow-none text-base text-gray-500 bg-white hover:bg-gray-200 transition-colors duration-200`}
                     >
                       <Check size={30} />

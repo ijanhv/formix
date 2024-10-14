@@ -245,7 +245,7 @@ export const themes: Theme[] = [
     checkboxChecked: "bg-[#F7C566]/10 border-[#FFB0B0] ",
     checkboxUnchecked: "border-[#D74B76]/40 ",
     checkboxText: "text-white",
-    okButton: "bg-[#F7C566] text-white",
+    okButton: "bg-[#D74B76] text-white",
   },
   {
     id: "night-sky",
