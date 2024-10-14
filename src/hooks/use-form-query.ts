@@ -32,6 +32,31 @@ export const useCreateNewFormQuery = () => {
   });
 };
 
+const createNewFormFromTemplate = async (templateId: string) => {
+  const res = await axios.post(`${apiUrl}/api/v1/form/template`, {
+    templateId,
+  });
+  return res.data;
+};
+
+export const useCreateNewFormFromTemplateQuery = () => {
+  return useMutation({
+    mutationFn: createNewFormFromTemplate,
+    onSuccess: (data) => {
+      toast.success("Form Created successfully!", {
+        position: "top-center",
+      });
+
+      // router.push(`/forms/${data.id}`);
+    },
+    onError: (error: any) => {
+      toast.error("Error, creating form in!", {
+        position: "top-center",
+      });
+    },
+  });
+};
+
 const updateForm = async (data: FormType) => {
   const res = await axios.put(`${apiUrl}/api/v1/form/${data.id}`, data);
   return res.data;

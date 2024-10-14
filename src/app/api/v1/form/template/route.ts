@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   const newForm = await prisma.form.create({
     data: {
       id: nanoid(),
-      name: formData.name,
+      name: template.name,
       theme: template.theme,
       fontFamily: template.fontFamily,
       user: { connect: { id: session.user.id } },

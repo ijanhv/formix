@@ -18,6 +18,7 @@ import { generateSteps, generateZodSchema } from "@/utils/code-gen/zod-schema";
 import { renderFormField } from "@/utils/code-gen/render-field";
 
 import CustomButton from "../form/custom-button";
+import CreateFormFromTempalte from "../form/creat-form-template";
 
 export default function TemplatePreview({
   formData,
@@ -305,6 +306,8 @@ export default function TemplatePreview({
                     </Button>
                   )}
                 </div>
+
+                <CreateFormFromTempalte templateId={formData.id} />
               </div>
             )}
           </form>
