@@ -37,6 +37,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ form, theme }) => {
       {/* Input field for the title */}
       <AutosizeTextarea
         value={title}
+        autoFocus
         onChange={handleTitleChange}
         placeholder="Enter the thank you message "
         className={`text-2xl md:text-3xl lg:text-4xl mb-4 w-full text-center bg-transparent border-none outline-none ${theme?.textColor ?? "text-black dark:text-white"} placeholder-gray-400`}
@@ -45,6 +46,7 @@ const EndScreen: React.FC<EndScreenProps> = ({ form, theme }) => {
       {/* Textarea field for the description */}
       <AutosizeTextarea
         value={description}
+        autoFocus
         onChange={handleDescriptionChange}
         placeholder="Enter a brief description"
         className={`text-lg mb-4 w-full text-center bg-transparent border-none outline-none ${theme?.textColor ?? "text-black dark:text-white"} placeholder-gray-400`}

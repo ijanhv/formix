@@ -57,6 +57,7 @@ const Screens: React.FC<ScreensProps> = ({ form, currentScreenIndex }) => {
                       className={`text-2xl  flex font-medium ${theme?.textColor}`}
                     >
                       <input
+                        autoFocus
                         value={currentScreen.title || ""}
                         onChange={(e) =>
                           form.setValue(
@@ -75,6 +76,7 @@ const Screens: React.FC<ScreensProps> = ({ form, currentScreenIndex }) => {
                     <h3 className={`text-lg font-medium ${theme?.textColor}`}>
                       <AutosizeTextarea
                         // type="text"
+                        autoFocus
                         value={currentScreen.description || ""}
                         onChange={(e) =>
                           form.setValue(

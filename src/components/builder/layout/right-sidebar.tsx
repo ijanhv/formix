@@ -219,92 +219,6 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                     )}
                   />
 
-                  {/* Required Switch */}
-                  {slide?.type !== "welcomeScreen" &&
-                    slide?.type !== "endScreen" && (
-                      <FormField
-                        control={form.control}
-                        name={`screens.${index}.required`}
-                        render={({ field }) => (
-                          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3  mt-4 shadow-sm">
-                            <div className="space-y-0.5">
-                              <FormLabel>Required</FormLabel>
-                              <FormDescription>
-                                Make this slide required
-                              </FormDescription>
-                            </div>
-                            <FormControl>
-                              <Switch
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    )}
-
-                  {slide?.type === "rating" && (
-                    <FormField
-                      control={form.control}
-                      name={`screens.${index}.scale`}
-                      render={({ field }) => (
-                        <FormItem className="flex flex-col justify-between rounded-lg  ">
-                          <div className="space-y-0.5">
-                            <FormLabel>Scale</FormLabel>
-                          </div>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              placeholder="Enter the max value of the scale"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  )}
-
-                  {slide?.type === "opinion_scale" && (
-                    <div className="flex flex-col gap-4">
-                      <div className="flex items-center gap-3">
-                        <FormField
-                          control={form.control}
-                          name={`screens.${index}.leftLabel`}
-                          render={({ field }) => (
-                            <FormItem className="flex flex-col justify-between rounded-lg  ">
-                              <div className="space-y-0.5">
-                                <FormLabel>Left Label</FormLabel>
-                              </div>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  placeholder="Enter left label"
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name={`screens.${index}.rightLabel`}
-                          render={({ field }) => (
-                            <FormItem className="flex flex-col justify-between rounded-lg  ">
-                              <div className="space-y-0.5">
-                                <FormLabel>Right Label</FormLabel>
-                              </div>
-                              <FormControl>
-                                <Input
-                                  {...field}
-                                  placeholder="Enter right label"
-                                />
-                              </FormControl>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                    </div>
-                  )}
-
                   {slide?.type === "multiple_choice" && (
                     <div className="space-y-2">
                       <FormLabel>Options</FormLabel>
@@ -456,6 +370,92 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                       >
                         Add Option
                       </Button>
+                    </div>
+                  )}
+
+                  {/* Required Switch */}
+                  {slide?.type !== "welcomeScreen" &&
+                    slide?.type !== "endScreen" && (
+                      <FormField
+                        control={form.control}
+                        name={`screens.${index}.required`}
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3  mt-4 shadow-sm">
+                            <div className="space-y-0.5">
+                              <FormLabel>Required</FormLabel>
+                              <FormDescription>
+                                Make this slide required
+                              </FormDescription>
+                            </div>
+                            <FormControl>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                  {slide?.type === "rating" && (
+                    <FormField
+                      control={form.control}
+                      name={`screens.${index}.scale`}
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col justify-between rounded-lg  ">
+                          <div className="space-y-0.5">
+                            <FormLabel>Scale</FormLabel>
+                          </div>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Enter the max value of the scale"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  )}
+
+                  {slide?.type === "opinion_scale" && (
+                    <div className="flex flex-col gap-4">
+                      <div className="flex items-center gap-3">
+                        <FormField
+                          control={form.control}
+                          name={`screens.${index}.leftLabel`}
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col justify-between rounded-lg  ">
+                              <div className="space-y-0.5">
+                                <FormLabel>Left Label</FormLabel>
+                              </div>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Enter left label"
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name={`screens.${index}.rightLabel`}
+                          render={({ field }) => (
+                            <FormItem className="flex flex-col justify-between rounded-lg  ">
+                              <div className="space-y-0.5">
+                                <FormLabel>Right Label</FormLabel>
+                              </div>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  placeholder="Enter right label"
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                      </div>
                     </div>
                   )}
                 </div>

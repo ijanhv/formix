@@ -32,6 +32,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
     <div className="h-full p-4 flex relative items-center justify-center gap-3 flex-col">
       <AutosizeTextarea
         value={title}
+        autoFocus
         onChange={handleTitleChange}
         placeholder="Enter the welcome message title"
         className={`text-2xl md:text-3xl lg:text-4xl mb-4 w-full text-center bg-transparent border-none outline-none ${theme?.textColor ?? "text-black dark:text-white"}  ${theme?.placeholderColor}`}
@@ -40,6 +41,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ form, theme }) => {
       {/* Textarea field for the description */}
       <AutosizeTextarea
         value={description}
+        autoFocus
         onChange={handleDescriptionChange}
         placeholder="Enter a brief description"
         className={`text-lg mb-4 w-full text-center bg-transparent border-none ${theme?.placeholderColor} outline-none ${theme?.textColor ?? "text-black dark:text-white"} `}
