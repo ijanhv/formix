@@ -16,18 +16,18 @@ export async function PATCH(
 
     const { published } = await req.json();
 
-    const form = await prisma.form.findFirst({
-      where: { id: params.id },
-      include: {
-        screens: true,
-      },
-    });
+    // await prisma.form.findFirst({
+    //   where: { id: params.id },
+    //   include: {
+    //     screens: true,
+    //   },
+    // });
 
-    if ((form?.screens?.length ?? 0) < 2) {
-      return new NextResponse("Please add more slides to continue", {
-        status: 500,
-      });
-    }
+    // if ((form?.screens?.length ?? 0) < 2) {
+    //   return new NextResponse("Please add more slides to continue", {
+    //     status: 500,
+    //   });
+    // }
     const updatedForm = await prisma.form.update({
       where: { id: params.id },
       data: {
