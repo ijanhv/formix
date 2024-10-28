@@ -8,13 +8,17 @@ generator client {
 }
 
 model User {
-  id       String   @id @default(cuid())
-  email    String   @unique
-  name     String?
-  password String?
-  provider Provider
-  role     Role     @default(user)
-  forms    Form[]   @relation("user")
+  id               String         @id @default(cuid())
+  email            String         @unique
+  name             String?
+  password         String?
+  provider         Provider
+  role             Role           @default(user)
+  forms            Form[]         @relation("user")
+  stripeCustomerId String?
+  subscriptions    Subscription[]
+  Payment          Payment[]
+  maxForms         Int            @default(5) // Maximum number of forms user can create (default is 5 for free users)
 }
 
 model Template {
@@ -57,7 +61,7 @@ model Screen {
   scale       Int?
   order       Int?
   required    Boolean    @default(false)
-  form        Form?       @relation(fields: [formId], references: [id], onDelete: Cascade)
+  form        Form?      @relation(fields: [formId], references: [id], onDelete: Cascade)
   formId      String?
   template    Template?  @relation(fields: [templateId], references: [id], name: "templateScreens", onDelete: Cascade)
   templateId  String?
@@ -73,6 +77,29 @@ model Option {
   imageUrl String?
   screen   Screen  @relation(fields: [screenId], references: [id], onDelete: Cascade)
   screenId String
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId               String
+  stripeSubscriptionId String
+  plan                 SubscriptionPlan
+  status               SubscriptionStatus @default(active)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+}
+
+model Payment {
+  id                    String        @id @default(cuid())
+  amount                Int
+  currency              String
+  status                PaymentStatus
+  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId                String
+  stripePaymentIntentId String
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
 }
 
 enum ScreenType {
@@ -101,4 +128,23 @@ enum Provider {
 enum Role {
   user
   admin
+}
+
+enum SubscriptionPlan {
+  FREE
+  BASIC
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  active
+  canceled
+  past_due
+  unpaid
+}
+
+enum PaymentStatus {
+  succeeded
+  pending
+  failed
 }

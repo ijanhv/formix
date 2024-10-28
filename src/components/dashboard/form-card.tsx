@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
-import { Edit, FileText, TableOfContents, Trash } from "lucide-react";
+import { Code, Edit, FileText, TableOfContents, Trash } from "lucide-react";
 import { useDeleteFormQuery } from "@/hooks/use-form-query";
 
 const FormCard = ({ form }: { form: FormType }) => {
@@ -30,6 +30,11 @@ const FormCard = ({ form }: { form: FormType }) => {
       </div>
 
       <div className="flex items-center gap-4">
+        <Link href={`/dashboard/code/${form.id}`}>
+          <Button variant="ghost">
+            <Code />
+          </Button>
+        </Link>
         <Link href={`/dashboard/responses/${form.id}`}>
           <Button variant="ghost">
             <TableOfContents />
