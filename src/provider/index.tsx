@@ -9,6 +9,7 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
     <ThemeProvider
       attribute="class"
       defaultTheme="system"
+      forcedTheme="dark"
       enableSystem
       disableTransitionOnChange
     >
