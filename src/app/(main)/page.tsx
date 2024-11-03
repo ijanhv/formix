@@ -402,8 +402,7 @@ const HomePage = () => {
                 From Idea to Launch <br /> Faster Than Ever
               </h2>
               <p className="text-muted-foreground mt-6 max-w-md mx-auto">
-                Build stunning forms with Formix&apos;s intuitive drag-and-drop
-                builder and powerful AI assistant
+                Build stunning forms with Formix&apos;s intuitive form builder
               </p>
               <Button variant="white" className="mt-6" asChild>
                 <Link href="/auth?authType=signUp">
