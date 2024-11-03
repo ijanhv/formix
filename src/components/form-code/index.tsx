@@ -65,8 +65,8 @@ const FormCode = ({ formId }: { formId: string }) => {
         </ol>
       </div>
 
-      <Tabs defaultValue="multi-step.tsx" className="w-full mb-10">
-        <TabsList className="w-full">
+      <Tabs defaultValue="multi-step.tsx" className="w-full mb-10 s">
+        <TabsList className="w-full scrollbar scrollbar-h-0 overflow-x-scroll">
           <TabsTrigger value="multi-step.tsx" className="w-full">
             multi-step.tsx
           </TabsTrigger>

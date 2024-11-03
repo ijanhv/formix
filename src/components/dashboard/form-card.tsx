@@ -11,8 +11,8 @@ const FormCard = ({ form }: { form: FormType }) => {
   const { mutate: deleteForm, isPending } = useDeleteFormQuery();
   const theme = themes.find((item) => item.id === form.theme);
   return (
-    <div className=" rounded-lg  dark:bg-foreground/5 border flex justify-between  items-center gap-3 group p-3">
-      <div className="flex items-center gap-4">
+    <div className=" rounded-lg  dark:bg-foreground/5 border flex flex-col md:flex-row items-center justify-start md:justify-between  md:items-center gap-3 group p-3">
+      <div className="flex items-center w-full gap-4">
         <div className=" relative h-14  w-28">
           {theme?.backgroundImage ? (
             <Image
