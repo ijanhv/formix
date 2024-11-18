@@ -6,6 +6,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { Code, Edit, FileText, TableOfContents, Trash } from "lucide-react";
 import { useDeleteFormQuery } from "@/hooks/use-form-query";
+import { Hint } from "../common/hint";
 
 const FormCard = ({ form }: { form: FormType }) => {
   const { mutate: deleteForm, isPending } = useDeleteFormQuery();
@@ -30,36 +31,45 @@ const FormCard = ({ form }: { form: FormType }) => {
       </div>
 
       <div className="flex items-center gap-4">
-        <Link href={`/dashboard/code/${form.id}`}>
-          <Button variant="ghost">
-            <Code />
-          </Button>
-        </Link>
-        <Link href={`/dashboard/responses/${form.id}`}>
-          <Button variant="ghost">
-            <TableOfContents />
-          </Button>
-        </Link>
+        <Hint label="View Code">
+          <Link href={`/dashboard/code/${form.id}`}>
+            <Button variant="ghost">
+              <Code />
+            </Button>
+          </Link>
+        </Hint>
+        <Hint label="View Responses">
+          <Link href={`/dashboard/responses/${form.id}`}>
+            <Button variant="ghost">
+              <TableOfContents />
+            </Button>
+          </Link>
+        </Hint>
 
-        <Link target="_blank" href={`/forms/${form.id}`}>
-          <Button variant="ghost">
-            <FileText />
-          </Button>
-        </Link>
+        <Hint label="Form Link">
+          <Link target="_blank" href={`/forms/${form.id}`}>
+            <Button variant="ghost">
+              <FileText />
+            </Button>
+          </Link>
+        </Hint>
+        <Hint label="Edit Form">
+          <Link href={`/dashboard/builder/${form.id}`}>
+            <Button variant="ghost">
+              <Edit />
+            </Button>
+          </Link>
+        </Hint>
 
-        <Link href={`/dashboard/builder/${form.id}`}>
-          <Button variant="ghost">
-            <Edit />
+        <Hint label="Delete Form">
+          <Button
+            disabled={isPending}
+            onClick={() => deleteForm(form.id)}
+            variant="destructive"
+          >
+            <Trash />
           </Button>
-        </Link>
-
-        <Button
-          disabled={isPending}
-          onClick={() => deleteForm(form.id)}
-          variant="destructive"
-        >
-          <Trash />
-        </Button>
+        </Hint>
       </div>
     </div>
   );

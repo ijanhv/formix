@@ -2,7 +2,6 @@
 import React from "react";
 import Container from "../container";
 import Logo from "./logo";
-import ThemeToggle from "@/components/theme-toggle";
 import { useSession } from "next-auth/react";
 import User from "./user";
 import { usePathname } from "next/navigation";
@@ -21,7 +20,7 @@ const BuilderNavbar = () => {
           </div>
 
           <div className="  flex items-center gap-2">
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
 
             {session.data?.user && <User />}
           </div>

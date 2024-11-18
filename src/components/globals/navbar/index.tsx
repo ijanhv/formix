@@ -7,7 +7,6 @@ import Logo from "./logo";
 import MobileNavbar from "./mobile-nav";
 import NavLinks from "./nav-links";
 import { Button } from "@/components/ui/button";
-import ThemeToggle from "@/components/theme-toggle";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { LogOutIcon } from "lucide-react";
@@ -25,9 +24,9 @@ const Navbar = () => {
           <NavLinks />
 
           <div className="  flex items-center gap-2">
-            <div className="hidden md:block">
+            {/* <div className="hidden md:block">
               <ThemeToggle />
-            </div>
+            </div> */}
             {session.data?.user && (
               <div className="flex items-center gap-4">
                 <Link href="/dashboard" className="">
@@ -35,6 +34,7 @@ const Navbar = () => {
                 </Link>
 
                 <LogOutIcon
+                  className="cursor-pointer"
                   onClick={() =>
                     signOut({
                       callbackUrl: "/",

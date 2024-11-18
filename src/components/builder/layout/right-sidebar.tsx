@@ -22,7 +22,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import ImageSelector from "../image-selector";
 import ThemeSelector from "../theme/theme-selector";
 import { formSchema, FormType } from "@/schema/zod";
 import { TriangleAlert } from "lucide-react";
@@ -193,7 +192,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                   />
 
                   {/* Image Selector */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name={`screens.${index}.image`}
                     render={({ field }) => (
@@ -217,7 +216,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
 
                   {slide?.type === "multiple_choice" && (
                     <div className="space-y-2">
