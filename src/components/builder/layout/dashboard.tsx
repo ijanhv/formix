@@ -14,7 +14,11 @@ export default function Dashboard({ formId }: { formId: string }) {
   }
 
   if (isError) {
-    return <div>Error loading form data</div>;
+    return (
+      <div className="h-screen flex flex-col items-center justify-center gap-3 text-3xl font-semibold">
+        Error loading form data
+      </div>
+    );
   }
 
   return <DashboardBuilder formData={data} />;
