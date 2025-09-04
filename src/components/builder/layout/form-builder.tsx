@@ -65,10 +65,6 @@ export default function DashboardBuilder({ formData }: { formData: FormType }) {
           },
   });
 
-  // const dataToSubmit = {
-  //   data: form.watch(),
-  //   id: formData.id
-  // }
   const onSubmit = (data: FormType) => {
     // mutate(data, {
     //   onSuccess: (response) => {

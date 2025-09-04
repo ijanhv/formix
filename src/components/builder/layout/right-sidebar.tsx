@@ -501,7 +501,7 @@ const RightSidebar: React.FC<RightSidebarProps> = ({
             </TabsContent>
           </Tabs>
 
-          {form.watch("screens")[currentSlideIndex].type !== "welcomeScreen" &&
+          {form.watch("screens")[currentSlideIndex]?.type !== "welcomeScreen" &&
             form.watch("screens")[currentSlideIndex].type !== "endScreen" && (
               <Button
                 type="button"
